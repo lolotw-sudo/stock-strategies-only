@@ -1,0 +1,30 @@
+{
+  "id": "s-5187d498",
+  "name": "短線動能策略",
+  "description": "專注於短線操作，持有約10天，追求快速獲利並嚴格控制風險。",
+  "source": "ai",
+  "created_at": "2026-07-06T02:31:01.761560+00:00",
+  "updated_at": "2026-07-06T02:31:01.761587+00:00",
+  "params": {
+    "eps_threshold": 2.0,
+    "roe_threshold": 10.0,
+    "fundamental_pass_required": false,
+    "backtest_years": 2,
+    "hold_days": 10,
+    "min_tech_score_for_signal": 60,
+    "target_return": 0.1,
+    "stop_loss": 0.05,
+    "weight_fundamental": 0.2,
+    "weight_technical": 0.5,
+    "weight_backtest": 0.3,
+    "min_total_score_for_buy": 70,
+    "min_tech_score_for_buy": 60,
+    "use_ma_alignment": true,
+    "use_bollinger_bounce": true,
+    "use_kd_golden_cross": true,
+    "use_macd_bullish": true,
+    "use_volume_patterns": true,
+    "market_filter_enabled": true,
+    "market_filter_ma_period": 20
+  }
+}

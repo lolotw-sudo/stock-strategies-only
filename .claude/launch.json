@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "-p", "3010"],
+      "cwd": "web",
+      "port": 3010
+    },
+    {
+      "name": "api",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "CORS_ORIGINS=http://localhost:3010 uv run uvicorn api.main:app --port 8010"],
+      "port": 8010
+    }
+  ]
+}

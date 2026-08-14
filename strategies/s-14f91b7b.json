@@ -1,0 +1,30 @@
+{
+  "id": "s-14f91b7b",
+  "name": "中長期持有策略",
+  "description": "適合中長期持有，預計持有120天，重視基本面與趨勢。",
+  "source": "ai",
+  "created_at": "2026-07-14T03:11:23.070689+00:00",
+  "updated_at": "2026-07-14T03:11:23.070737+00:00",
+  "params": {
+    "eps_threshold": 3.0,
+    "roe_threshold": 12.0,
+    "fundamental_pass_required": true,
+    "backtest_years": 5,
+    "hold_days": 120,
+    "min_tech_score_for_signal": 60,
+    "target_return": 0.12,
+    "stop_loss": 0.09,
+    "weight_fundamental": 0.45,
+    "weight_technical": 0.3,
+    "weight_backtest": 0.25,
+    "min_total_score_for_buy": 70,
+    "min_tech_score_for_buy": 60,
+    "use_ma_alignment": true,
+    "use_bollinger_bounce": false,
+    "use_kd_golden_cross": false,
+    "use_macd_bullish": true,
+    "use_volume_patterns": true,
+    "market_filter_enabled": true,
+    "market_filter_ma_period": 60
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "s-c7584f21",
+  "name": "長期基本面低檔進場策略",
+  "description": "篩選基本面優良且目前股價處於相對低檔的標的，適合長期持有。",
+  "source": "ai",
+  "created_at": "2026-07-03T15:42:04.003794+00:00",
+  "updated_at": "2026-07-03T15:42:04.003827+00:00",
+  "params": {
+    "eps_threshold": 5.0,
+    "roe_threshold": 15.0,
+    "fundamental_pass_required": true,
+    "backtest_years": 5,
+    "hold_days": 90,
+    "min_tech_score_for_signal": 60,
+    "target_return": 0.15,
+    "stop_loss": 0.1,
+    "weight_fundamental": 0.6,
+    "weight_technical": 0.3,
+    "weight_backtest": 0.1,
+    "min_total_score_for_buy": 75,
+    "min_tech_score_for_buy": 60,
+    "use_ma_alignment": true,
+    "use_bollinger_bounce": true,
+    "use_kd_golden_cross": true,
+    "use_macd_bullish": true,
+    "use_volume_patterns": false,
+    "market_filter_enabled": true,
+    "market_filter_ma_period": 60
+  }
+}
