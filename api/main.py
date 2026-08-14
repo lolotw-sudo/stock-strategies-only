@@ -23,6 +23,7 @@ import time
 import traceback
 from typing import Any, Optional
 
+import numpy as np
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -73,6 +74,18 @@ class AIGenerateIn(BaseModel):
 class RunIn(BaseModel):
     strategy_id: str
     limit: Optional[int] = Field(None, description="只跑前 N 檔（debug 用）")
+
+
+def _json_safe(obj):
+    """把 numpy 純量（bool_/float64/int64…）轉回 Python 原生型別，
+    否則 FastAPI 的 jsonable_encoder 會對 numpy.bool 報錯無法序列化。"""
+    if isinstance(obj, dict):
+        return {k: _json_safe(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_json_safe(v) for v in obj]
+    if isinstance(obj, np.generic):
+        return obj.item()
+    return obj
 
 
 # ---------- Routes ----------
@@ -132,7 +145,7 @@ def generate_strategy(payload: AIGenerateIn):
 
 @app.get("/api/market")
 def market():
-    return get_market_state()
+    return _json_safe(get_market_state())
 
 
 @app.get("/api/watchlist")
@@ -182,7 +195,7 @@ def run(payload: RunIn):
     order = {"BUY": 0, "WATCH": 1, "SKIP": 2, "ERROR": 3}
     results.sort(key=lambda x: (order.get(x.get("action"), 4), -x.get("signal_score", 0)))
 
-    return {
+    return _json_safe({
         "strategy": {"id": strategy["id"], "name": strategy["name"]},
         "market": market_state,
         "downgraded": downgraded,
@@ -194,4 +207,4 @@ def run(payload: RunIn):
             "error": sum(1 for r in results if r.get("action") == "ERROR"),
         },
         "results": results,
-    }
+    })
