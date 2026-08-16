@@ -24,7 +24,6 @@ import time
 import traceback
 from typing import Any, Optional
 
-import numpy as np
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -42,6 +41,7 @@ from stock_strategies.market import apply_market_filter, get_market_state
 from stock_strategies.sheet import read_watchlist
 from stock_strategies.data import get_price_history
 from stock_strategies.kline_report import analyze as analyze_kline
+from stock_strategies.json_safe import json_safe as _json_safe
 
 from api.services.ai_generator import generate_strategy_with_ai
 
@@ -77,18 +77,6 @@ class AIGenerateIn(BaseModel):
 class RunIn(BaseModel):
     strategy_id: str
     limit: Optional[int] = Field(None, description="只跑前 N 檔（debug 用）")
-
-
-def _json_safe(obj):
-    """把 numpy 純量（bool_/float64/int64…）轉回 Python 原生型別，
-    否則 FastAPI 的 jsonable_encoder 會對 numpy.bool 報錯無法序列化。"""
-    if isinstance(obj, dict):
-        return {k: _json_safe(v) for k, v in obj.items()}
-    if isinstance(obj, (list, tuple)):
-        return [_json_safe(v) for v in obj]
-    if isinstance(obj, np.generic):
-        return obj.item()
-    return obj
 
 
 # ---------- Routes ----------

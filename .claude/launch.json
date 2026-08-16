@@ -13,6 +13,13 @@
       "runtimeExecutable": "sh",
       "runtimeArgs": ["-c", "CORS_ORIGINS=http://localhost:3010 uv run uvicorn api.main:app --port 8010"],
       "port": 8010
+    },
+    {
+      "name": "board",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8931"],
+      "cwd": "site",
+      "port": 8931
     }
   ]
 }

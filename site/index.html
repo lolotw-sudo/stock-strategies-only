@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>選股看板</title>
+<style>
+  :root {
+    --bg: #0b0d10;
+    --panel: #13171d;
+    --panel2: #1a1f27;
+    --line: #252b35;
+    --muted: #8a93a0;
+    --text: #e6e9ee;
+    --buy: #22c55e;
+    --watch: #eab308;
+    --skip: #64748b;
+    --err: #ef4444;
+    --accent: #3b82f6;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Noto Sans TC", "PingFang TC", sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px 14px 48px;
+  }
+  a { color: var(--accent); }
+
+  h1 { font-size: 1.3rem; font-weight: 600; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 0.8rem; margin: 0 0 16px; }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .card2 {
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .header-time {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .header-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  @media (min-width: 480px) {
+    .header-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .stat-value { font-size: 1.05rem; font-weight: 600; margin-top: 4px; }
+  .bullish { color: var(--buy); }
+  .bearish { color: var(--err); }
+  .note { font-size: 0.78rem; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+  .tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    margin-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--muted);
+    font-size: 0.82rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  .strategy-desc { font-size: 0.78rem; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+
+  .summary-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 2px 9px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .badge-buy { background: rgba(34,197,94,.15); color: var(--buy); border-color: rgba(34,197,94,.35); }
+  .badge-watch { background: rgba(234,179,8,.15); color: var(--watch); border-color: rgba(234,179,8,.35); }
+  .badge-skip { background: rgba(100,116,139,.18); color: var(--skip); border-color: rgba(100,116,139,.4); }
+  .badge-err { background: rgba(239,68,68,.15); color: var(--err); border-color: rgba(239,68,68,.35); }
+
+  .result-row {
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .result-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .result-sid { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: var(--muted); width: 54px; flex-shrink: 0; }
+  .result-name { font-size: 0.92rem; font-weight: 500; }
+  .result-signals { font-size: 0.72rem; color: var(--muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .result-mid { flex: 1; min-width: 0; }
+  .result-score { text-align: right; flex-shrink: 0; }
+  .result-score .n { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.95rem; }
+  .result-score .w { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+  .caret { color: var(--muted); font-size: 0.7rem; flex-shrink: 0; transition: transform .15s; }
+  .result-row.open .caret { transform: rotate(90deg); }
+
+  .risk-notes { font-size: 0.72rem; color: var(--err); margin-top: 6px; }
+
+  .kline-wrap { margin-top: 8px; }
+
+  .section-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .kline-section { margin-bottom: 18px; }
+  .kline-section:last-child { margin-bottom: 0; }
+
+  .top-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .price-line { font-size: 0.85rem; margin-top: 6px; }
+  .price-line .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .up { color: var(--buy); }
+  .down { color: var(--err); }
+
+  .domain-bar { display: flex; height: 16px; border-radius: 5px; overflow: hidden; border: 1px solid var(--line); margin-top: 8px; }
+  .domain-buy { background: rgba(34,197,94,.55); display: flex; align-items: center; justify-content: center; font-size: 9px; }
+  .domain-sell { background: rgba(239,68,68,.55); display: flex; align-items: center; justify-content: center; font-size: 9px; }
+
+  .warn-line { font-size: 0.72rem; color: var(--err); margin-top: 8px; }
+
+  .check-item { display: flex; align-items: flex-start; gap: 6px; font-size: 0.75rem; margin-bottom: 4px; line-height: 1.5; }
+  .check-icon { flex-shrink: 0; }
+  .check-label { color: var(--muted); flex-shrink: 0; min-width: 76px; }
+  .check-detail { flex: 1; }
+
+  .stage-bar { display: flex; gap: 4px; margin-bottom: 8px; }
+  .stage-cell {
+    flex: 1;
+    text-align: center;
+    font-size: 0.63rem;
+    padding: 6px 2px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--muted);
+  }
+  .stage-cell.reached { background: rgba(34,197,94,.2); color: var(--buy); border-color: rgba(34,197,94,.4); }
+  .stage-cell.skipped { background: rgba(37,43,53,.4); border-style: dashed; }
+  .stage-note { font-size: 0.72rem; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
+
+  .trend-badge { font-size: 0.78rem; font-weight: 600; }
+  .wave-evidence { font-size: 0.72rem; color: var(--muted); margin: 6px 0 10px; line-height: 1.5; }
+  .wave-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.72rem; }
+  .wave-grid .lbl { color: var(--muted); margin-bottom: 4px; }
+  .wave-grid .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.72rem; min-width: 460px; }
+  th { text-align: left; color: var(--muted); font-weight: 500; padding: 5px 6px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td { padding: 6px 6px; border-bottom: 1px solid rgba(37,43,53,.5); vertical-align: top; }
+  td.center { text-align: center; color: var(--muted); }
+  td.strong { font-weight: 600; white-space: nowrap; }
+
+  .stoploss-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .stoploss-head .method { font-size: 1rem; font-weight: 600; }
+  .stoploss-head .price { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1rem; }
+  .stoploss-head .dist { color: var(--err); font-size: 0.8rem; }
+  .stoploss-reason { font-size: 0.72rem; color: var(--muted); margin-bottom: 8px; }
+
+  .verdict-box { border-top: 1px solid var(--line); padding-top: 12px; }
+  .verdict-text { font-size: 0.85rem; line-height: 1.65; }
+  .disclaimer-text { font-size: 0.7rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+  .state-box { text-align: center; padding: 40px 16px; color: var(--muted); font-size: 0.9rem; }
+  .state-box .big { font-size: 1.6rem; margin-bottom: 10px; }
+
+  footer {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 24px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    line-height: 1.6;
+  }
+
+  .empty-hint { font-size: 0.78rem; color: var(--muted); text-align: center; padding: 20px 0; }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div class="state-box"><div class="big">⏳</div>載入資料中…</div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var STAGE_LABELS = ["未止跌", "①止跌", "②打底", "③突破", "④回升確立"];
+  var app = document.getElementById("app");
+  var boardData = null;
+  var pickedStrategy = null;
+  var expandedStockId = null;
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function fmt(n, digits) {
+    if (n === null || n === undefined || Number.isNaN(n)) return "—";
+    if (typeof digits === "number") return Number(n).toFixed(digits);
+    return String(n);
+  }
+
+  function actionBadgeClass(action) {
+    return { BUY: "badge-buy", WATCH: "badge-watch", SKIP: "badge-skip", ERROR: "badge-err" }[action] || "badge-skip";
+  }
+
+  function distLabel(pct) {
+    // distance_pct = (現價-停損價)/現價*100：正值代表停損在現價下方（正常）。
+    // 若已為負值，代表該方法算出的價位已在現價之上（例如已跌破該均線），
+    // 不能再套用「-」前綴，改標示「已跌破」。
+    if (pct >= 0) return "-" + pct + "%";
+    return "已跌破（+" + Math.abs(pct) + "%）";
+  }
+
+  function checkRow(passed, label, detail) {
+    return (
+      '<div class="check-item">' +
+        '<span class="check-icon">' + (passed ? "✅" : "❌") + '</span>' +
+        '<span class="check-label">' + esc(label) + '</span>' +
+        '<span class="check-detail">' + esc(detail) + '</span>' +
+      '</div>'
+    );
+  }
+
+  // ---------- fetch ----------
+
+  fetch("./data/latest.json", { cache: "no-store" })
+    .then(function (res) {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.json();
+    })
+    .then(function (data) {
+      boardData = data;
+      if (data.strategies && data.strategies.length) {
+        pickedStrategy = data.strategies[0].id;
+      }
+      render();
+    })
+    .catch(function (err) {
+      renderError(err);
+    });
+
+  function renderError(err) {
+    app.innerHTML =
+      '<div class="state-box">' +
+        '<div class="big">⚠️</div>' +
+        '<div>看板資料載入失敗。</div>' +
+        '<div style="margin-top:6px;font-size:0.75rem;">' + esc(err && err.message ? err.message : String(err)) + '</div>' +
+        '<div style="margin-top:10px;font-size:0.72rem;">可能是今天的資料還沒產生，稍後再重新整理看看。</div>' +
+      '</div>';
+  }
+
+  // ---------- render ----------
+
+  function render() {
+    var d = boardData;
+    var html = "";
+
+    html += '<h1>📊 每日選股看板</h1>';
+    html += '<p class="sub">唯讀・自動更新・不構成投資建議</p>';
+
+    // 頂部資訊卡
+    html += '<div class="card">';
+    html += '<div class="header-time">' + esc(d.generated_at_display || d.generated_at) + '</div>';
+    html += '<div class="header-grid">';
+
+    var m = d.market || {};
+    html += '<div class="card2">';
+    html += '<div class="stat-label">大盤狀態</div>';
+    html += '<div class="stat-value ' + (m.bullish ? "bullish" : "bearish") + '">' + (m.bullish ? "🟢 多頭" : "🔴 空頭") + '</div>';
+    if (m.note) html += '<div class="note">' + esc(m.note) + '</div>';
+    html += '</div>';
+
+    html += '<div class="card2">';
+    html += '<div class="stat-label">Watchlist</div>';
+    html += '<div class="stat-value">' + esc(d.watchlist_count != null ? d.watchlist_count : "—") + ' 檔</div>';
+    if (d.night_note) html += '<div class="note">🌙 ' + esc(d.night_note) + '</div>';
+    html += '</div>';
+
+    html += '</div>'; // header-grid
+    html += '</div>'; // card
+
+    // 策略切換
+    var strategies = d.strategies || [];
+    if (strategies.length > 1) {
+      html += '<div class="tabs" id="tabs">';
+      strategies.forEach(function (s) {
+        html += '<div class="tab' + (s.id === pickedStrategy ? " active" : "") + '" data-sid="' + esc(s.id) + '">' + esc(s.name) + '</div>';
+      });
+      html += '</div>';
+    }
+
+    var strategy = strategies.find(function (s) { return s.id === pickedStrategy; }) || strategies[0];
+
+    if (!strategy) {
+      html += '<div class="empty-hint">目前沒有可顯示的策略結果。</div>';
+    } else {
+      if (strategy.description) {
+        html += '<div class="strategy-desc">' + esc(strategy.description) + '</div>';
+      }
+
+      var sum = strategy.summary || {};
+      html += '<div class="summary-row">';
+      html += '<span class="badge badge-buy">BUY ' + esc(sum.buy) + '</span>';
+      html += '<span class="badge badge-watch">WATCH ' + esc(sum.watch) + '</span>';
+      html += '<span class="badge badge-skip">SKIP ' + esc(sum.skip) + '</span>';
+      if (sum.error) html += '<span class="badge badge-err">ERROR ' + esc(sum.error) + '</span>';
+      html += '</div>';
+
+      var results = (strategy.results || []).filter(function (r) { return r.action !== "ERROR"; });
+      if (!results.length) {
+        html += '<div class="empty-hint">這個策略目前沒有結果。</div>';
+      } else {
+        results.forEach(function (r) {
+          html += renderResultRow(r);
+        });
+      }
+    }
+
+    html += '<footer>本工具僅供研究與紀錄之用，不構成投資建議</footer>';
+
+    app.innerHTML = html;
+    bindEvents();
+  }
+
+  function renderResultRow(r) {
+    var c = r.components || {};
+    var signals = (c.tech_signals || []).join(" · ") || "—";
+    var winrate = c.backtest_winrate != null ? Math.round(c.backtest_winrate * 100) + "%" : "—";
+    var isOpen = expandedStockId === r.stock_id;
+
+    var row =
+      '<div class="result-row' + (isOpen ? " open" : "") + '" data-stock="' + esc(r.stock_id) + '" data-name="' + esc(r.name) + '">' +
+        '<div class="result-top">' +
+          '<span class="badge ' + actionBadgeClass(r.action) + '">' + esc(r.action) + '</span>' +
+          '<span class="result-sid">' + esc(r.stock_id) + '</span>' +
+          '<div class="result-mid">' +
+            '<div class="result-name">' + esc(r.name) + '</div>' +
+            '<div class="result-signals">' + esc(signals) + '</div>' +
+          '</div>' +
+          '<div class="result-score">' +
+            '<div class="n">' + esc(fmt(r.signal_score)) + '</div>' +
+            '<div class="w">勝率 ' + esc(winrate) + '</div>' +
+          '</div>' +
+          '<span class="caret">▶</span>' +
+        '</div>';
+
+    if (r.risk_notes && r.risk_notes.length) {
+      row += '<div class="risk-notes">⚠️ ' + esc(r.risk_notes.join("；")) + '</div>';
+    }
+
+    if (isOpen) {
+      row += '<div class="kline-wrap">' + renderKlineReport(r.stock_id, r.name) + '</div>';
+    }
+
+    row += '</div>';
+    return row;
+  }
+
+  function renderKlineReport(stockId, name) {
+    var a = (boardData.analysis || {})[stockId];
+    if (!a) {
+      return '<div class="card2"><div class="empty-hint">沒有這檔股票的K線分析資料。</div></div>';
+    }
+    if (a.error) {
+      return '<div class="card2"><div class="empty-hint">K線分析無法產生：' + esc(a.error) + '</div></div>';
+    }
+
+    var price = a.price || {};
+    var snapshot = a.snapshot || {};
+    var wave = a.wave || {};
+    var bottomStage = a.bottom_stage || {};
+    var rebound = a.rebound_check || {};
+    var sop = a.sop || [];
+    var discipline = a.discipline || {};
+    var stopLoss = a.stop_loss || {};
+    var domain = snapshot.domain || {};
+
+    var html = '<div class="card2">';
+
+    // 1. 位置徽章＋第幾天＋收盤價領域
+    html += '<div class="kline-section">';
+    html += '<div class="top-badges">';
+    html += '<span class="badge badge-watch">' + esc(snapshot.position || "—") + '第' + esc(snapshot.leg_days) + '天</span>';
+    if (domain.type) html += '<span class="badge badge-skip">' + esc(domain.type) + '</span>';
+    html += '</div>';
+    html += '<div class="price-line">' + esc(a.date) + ' 收盤 <span class="mono">' + esc(price.close) + '</span> ' +
+      '<span class="' + (price.chg_pct >= 0 ? "up" : "down") + '">' + (price.chg_pct >= 0 ? "+" : "") + esc(price.chg_pct) + '%</span></div>';
+    if (domain.type) {
+      html += '<div class="domain-bar">' +
+        '<div class="domain-buy" style="width:' + domain.buyer_pct + '%">' + (domain.buyer_pct > 15 ? "買" + domain.buyer_pct + "%" : "") + '</div>' +
+        '<div class="domain-sell" style="width:' + domain.seller_pct + '%">' + (domain.seller_pct > 15 ? "賣" + domain.seller_pct + "%" : "") + '</div>' +
+      '</div>';
+    }
+    if (snapshot.warnings && snapshot.warnings.length) {
+      html += '<div class="warn-line">⚠️ ' + esc(snapshot.warnings.join("；")) + '</div>';
+    }
+    html += '</div>';
+
+    // 2. 搶反彈四問
+    html += '<div class="kline-section">';
+    html += '<div class="section-title">搶反彈四問（' + esc(rebound.passed) + '/' + esc(rebound.total) + '）— ' + esc(rebound.conclusion) + '</div>';
+    (rebound.items || []).forEach(function (it) {
+      html += checkRow(it.pass, it.q, it.detail);
+    });
+    html += '</div>';
+
+    // 3. 空頭轉多頭四階段
+    html += '<div class="kline-section">';
+    html += '<div class="section-title">空頭轉多頭四階段（現況：' + esc(bottomStage.stage) + '）</div>';
+    if (bottomStage.stage_note) {
+      html += '<div class="stage-note">' + esc(bottomStage.stage_note) + '</div>';
+    }
+    html += '<div class="stage-bar">';
+    STAGE_LABELS.slice(1).forEach(function (label, i) {
+      var stageNum = i + 1;
+      var reached = bottomStage.stage_index >= stageNum;
+      var skipped = !reached && (bottomStage.skipped_stages || []).indexOf(stageNum) !== -1;
+      var cls = reached ? "reached" : skipped ? "skipped" : "";
+      var title = skipped ? ' title="條件已成立，但因前面階段未完成而未計入（不可跳關）"' : "";
+      html += '<div class="stage-cell ' + cls + '"' + title + '>' + esc(label) + '</div>';
+    });
+    html += '</div>';
+    (bottomStage.checks || []).forEach(function (c) {
+      html += checkRow(c.pass, c.name, c.detail);
+    });
+    html += '</div>';
+
+    // 4. 波浪型態
+    html += '<div class="kline-section">';
+    html += '<div class="section-title">波浪型態</div>';
+    var trendCls = wave.trend === "多頭" ? "badge-buy" : wave.trend === "空頭" ? "badge-err" : "badge-skip";
+    html += '<div class="top-badges">';
+    html += '<span class="badge ' + trendCls + '">' + esc(wave.trend) + '</span>';
+    html += '<span class="trend-badge">' + esc(wave.pattern) + '</span>';
+    html += '</div>';
+    html += '<div class="wave-evidence">' + esc(wave.evidence) + '</div>';
+    html += '<div class="wave-grid">';
+    html += '<div><div class="lbl">近期轉折高</div>' + (wave.recent_highs || []).map(function (p) {
+      return '<div class="mono">' + esc(p.date) + ' ' + esc(p.price) + '</div>';
+    }).join("") + '</div>';
+    html += '<div><div class="lbl">近期轉折低</div>' + (wave.recent_lows || []).map(function (p) {
+      return '<div class="mono">' + esc(p.date) + ' ' + esc(p.price) + '</div>';
+    }).join("") + '</div>';
+    html += '</div>';
+    html += '</div>';
+
+    // 5. 實戰SOP七步表
+    html += '<div class="kline-section">';
+    html += '<div class="section-title">實戰SOP（第八章）</div>';
+    html += '<div class="table-scroll"><table><thead><tr>' +
+      '<th>步驟</th><th>檢查項目</th><th>判定</th><th>說明</th>' +
+      '</tr></thead><tbody>';
+    sop.forEach(function (s) {
+      html += '<tr>' +
+        '<td class="center">' + esc(s.step) + '</td>' +
+        '<td class="strong">' + esc(s.name) + '</td>' +
+        '<td class="strong">' + esc(s.verdict) + '</td>' +
+        '<td>' + esc(s.detail) + '</td>' +
+      '</tr>';
+    });
+    html += '</tbody></table></div>';
+    html += '</div>';
+
+    // 6. 紀律檢查
+    html += '<div class="kline-section">';
+    html += '<div class="section-title">紀律檢查（' + esc(discipline.passed) + '/' + esc(discipline.total) + '）</div>';
+    (discipline.items || []).forEach(function (it) {
+      html += checkRow(it.pass, it.rule, it.detail);
+    });
+    html += '</div>';
+
+    // 7. 停損建議
+    html += '<div class="kline-section">';
+    html += '<div class="section-title">停損建議（7-5停利五法）</div>';
+    html += '<div class="stoploss-head">' +
+      '<span class="method">' + esc(stopLoss.recommended) + '</span>' +
+      '<span class="price">' + esc(stopLoss.price) + '</span>' +
+      '<span class="dist">' + distLabel(stopLoss.distance_pct) + '</span>' +
+    '</div>';
+    html += '<div class="stoploss-reason">' + esc(stopLoss.reason) + '</div>';
+    html += '<div class="table-scroll"><table><tbody>';
+    (stopLoss.alternatives || []).forEach(function (alt) {
+      html += '<tr><td>' + esc(alt.method) + '</td>' +
+        '<td class="mono" style="text-align:right">' + esc(alt.price) + '</td>' +
+        '<td style="text-align:right;color:var(--muted)">' + distLabel(alt.distance_pct) + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    html += '</div>';
+
+    // verdict
+    html += '<div class="verdict-box">';
+    html += '<div class="verdict-text">' + esc(a.verdict) + '</div>';
+    html += '<div class="disclaimer-text">' + esc(a.disclaimer) + '</div>';
+    html += '</div>';
+
+    html += '</div>'; // card2
+    return html;
+  }
+
+  // ---------- events ----------
+
+  function bindEvents() {
+    var tabs = document.getElementById("tabs");
+    if (tabs) {
+      tabs.querySelectorAll(".tab").forEach(function (el) {
+        el.addEventListener("click", function () {
+          pickedStrategy = el.getAttribute("data-sid");
+          expandedStockId = null;
+          render();
+        });
+      });
+    }
+
+    document.querySelectorAll(".result-row").forEach(function (el) {
+      el.addEventListener("click", function (evt) {
+        var sid = el.getAttribute("data-stock");
+        expandedStockId = expandedStockId === sid ? null : sid;
+        render();
+      });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

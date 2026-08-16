@@ -83,6 +83,26 @@ cd web && npm install && npm run dev
 
 ---
 
+## 📱 線上看板（GitHub Pages）
+
+每天選股結果會自動整理成一個**唯讀的靜態網頁看板**，手機可直接開來看，不用開電腦跑程式。
+
+- **網址格式**：`https://<你的 GitHub 帳號>.github.io/<repo 名稱>/`（例如 fork 後未改名就是 `https://<帳號>.github.io/stock-strategies-only/`）
+- **資料何時更新**：跟著既有的每日排程走——台灣時間每個交易日 **14:30**，`main.py` 跑完選股後會自動產生看板資料並部署，通常再等 1～2 分鐘網頁就會更新到當天的結果。
+- **唯讀限制**：這個看板只能「看」，不能互動——沒有執行按鈕、不能生成新策略、不能改 watchlist。要操作策略請用本機的互動版 Web UI（見上方「啟動方式」）。所有 API 金鑰全程只留在 GitHub Actions Secrets，**不會**出現在網頁或瀏覽器裡。
+
+### 啟用步驟（repo 擁有者只需手動做一次）
+
+看板的程式碼與部署排程都已經寫好，但 GitHub Pages 服務本身需要你自己去開一次開關：
+
+1. 到你的 repo → **Settings** → **Pages**
+2. **Build and deployment** → **Source** 選 **"GitHub Actions"**
+3. 存檔後，等下一次 **V3 Daily Signal** 跑完（或手動到 **Actions** → **Deploy Board to GitHub Pages** → **Run workflow**），看板網址就會生效。
+
+> 之後每天都是全自動：`main.py` 選股 → 產生 `site/data/latest.json` → 有變動才 commit → 觸發 Pages 重新部署，不需要再手動操作。
+
+---
+
 ## 🏗️ V3.4（進行中）— 多角色股市策略系統重構
 
 > 舊版策略本質是「一份扁平 20 格參數 + 固定四技術訊號」，表達力有限。這版正在做一次**地基級重構**：把策略升級成「**多流派因子 × 持有週期 × 大盤 regime 自適應**」，用**多角色 AI 專家協作**設計、用**確定性回測引擎**驗證，產出更精準的策略庫。

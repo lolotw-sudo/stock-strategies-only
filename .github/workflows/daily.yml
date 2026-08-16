@@ -10,6 +10,8 @@ jobs:
   run-signal:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -31,3 +33,25 @@ jobs:
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
           GOOGLE_CREDS_JSON: ${{ secrets.GOOGLE_CREDS_JSON }}
         run: uv run python main.py
+
+      - name: Export board data
+        env:
+          FINMIND_TOKEN: ${{ secrets.FINMIND_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_CREDS_JSON: ${{ secrets.GOOGLE_CREDS_JSON }}
+          BOARD_STRATEGIES: "kline-chu,default"
+        run: uv run python scripts/export_board.py
+
+      - name: Commit board data if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/latest.json
+          if git diff --cached --quiet; then
+            echo "No changes to site/data/latest.json, skipping commit"
+          else
+            git commit -m "chore(board): 更新選股看板資料 $(date +%Y-%m-%d)"
+            git push
+          fi
