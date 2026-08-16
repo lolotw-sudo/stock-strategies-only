@@ -1,0 +1,36 @@
+{
+  "id": "kline-chu",
+  "name": "朱家泓K線策略 v1（收盤價領域+K線訊號）",
+  "description": "純技術分析策略（手冊第一階段）：不強制基本面過門檻，技術面加重收盤價買賣方領域＋單/雙/三K訊號＋位置×天數鐵律（詳見 K線訊號判讀手冊）。",
+  "source": "manual",
+  "created_at": "2026-08-15T00:00:00Z",
+  "updated_at": "2026-08-15T00:00:00Z",
+  "params": {
+    "eps_threshold": 5.0,
+    "roe_threshold": 15.0,
+    "fundamental_pass_required": false,
+
+    "backtest_years": 3,
+    "hold_days": 20,
+    "min_tech_score_for_signal": 60,
+
+    "target_return": 0.10,
+    "stop_loss": 0.08,
+
+    "weight_fundamental": 0.1,
+    "weight_technical": 0.6,
+    "weight_backtest": 0.3,
+    "min_total_score_for_buy": 65,
+    "min_tech_score_for_buy": 50,
+
+    "use_ma_alignment": true,
+    "use_bollinger_bounce": true,
+    "use_kd_golden_cross": true,
+    "use_macd_bullish": true,
+    "use_volume_patterns": true,
+    "use_kline_signals": true,
+
+    "market_filter_enabled": true,
+    "market_filter_ma_period": 20
+  }
+}

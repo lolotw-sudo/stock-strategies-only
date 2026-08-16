@@ -8,6 +8,7 @@ from .data import get_fundamental, get_price_history
 from .indicators import add_indicators, tech_score_at
 from .backtest import backtest
 from .volume import detect_patterns, verdict as volume_verdict
+from .kline import detect_kline
 from .loader import merge_params
 
 
@@ -50,8 +51,17 @@ def evaluate(stock_id: str, name: str, strategy: dict | None = None) -> Optional
         else:
             vp = {"patterns": [], "bonus": 0, "details": {}}
 
+        if params["use_kline_signals"]:
+            kl = detect_kline(px)
+        else:
+            kl = {
+                "signals": [], "bonus": 0,
+                "domain": {"buyer_pct": 0.0, "seller_pct": 0.0, "type": ""},
+                "position": "", "leg_days": 0, "warnings": [], "verdict": "",
+            }
+
         fund_score = 100 if fund_pass else 40
-        tech_score = max(0, min(100, ts["score"] + vp["bonus"]))
+        tech_score = max(0, min(100, ts["score"] + vp["bonus"] + kl["bonus"]))
         winrate = bt.get("winrate") or 0.5
         bt_score = winrate * 100
 
@@ -97,6 +107,8 @@ def evaluate(stock_id: str, name: str, strategy: dict | None = None) -> Optional
             result["risk_notes"].append("已突破布林上軌，追高風險")
         if "放量滯漲" in vp["patterns"]:
             result["risk_notes"].append("偵測到放量滯漲，高檔爆量疑似出貨")
+        for w in kl["warnings"]:
+            result["risk_notes"].append(w)
 
         chg_5d = (latest["close"] / px.iloc[-6]["close"] - 1) * 100 if len(px) >= 6 else 0
         chg_20d = (latest["close"] / px.iloc[-21]["close"] - 1) * 100 if len(px) >= 21 else 0
@@ -117,13 +129,17 @@ def evaluate(stock_id: str, name: str, strategy: dict | None = None) -> Optional
                 "eps_min": min(eps_vals) if eps_vals else None,
                 "roe_min": min(roe_vals) if roe_vals else None,
                 "tech_score": tech_score,
-                "tech_signals": ts["signals"],
+                "tech_signals": ts["signals"] + kl["signals"],
                 "backtest_winrate": winrate,
                 "backtest_samples": bt.get("samples", 0),
                 "volume_patterns": vp["patterns"],
                 "volume_details": vp["details"],
                 "volume_bonus": vp["bonus"],
                 "volume_verdict": volume_verdict(vp["patterns"]),
+                "kline_domain": kl["domain"],
+                "kline_position": kl["position"],
+                "kline_verdict": kl["verdict"],
+                "kline_warnings": kl["warnings"],
             },
             "trend": {
                 "chg_5d": round(chg_5d, 2),

@@ -45,6 +45,7 @@
 - `use_kd_golden_cross` (bool) — KD 黃金交叉
 - `use_macd_bullish` (bool) — MACD 多頭
 - `use_volume_patterns` (bool) — 量價型態加減分
+- `use_kline_signals` (bool) — 朱家泓K線訊號（收盤價領域＋單/雙/三K＋位置×天數鐵律）加減分，預設 False
 
 ### 大盤濾鏡
 
