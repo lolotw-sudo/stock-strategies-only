@@ -17,16 +17,62 @@ def get_gsheet():
     return gc.open_by_key(os.environ["GOOGLE_SHEET_ID"])
 
 
+def parse_watchlist_rows(values: list[list[str]]) -> list[dict]:
+    """把 ws.get_all_values() 回傳的原始二維字串陣列轉成 list[dict]，不做任何型別轉換。
+
+    刻意不用 gspread 的 get_all_records()：它會把看起來像數字的儲存格自動轉成
+    int/float，導致 '0050' 變成 50、前導零遺失。這裡全程保持字串。
+
+    - 第一列是表頭，各欄名稱 strip() 後比對
+    - 之後每列的值皆保持原始字串並 strip()
+    - stock_id 為空字串的列（空白列）會被跳過
+    - 沒有 stock_id 欄位（表頭不符）時回傳空 list
+    """
+    if not values:
+        return []
+    headers = [h.strip() for h in values[0]]
+    if "stock_id" not in headers:
+        return []
+    sid_idx = headers.index("stock_id")
+    n = len(headers)
+    rows = []
+    for raw_row in values[1:]:
+        padded = list(raw_row) + [""] * (n - len(raw_row))  # Sheet 尾端空欄可能被省略
+        stock_id = padded[sid_idx].strip()
+        if not stock_id:
+            continue
+        row = {headers[i]: padded[i].strip() for i in range(n)}
+        row["stock_id"] = stock_id
+        rows.append(row)
+    return rows
+
+
 def read_watchlist() -> list[dict]:
-    """從 Google Sheet Watchlist 分頁讀股票清單"""
+    """從 Google Sheet Watchlist 分頁讀股票清單（stock_id 保持原始字串，前導零不遺失）"""
     sh = get_gsheet()
     ws = sh.worksheet("Watchlist")
-    rows = ws.get_all_records()
+    rows = parse_watchlist_rows(ws.get_all_values())
     enabled = [
         r for r in rows
         if str(r.get("enabled", "")).upper() in ("TRUE", "1", "YES")
     ]
     return enabled
+
+
+def _watchlist_rows_with_sheet_rownum(values: list[list[str]]) -> list[dict]:
+    """把原始二維字串陣列轉成 list[dict]，**不跳過空白列**，用於需要用
+    enumerate(rows, start=2) 對應實際 sheet row number 的場景（update_cell 等）。
+    stock_id 等值同樣保持字串並 strip()，不做型別轉換。
+    """
+    if not values:
+        return []
+    headers = [h.strip() for h in values[0]]
+    n = len(headers)
+    rows = []
+    for raw_row in values[1:]:
+        padded = list(raw_row) + [""] * (n - len(raw_row))
+        rows.append({headers[i]: padded[i].strip() for i in range(n)})
+    return rows
 
 
 def append_signals(signals: list[dict]):
@@ -96,7 +142,7 @@ def add_to_watchlist(stock_id: str, name: str = "") -> dict:
     name_col = headers.index("name") + 1 if "name" in headers else None
     en_col = headers.index("enabled") + 1
 
-    rows = ws.get_all_records()
+    rows = _watchlist_rows_with_sheet_rownum(ws.get_all_values())
     for i, r in enumerate(rows, start=2):  # row 1 是 header
         if str(r.get("stock_id", "")).strip() == str(stock_id).strip():
             current = str(r.get("enabled", "")).upper()
@@ -132,7 +178,7 @@ def remove_from_watchlist(stock_id: str) -> dict:
         return {"status": "no_enabled_column"}
     en_col = headers.index("enabled") + 1
 
-    rows = ws.get_all_records()
+    rows = _watchlist_rows_with_sheet_rownum(ws.get_all_values())
     for i, r in enumerate(rows, start=2):
         if str(r.get("stock_id", "")).strip() == str(stock_id).strip():
             ws.update_cell(i, en_col, "FALSE")
