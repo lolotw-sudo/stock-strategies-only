@@ -13,6 +13,7 @@
   POST   /api/strategies/generate     AI 生策略 (Gemini)
   GET    /api/market                  目前大盤狀態
   GET    /api/watchlist               讀 watchlist
+  GET    /api/analyze/{stock_id}      朱家泓K線深度分析報告
   POST   /api/run                     用指定策略跑一次完整評分
 """
 
@@ -39,6 +40,8 @@ from stock_strategies import loader
 from stock_strategies.evaluate import evaluate
 from stock_strategies.market import apply_market_filter, get_market_state
 from stock_strategies.sheet import read_watchlist
+from stock_strategies.data import get_price_history
+from stock_strategies.kline_report import analyze as analyze_kline
 
 from api.services.ai_generator import generate_strategy_with_ai
 
@@ -155,6 +158,28 @@ def watchlist():
     except Exception as e:
         # 沒設定 Google Sheet 時不要整個 500
         return {"items": [], "error": str(e)}
+
+
+@app.get("/api/analyze/{stock_id}")
+def analyze(stock_id: str, name: str = ""):
+    try:
+        px = get_price_history(stock_id, 1)
+    except Exception as e:
+        raise HTTPException(500, f"取得價格資料失敗：{e}")
+
+    if px.empty:
+        raise HTTPException(404, f"找不到股票 {stock_id} 的價格資料")
+
+    try:
+        result = analyze_kline(px, stock_id, name)
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(500, f"K線分析失敗：{e}")
+
+    if "error" in result:
+        raise HTTPException(404, result["error"])
+
+    return _json_safe(result)
 
 
 @app.post("/api/run")

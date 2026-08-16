@@ -57,4 +57,6 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ strategy_id, limit }),
     }),
+  analyze: (stock_id: string, name?: string) =>
+    jfetch<any>(`/api/analyze/${stock_id}${name ? `?name=${encodeURIComponent(name)}` : ""}`),
 };

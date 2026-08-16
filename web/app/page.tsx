@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api, Strategy, RunResult } from "@/lib/api";
 import { ActionBadge, SourceBadge } from "@/components/ActionBadge";
+import { KlineReport } from "@/components/KlineReport";
 
 export default function Dashboard() {
   const [strategies, setStrategies] = useState<Strategy[]>([]);
@@ -12,6 +13,7 @@ export default function Dashboard() {
   const [running, setRunning] = useState(false);
   const [run, setRun] = useState<RunResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
     api.listStrategies().then((d) => {
@@ -112,22 +114,35 @@ export default function Dashboard() {
           <div className="text-xs text-muted mb-3">{run.market.note}</div>
           <div className="space-y-2">
             {run.results.filter((r) => r.action !== "ERROR").map((r) => (
-              <div key={r.stock_id} className="bg-panel2 border border-line rounded-lg p-3 flex items-center gap-3">
-                <ActionBadge action={r.action} />
-                <div className="font-mono w-16">{r.stock_id}</div>
-                <div className="flex-1 truncate">
-                  <div className="text-sm">{r.name}</div>
-                  <div className="text-xs text-muted">
-                    {r.components?.tech_signals?.join(" · ") || "—"}
+              <div key={r.stock_id}>
+                <div className="bg-panel2 border border-line rounded-lg p-3 flex items-center gap-3">
+                  <ActionBadge action={r.action} />
+                  <div className="font-mono w-16">{r.stock_id}</div>
+                  <div className="flex-1 truncate">
+                    <div className="text-sm">{r.name}</div>
+                    <div className="text-xs text-muted">
+                      {r.components?.tech_signals?.join(" · ") || "—"}
+                    </div>
                   </div>
-                </div>
-                <div className="text-right">
-                  <div className="font-mono">{r.signal_score}</div>
-                  <div className="text-xs text-muted">
-                    勝率 {r.components?.backtest_winrate != null
-                      ? `${(r.components.backtest_winrate * 100).toFixed(0)}%` : "—"}
+                  <div className="text-right">
+                    <div className="font-mono">{r.signal_score}</div>
+                    <div className="text-xs text-muted">
+                      勝率 {r.components?.backtest_winrate != null
+                        ? `${(r.components.backtest_winrate * 100).toFixed(0)}%` : "—"}
+                    </div>
                   </div>
+                  <button
+                    className="btn-ghost h-8 text-xs shrink-0"
+                    onClick={() => setExpanded(expanded === r.stock_id ? null : r.stock_id)}
+                  >
+                    📊 K線分析
+                  </button>
                 </div>
+                {expanded === r.stock_id && (
+                  <div className="mt-2">
+                    <KlineReport stockId={r.stock_id} name={r.name} />
+                  </div>
+                )}
               </div>
             ))}
           </div>
