@@ -1,7 +1,7 @@
 {
   "id": "kline-chu",
   "name": "朱家泓K線策略 v1（收盤價領域+K線訊號）",
-  "description": "純技術分析策略（手冊第一階段）：不強制基本面過門檻，技術面加重收盤價買賣方領域＋單/雙/三K訊號＋位置×天數鐵律（詳見 K線訊號判讀手冊）。",
+  "description": "純技術分析策略（手冊第一階段）：以搶反彈四問（急跌→爆量→止跌→過高）判定燈號、跌破月線發出賣出訊號；不強制基本面過門檻，技術面加重收盤價買賣方領域＋單/雙/三K訊號＋位置×天數鐵律（詳見 K線訊號判讀手冊）。",
   "source": "manual",
   "created_at": "2026-08-15T00:00:00Z",
   "updated_at": "2026-08-15T00:00:00Z",
@@ -31,6 +31,8 @@
     "use_kline_signals": true,
 
     "market_filter_enabled": true,
-    "market_filter_ma_period": 20
+    "market_filter_ma_period": 20,
+
+    "action_mode": "kline_sop"
   }
 }

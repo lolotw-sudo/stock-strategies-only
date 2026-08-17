@@ -72,6 +72,16 @@ def _format_stock_detail(s: dict, show_trend: bool = True) -> list[str]:
     return lines
 
 
+def _format_sell_detail(s: dict) -> list[str]:
+    """格式化單檔股票的 SELL（跌破月線出場）資訊"""
+    c = s.get("components", {})
+    lines = [f"*{s['stock_id']} {s['name']}*  綜合 {s['signal_score']} 分"]
+    lines.append(f"🔴 {c.get('action_reason', '跌破月線 MA20')}")
+    if s.get("risk_notes"):
+        lines.append(f"⚠️ {' / '.join(s['risk_notes'])}")
+    return lines
+
+
 def _explain_why(s: dict) -> str:
     """解釋為什麼是 BUY / WATCH / SKIP"""
     c = s.get("components", {})
@@ -149,6 +159,7 @@ def format_messages(
     night_note: str = None,
 ) -> list[str]:
     """產生多則 Telegram 訊息"""
+    sells = [s for s in signals if s.get("action") == "SELL"]
     buys = [s for s in signals if s.get("action") == "BUY"]
     watches = [s for s in signals if s.get("action") == "WATCH"]
     skips = [s for s in signals if s.get("action") in ("SKIP", "ERROR")]
@@ -159,8 +170,17 @@ def format_messages(
     # === 第一則：市場總覽 + 類股強弱 ===
     msg1 = []
     msg1.append(f"📊 *V3.0 每日選股報告* {today}")
-    msg1.append(f"掃描 {total} 檔 | BUY {len(buys)} | WATCH {len(watches)} | SKIP {len(skips)}")
+    msg1.append(
+        f"掃描 {total} 檔 | SELL {len(sells)} | BUY {len(buys)} | WATCH {len(watches)} | SKIP {len(skips)}"
+    )
     msg1.append("")
+
+    if sells:
+        msg1.append(f"🔴 *SELL — 跌破月線出場 ({len(sells)})*")
+        msg1.append("")
+        for s in sells:
+            msg1.extend(_format_sell_detail(s))
+            msg1.append("")
 
     if market and market.get("note"):
         msg1.append("🎯 *大盤濾鏡*")

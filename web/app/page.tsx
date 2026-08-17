@@ -105,6 +105,7 @@ export default function Dashboard() {
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-medium">執行結果</h2>
             <div className="flex gap-2 text-xs">
+              {run.summary.sell > 0 && <span className="badge-sell">SELL {run.summary.sell}</span>}
               <span className="badge-buy">BUY {run.summary.buy}</span>
               <span className="badge-watch">WATCH {run.summary.watch}</span>
               <span className="badge-skip">SKIP {run.summary.skip}</span>

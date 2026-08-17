@@ -55,7 +55,11 @@ _PARAM_DEFAULTS: dict = {
     # 大盤濾鏡
     "market_filter_enabled": True,
     "market_filter_ma_period": 20,
+    # 燈號判定模式："score"=加權分數（預設，向後相容）／"kline_sop"=K線訊號判讀手冊檢查表
+    "action_mode": "score",
 }
+
+_VALID_ACTION_MODES = ("score", "kline_sop")
 
 
 class StrategyError(ValueError):
@@ -143,6 +147,10 @@ def validate_strategy(data: dict) -> dict:
     clean_params["min_tech_score_for_signal"] = max(0, min(100, clean_params["min_tech_score_for_signal"]))
     clean_params["backtest_years"] = max(1, min(10, clean_params["backtest_years"]))
     clean_params["hold_days"] = max(1, min(120, clean_params["hold_days"]))
+
+    # action_mode 是字串參數，上面的型別強制迴圈不會處理，非法值一律回退為 "score"
+    if clean_params.get("action_mode") not in _VALID_ACTION_MODES:
+        clean_params["action_mode"] = "score"
 
     return {
         "id": sid,

@@ -9,7 +9,77 @@ from .indicators import add_indicators, tech_score_at
 from .backtest import backtest
 from .volume import detect_patterns, verdict as volume_verdict
 from .kline import detect_kline
+from .kline_report import analyze as analyze_kline_sop
 from .loader import merge_params
+
+
+def _consecutive_days_below_ma20(px: pd.DataFrame) -> int:
+    """從今天往回數，收盤持續在 MA20 下方的交易日數。只用已存在的歷史資料，不看未來。"""
+    n = 0
+    for i in range(len(px) - 1, -1, -1):
+        ma20v = px["ma20"].iloc[i]
+        if pd.isna(ma20v) or not (px["close"].iloc[i] < ma20v):
+            break
+        n += 1
+    return n
+
+
+def _decide_kline_sop_action(
+    px: pd.DataFrame, latest: pd.Series, sop_report: dict, risk_notes: list
+) -> tuple[str, str]:
+    """依《K線訊號判讀手冊》檢查表判定 action（不依賴加權分數）。
+
+    優先序：
+      ① SELL：今日收盤跌破 MA20，且昨日收盤仍在 MA20（含）以上（最高優先，蓋過其他）
+      ② BUY：搶反彈四問全過 + 紀律全過 + 收盤站上 MA20
+      ③ WATCH：四問全過但紀律未全過／四問過3；或四問全過+紀律全過但尚未站上MA20
+      ④ SKIP：其餘（四問通過 ≤2）
+    """
+    today_close = float(latest["close"])
+    ma20_today = latest.get("ma20")
+    has_ma20 = bool(pd.notna(ma20_today))
+    ma20_val = float(ma20_today) if has_ma20 else None
+
+    prev_below = None
+    if has_ma20 and len(px) >= 2:
+        prev_ma20 = px["ma20"].iloc[-2]
+        if pd.notna(prev_ma20):
+            prev_below = float(px["close"].iloc[-2]) < float(prev_ma20)
+
+    below_today = has_ma20 and today_close < ma20_val
+    is_new_cross = below_today and prev_below is False  # 昨日確定未破，今日確定跌破 → 新跌破
+
+    if is_new_cross:
+        risk_notes.append(f"跌破月線 MA20（{ma20_val:.2f}），持有者出場訊號")
+        return "SELL", f"跌破月線 MA20 {ma20_val:.2f}"
+
+    if below_today:
+        n_days = _consecutive_days_below_ma20(px)
+        risk_notes.append(f"已在月線下方 {n_days} 日")
+
+    rc = sop_report["rebound_check"]
+    disc = sop_report["discipline"]
+    above_ma20_now = has_ma20 and today_close >= ma20_val
+
+    if rc["passed"] == 4 and disc["passed"] == disc["total"] and above_ma20_now:
+        reason = f"搶反彈四問{rc['passed']}/4且紀律{disc['passed']}/{disc['total']}全過，站上月線"
+        return "BUY", reason
+
+    if rc["passed"] == 4:
+        if disc["passed"] < disc["total"]:
+            for it in disc["items"]:
+                if not it["pass"]:
+                    risk_notes.append(f"紀律未過：{it['rule']}——{it['detail']}")
+            return "WATCH", f"搶反彈四問4/4，但紀律{disc['passed']}/{disc['total']}未全過"
+        # 四問全過、紀律全過，但尚未站上月線 —— 差臨門一腳，保守列 WATCH 不列 BUY
+        note = f"未站上月線 MA20（{ma20_val:.2f}），暫緩列為BUY" if has_ma20 else "月線資料不足，暫緩列為BUY"
+        risk_notes.append(note)
+        return "WATCH", "搶反彈四問4/4且紀律全過，但尚未站上月線"
+
+    if rc["passed"] == 3:
+        return "WATCH", f"搶反彈四問{rc['passed']}/4通過"
+
+    return "SKIP", f"搶反彈四問僅{rc['passed']}/4通過，不建議進場"
 
 
 def evaluate(stock_id: str, name: str, strategy: dict | None = None) -> Optional[dict]:
@@ -75,17 +145,31 @@ def evaluate(stock_id: str, name: str, strategy: dict | None = None) -> Optional
 
         signal_score = round(wf * fund_score + wt * tech_score + wb * bt_score, 1)
 
-        fund_gate = (not params["fundamental_pass_required"]) or fund_pass
-        if (
-            signal_score >= params["min_total_score_for_buy"]
-            and fund_gate
-            and tech_score >= params["min_tech_score_for_buy"]
-        ):
-            action = "BUY"
-        elif signal_score >= 50:
-            action = "WATCH"
+        action_mode = params.get("action_mode", "score")
+        if action_mode not in ("score", "kline_sop"):
+            action_mode = "score"
+
+        action_reason = None
+        sop_report = None
+        if action_mode == "kline_sop":
+            sop_report = analyze_kline_sop(px, stock_id, name)
+
+        if action_mode == "kline_sop" and sop_report and "error" not in sop_report:
+            action, action_reason = _decide_kline_sop_action(
+                px, latest, sop_report, result["risk_notes"]
+            )
         else:
-            action = "SKIP"
+            fund_gate = (not params["fundamental_pass_required"]) or fund_pass
+            if (
+                signal_score >= params["min_total_score_for_buy"]
+                and fund_gate
+                and tech_score >= params["min_tech_score_for_buy"]
+            ):
+                action = "BUY"
+            elif signal_score >= 50:
+                action = "WATCH"
+            else:
+                action = "SKIP"
 
         entry = float(latest["close"])
         stop_price = round(entry * (1 - params["stop_loss"]), 2)
@@ -140,6 +224,7 @@ def evaluate(stock_id: str, name: str, strategy: dict | None = None) -> Optional
                 "kline_position": kl["position"],
                 "kline_verdict": kl["verdict"],
                 "kline_warnings": kl["warnings"],
+                **({"action_reason": action_reason} if action_mode == "kline_sop" else {}),
             },
             "trend": {
                 "chg_5d": round(chg_5d, 2),

@@ -67,6 +67,7 @@ export default function StrategyDetail() {
           <h2 className="font-medium mb-3">執行結果</h2>
           <div className="text-sm text-muted mb-3">{run.market.note}</div>
           <div className="flex gap-2 mb-4">
+            {run.summary.sell > 0 && <span className="badge-sell">SELL {run.summary.sell}</span>}
             <span className="badge-buy">BUY {run.summary.buy}</span>
             <span className="badge-watch">WATCH {run.summary.watch}</span>
             <span className="badge-skip">SKIP {run.summary.skip}</span>

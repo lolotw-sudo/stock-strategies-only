@@ -16,6 +16,7 @@
     --watch: #eab308;
     --skip: #64748b;
     --err: #ef4444;
+    --sell: #e11d48;
     --accent: #3b82f6;
   }
   * { box-sizing: border-box; }
@@ -119,6 +120,7 @@
   .badge-watch { background: rgba(234,179,8,.15); color: var(--watch); border-color: rgba(234,179,8,.35); }
   .badge-skip { background: rgba(100,116,139,.18); color: var(--skip); border-color: rgba(100,116,139,.4); }
   .badge-err { background: rgba(239,68,68,.15); color: var(--err); border-color: rgba(239,68,68,.35); }
+  .badge-sell { background: rgba(225,29,72,.2); color: var(--sell); border-color: var(--sell); font-weight: 700; }
 
   .result-row {
     background: var(--panel2);
@@ -258,7 +260,7 @@
   }
 
   function actionBadgeClass(action) {
-    return { BUY: "badge-buy", WATCH: "badge-watch", SKIP: "badge-skip", ERROR: "badge-err" }[action] || "badge-skip";
+    return { SELL: "badge-sell", BUY: "badge-buy", WATCH: "badge-watch", SKIP: "badge-skip", ERROR: "badge-err" }[action] || "badge-skip";
   }
 
   function distLabel(pct) {
@@ -358,6 +360,7 @@
 
       var sum = strategy.summary || {};
       html += '<div class="summary-row">';
+      if (sum.sell) html += '<span class="badge badge-sell">SELL ' + esc(sum.sell) + '</span>';
       html += '<span class="badge badge-buy">BUY ' + esc(sum.buy) + '</span>';
       html += '<span class="badge badge-watch">WATCH ' + esc(sum.watch) + '</span>';
       html += '<span class="badge badge-skip">SKIP ' + esc(sum.skip) + '</span>';

@@ -90,12 +90,13 @@ def main():
     if night_downgraded:
         print(f"🌙 昨晚夜盤大跌，{night_downgraded} 檔 BUY 已自動降為 WATCH")
 
-    order = {"BUY": 0, "WATCH": 1, "SKIP": 2, "ERROR": 3}
-    results.sort(key=lambda x: (order.get(x.get("action"), 4), -x.get("signal_score", 0)))
+    order = {"SELL": 0, "BUY": 1, "WATCH": 2, "SKIP": 3, "ERROR": 4}
+    results.sort(key=lambda x: (order.get(x.get("action"), 5), -x.get("signal_score", 0)))
 
+    sell_count = sum(1 for r in results if r["action"] == "SELL")
     buy_count = sum(1 for r in results if r["action"] == "BUY")
     watch_count = sum(1 for r in results if r["action"] == "WATCH")
-    print(f"\n{buy_count} BUY, {watch_count} WATCH")
+    print(f"\n{sell_count} SELL, {buy_count} BUY, {watch_count} WATCH")
 
     # 5. 寫回 Signals 分頁
     print("寫回 Google Sheet (Signals)...")

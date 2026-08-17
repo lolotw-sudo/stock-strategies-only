@@ -40,6 +40,7 @@
   .badge-watch { @apply badge bg-watch/15 text-watch border border-watch/30; }
   .badge-skip { @apply badge bg-skip/15 text-skip border border-skip/30; }
   .badge-err { @apply badge bg-err/15 text-err border border-err/30; }
+  .badge-sell { @apply badge bg-sell/20 text-sell border border-sell font-semibold; }
   .badge-ai { @apply badge bg-purple-500/15 text-purple-300 border border-purple-500/30; }
   .badge-manual { @apply badge bg-blue-500/15 text-blue-300 border border-blue-500/30; }
   .badge-default { @apply badge bg-slate-500/15 text-slate-300 border border-slate-500/30; }

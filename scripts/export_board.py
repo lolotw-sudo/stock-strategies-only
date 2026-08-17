@@ -45,7 +45,7 @@ REQUIRED_ENV = ["FINMIND_TOKEN", "GOOGLE_SHEET_ID", "GOOGLE_CREDS_JSON"]
 
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "site" / "data" / "latest.json"
 
-ORDER = {"BUY": 0, "WATCH": 1, "SKIP": 2, "ERROR": 3}
+ORDER = {"SELL": 0, "BUY": 1, "WATCH": 2, "SKIP": 3, "ERROR": 4}
 
 
 def main():
@@ -137,17 +137,18 @@ def main():
         if night_downgraded:
             print(f"🌙 [{strategy['id']}] 昨晚夜盤大跌，{night_downgraded} 檔 BUY 已自動降為 WATCH")
 
-        results.sort(key=lambda x: (ORDER.get(x.get("action"), 4), -x.get("signal_score", 0)))
+        results.sort(key=lambda x: (ORDER.get(x.get("action"), 5), -x.get("signal_score", 0)))
 
         summary = {
             "total": len(results),
+            "sell": sum(1 for r in results if r.get("action") == "SELL"),
             "buy": sum(1 for r in results if r.get("action") == "BUY"),
             "watch": sum(1 for r in results if r.get("action") == "WATCH"),
             "skip": sum(1 for r in results if r.get("action") == "SKIP"),
             "error": sum(1 for r in results if r.get("action") == "ERROR"),
         }
         print(
-            f"  → [{strategy['id']}] BUY {summary['buy']} / WATCH {summary['watch']} / "
+            f"  → [{strategy['id']}] SELL {summary['sell']} / BUY {summary['buy']} / WATCH {summary['watch']} / "
             f"SKIP {summary['skip']} / ERROR {summary['error']}"
         )
 

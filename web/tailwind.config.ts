@@ -15,6 +15,7 @@ const config: Config = {
         watch: "#eab308",
         skip: "#64748b",
         err: "#ef4444",
+        sell: "#e11d48",
         accent: "#3b82f6",
       },
     },

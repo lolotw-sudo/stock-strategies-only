@@ -1,5 +1,6 @@
 export function ActionBadge({ action }: { action: string }) {
   const map: Record<string, string> = {
+    SELL: "badge-sell",
     BUY: "badge-buy",
     WATCH: "badge-watch",
     SKIP: "badge-skip",

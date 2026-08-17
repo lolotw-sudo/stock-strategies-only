@@ -205,8 +205,8 @@ def run(payload: RunIn):
     else:
         downgraded = 0
 
-    order = {"BUY": 0, "WATCH": 1, "SKIP": 2, "ERROR": 3}
-    results.sort(key=lambda x: (order.get(x.get("action"), 4), -x.get("signal_score", 0)))
+    order = {"SELL": 0, "BUY": 1, "WATCH": 2, "SKIP": 3, "ERROR": 4}
+    results.sort(key=lambda x: (order.get(x.get("action"), 5), -x.get("signal_score", 0)))
 
     return _json_safe({
         "strategy": {"id": strategy["id"], "name": strategy["name"]},
@@ -214,6 +214,7 @@ def run(payload: RunIn):
         "downgraded": downgraded,
         "summary": {
             "total": len(results),
+            "sell": sum(1 for r in results if r.get("action") == "SELL"),
             "buy": sum(1 for r in results if r.get("action") == "BUY"),
             "watch": sum(1 for r in results if r.get("action") == "WATCH"),
             "skip": sum(1 for r in results if r.get("action") == "SKIP"),

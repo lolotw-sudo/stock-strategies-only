@@ -16,7 +16,7 @@ export type RunResult = {
   strategy: { id: string; name: string };
   market: { bullish: boolean; close: number | null; ma20: number | null; note: string };
   downgraded: number;
-  summary: { total: number; buy: number; watch: number; skip: number; error: number };
+  summary: { total: number; sell: number; buy: number; watch: number; skip: number; error: number };
   results: any[];
 };
 
