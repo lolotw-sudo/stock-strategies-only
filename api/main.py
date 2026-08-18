@@ -1,7 +1,7 @@
 """FastAPI 後端
 
 啟動：
-  uv run uvicorn api.main:app --reload --port 8000
+  uv run uvicorn api.main:app --reload --port 8010
 
 提供：
   GET    /api/health
@@ -47,8 +47,10 @@ from api.services.ai_generator import generate_strategy_with_ai
 
 app = FastAPI(title="Stock Strategies API", version="1.0.0")
 
-# CORS：dev 期間給 localhost:3000 (Next.js)
-_origins_env = os.environ.get("CORS_ORIGINS", "http://localhost:3000")
+# CORS：dev 期間給 Next.js（3010 是 .claude/launch.json 的埠，3000 是手動啟動的預設）
+_origins_env = os.environ.get(
+    "CORS_ORIGINS", "http://localhost:3010,http://localhost:3000"
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in _origins_env.split(",") if o.strip()],

@@ -71,13 +71,13 @@
 ```bash
 # Terminal 1 — 後端
 uv sync
-uv run uvicorn api.main:app --reload --port 8000
+uv run uvicorn api.main:app --reload --port 8010
 
 # Terminal 2 — 前端
 cd web && npm install && npm run dev
 ```
 
-開 http://localhost:3000 即可。需新增環境變數 `GEMINI_API_KEY`（AI 生策略用，可選）。詳見 [`web/README.md`](web/README.md) 與 [`strategies/SCHEMA.md`](strategies/SCHEMA.md)。
+開 http://localhost:3010 即可。需新增環境變數 `GEMINI_API_KEY`（AI 生策略用，可選）。詳見 [`web/README.md`](web/README.md) 與 [`strategies/SCHEMA.md`](strategies/SCHEMA.md)。
 
 原本的 `main.py` 走排程跑 default 策略，跟新 UI 完全相容。
 

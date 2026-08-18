@@ -8,18 +8,18 @@ Next.js + Tailwind 前端，後端是 `api/` 下的 FastAPI。
 # 1. 後端（在專案根目錄）
 uv sync                              # 安裝新增的 fastapi / pydantic / google-generativeai
 # --reload-include 只看 Python，避免存策略 JSON 時 server 重啟把 /api/run 切斷
-uv run uvicorn api.main:app --reload --reload-include '*.py' --port 8000
+uv run uvicorn api.main:app --reload --reload-include '*.py' --port 8010
 
 # 2. 前端（另開一個 terminal，進 web/）
 cd web
 cp .env.local.example .env.local     # 讓前端直連 FastAPI，避開 Next dev proxy 對長請求的 ECONNRESET
 npm install
-npm run dev
+npm run dev -- -p 3010
 ```
 
-> **為何要設 `NEXT_PUBLIC_API_BASE`？** Next.js dev server 的 rewrite proxy 對長請求（例如 `/api/run` 跑十幾檔 + FinMind delay）容易出現 `socket hang up / ECONNRESET`。設這個變數後，瀏覽器會直接打 `http://localhost:8000`，FastAPI 的 CORS 已對 `localhost:3000` 開好。
+> **為何要設 `NEXT_PUBLIC_API_BASE`？** Next.js dev server 的 rewrite proxy 對長請求（例如 `/api/run` 跑十幾檔 + FinMind delay）容易出現 `socket hang up / ECONNRESET`。設這個變數後，瀏覽器會直接打 `http://localhost:8010`，FastAPI 的 CORS 已對 `localhost:3010` 開好。
 
-開瀏覽器 http://localhost:3000 即可。
+開瀏覽器 http://localhost:3010 即可。
 
 ## 環境變數
 
@@ -29,9 +29,9 @@ npm run dev
 | --- | --- | --- |
 | `GEMINI_API_KEY` | AI 頁要用 | Google AI Studio 申請 |
 | `GEMINI_MODEL` |  | 預設 `gemini-2.5-flash` |
-| `CORS_ORIGINS` |  | 預設 `http://localhost:3000` |
+| `CORS_ORIGINS` |  | 預設 `http://localhost:3010,http://localhost:3000` |
 | `STRATEGY_DIR` |  | 策略 JSON 存放目錄，預設 `./strategies` |
-| `NEXT_PUBLIC_API_BASE` |  | 前端打 API 的 base，預設 `http://localhost:8000` |
+| `NEXT_PUBLIC_API_BASE` |  | 前端打 API 的 base，預設 `http://localhost:8010` |
 
 ## 頁面
 
