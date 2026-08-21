@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-20T15:14:51.598984+08:00",
-  "generated_at_display": "2026-08-20 15:14（台北時間）",
+  "generated_at": "2026-08-21T15:17:45.144543+08:00",
+  "generated_at_display": "2026-08-21 15:17（台北時間）",
   "market": {
     "bullish": true,
-    "close": 44933.74,
-    "ma20": 44009.249,
-    "note": "🟢 加權 44934 站上 20 日線 (+2.1%)，BUY 訊號照常發出"
+    "close": 45224.29,
+    "ma20": 44087.7215,
+    "note": "🟢 加權 45224 站上 20 日線 (+2.6%)，BUY 訊號照常發出"
   },
-  "night_note": "🟢 昨晚夜盤 +0.68%（小漲・順風），順風環境、BUY 照常",
+  "night_note": "⚪ 昨晚夜盤 -0.22%（平盤・中性），方向中性",
   "watchlist_count": 12,
   "strategies": [
     {
@@ -18,112 +18,118 @@
         "total": 12,
         "sell": 1,
         "buy": 0,
-        "watch": 5,
-        "skip": 6,
+        "watch": 7,
+        "skip": 4,
         "error": 0
       },
       "results": [
         {
-          "stock_id": "2454",
-          "name": "聯發科",
-          "date": "2026-08-20",
+          "stock_id": "7765",
+          "name": "中華資安",
+          "date": "2026-08-21",
           "strategy_id": "kline-chu",
           "risk_notes": [
-            "跌破月線 MA20（3809.50），持有者出場訊號",
-            "歷史勝率 46% 低於五成"
+            "跌破月線 MA20（224.68），持有者出場訊號",
+            "基本面未過門檻"
           ],
           "action": "SELL",
-          "signal_score": 25.1,
+          "signal_score": 56.0,
           "components": {
-            "fundamental_pass": true,
-            "eps_min": 48.51,
-            "roe_min": 22.05,
-            "tech_score": 2,
+            "fundamental_pass": false,
+            "eps_min": 7.8,
+            "roe_min": null,
+            "tech_score": 58,
             "tech_signals": [
-              "長黑K"
+              "布林下軌反彈",
+              "MACD多頭",
+              "母子線"
             ],
-            "backtest_winrate": 0.465,
-            "backtest_samples": 187,
-            "volume_patterns": [],
-            "volume_details": {},
-            "volume_bonus": 0,
-            "volume_verdict": "量能平淡，無特殊訊號",
+            "backtest_winrate": 0.573,
+            "backtest_samples": 131,
+            "volume_patterns": [
+              "低量柱"
+            ],
+            "volume_details": {
+              "低量柱": "今日量僅 20 日均量 17%，拋壓耗盡"
+            },
+            "volume_bonus": 8,
+            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
             "kline_domain": {
-              "buyer_pct": 12.8,
-              "seller_pct": 87.2,
-              "type": "強勢賣壓"
+              "buyer_pct": 0.0,
+              "seller_pct": 0.0,
+              "type": ""
             },
             "kline_position": "低檔",
-            "kline_verdict": "收盤價領域強勢賣壓（買方13% / 賣方87%），訊號：長黑K，位置：低檔第16天。",
+            "kline_verdict": "訊號：母子線，位置：低檔第17天。",
             "kline_warnings": [],
-            "action_reason": "跌破月線 MA20 3809.50"
+            "action_reason": "跌破月線 MA20 224.68"
           },
           "trend": {
-            "chg_5d": -12.43,
-            "chg_20d": -4.52,
-            "vol_ratio": 1.02,
-            "pct_from_high": -25.6,
+            "chg_5d": -1.1,
+            "chg_20d": -1.32,
+            "vol_ratio": 0.62,
+            "pct_from_high": -40.2,
             "above_ma20": false,
             "above_ma60": false
           },
-          "entry_price": 3700.0,
-          "stop_loss_price": 3404.0,
-          "target_price": 4070.0,
+          "entry_price": 224.0,
+          "stop_loss_price": 206.08,
+          "target_price": 246.4,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
-          "stock_id": "2303",
-          "name": "聯電",
-          "date": "2026-08-20",
+          "stock_id": "2308",
+          "name": "台達電",
+          "date": "2026-08-21",
           "strategy_id": "kline-chu",
-          "risk_notes": [
-            "已在月線下方 5 日",
-            "基本面未過門檻"
-          ],
+          "risk_notes": [],
           "action": "WATCH",
-          "signal_score": 56.7,
+          "signal_score": 69.6,
           "components": {
-            "fundamental_pass": false,
-            "eps_min": 3.33,
-            "roe_min": 9.66,
-            "tech_score": 58,
+            "fundamental_pass": true,
+            "eps_min": 12.86,
+            "roe_min": 19.19,
+            "tech_score": 69,
             "tech_signals": [
               "MACD多頭",
-              "錘子"
+              "錘子",
+              "母子線"
             ],
-            "backtest_winrate": 0.598,
-            "backtest_samples": 209,
+            "backtest_winrate": 0.607,
+            "backtest_samples": 219,
             "volume_patterns": [
+              "縮量柱",
               "低量柱"
             ],
             "volume_details": {
-              "低量柱": "今日量僅 20 日均量 59%，拋壓耗盡"
+              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕",
+              "低量柱": "今日量僅 20 日均量 29%，拋壓耗盡"
             },
-            "volume_bonus": 8,
-            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
+            "volume_bonus": 13,
+            "volume_verdict": "🟡 底部極限縮量 + 洗盤完成，逢訊號可伏擊",
             "kline_domain": {
-              "buyer_pct": 58.3,
-              "seller_pct": 41.7,
-              "type": "拉鋸"
+              "buyer_pct": 75.0,
+              "seller_pct": 25.0,
+              "type": "偏多"
             },
             "kline_position": "低檔",
-            "kline_verdict": "收盤價領域拉鋸（買方58% / 賣方42%），訊號：錘子，位置：低檔第16天。",
+            "kline_verdict": "收盤價領域偏多（買方75% / 賣方25%），訊號：錘子、母子線，位置：低檔第17天。",
             "kline_warnings": [],
             "action_reason": "搶反彈四問3/4通過"
           },
           "trend": {
-            "chg_5d": -7.23,
-            "chg_20d": -16.61,
-            "vol_ratio": 0.57,
-            "pct_from_high": -37.7,
-            "above_ma20": false,
+            "chg_5d": -7.16,
+            "chg_20d": -1.96,
+            "vol_ratio": 0.71,
+            "pct_from_high": -32.3,
+            "above_ma20": true,
             "above_ma60": false
           },
-          "entry_price": 115.5,
-          "stop_loss_price": 106.26,
-          "target_price": 127.05,
+          "entry_price": 1750.0,
+          "stop_loss_price": 1610.0,
+          "target_price": 1925.0,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -131,19 +137,19 @@
         {
           "stock_id": "3008",
           "name": "大立光",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "基本面未過門檻",
             "歷史勝率 48% 低於五成"
           ],
           "action": "WATCH",
-          "signal_score": 52.0,
+          "signal_score": 56.8,
           "components": {
             "fundamental_pass": false,
             "eps_min": 134.13,
             "roe_min": 9.88,
-            "tech_score": 56,
+            "tech_score": 64,
             "tech_signals": [
               "均線多頭",
               "MACD多頭"
@@ -155,26 +161,136 @@
             "volume_bonus": 0,
             "volume_verdict": "量能平淡，無特殊訊號",
             "kline_domain": {
-              "buyer_pct": 40.0,
-              "seller_pct": 60.0,
-              "type": "偏空"
+              "buyer_pct": 71.4,
+              "seller_pct": 28.6,
+              "type": "偏多"
             },
             "kline_position": "高檔",
-            "kline_verdict": "收盤價領域偏空（買方40% / 賣方60%），無明顯K線訊號，位置：高檔第15天。",
+            "kline_verdict": "收盤價領域偏多（買方71% / 賣方29%），無明顯K線訊號，位置：高檔第16天。",
             "kline_warnings": [],
             "action_reason": "搶反彈四問3/4通過"
           },
           "trend": {
-            "chg_5d": 18.35,
-            "chg_20d": 33.21,
-            "vol_ratio": 1.23,
-            "pct_from_high": -3.6,
+            "chg_5d": 21.69,
+            "chg_20d": 43.11,
+            "vol_ratio": 1.31,
+            "pct_from_high": -2.4,
             "above_ma20": true,
             "above_ma60": true
           },
-          "entry_price": 5515.0,
-          "stop_loss_price": 5073.8,
-          "target_price": 6066.5,
+          "entry_price": 5610.0,
+          "stop_loss_price": 5161.2,
+          "target_price": 6171.0,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
+          "stock_id": "6770",
+          "name": "力積電",
+          "date": "2026-08-21",
+          "strategy_id": "kline-chu",
+          "risk_notes": [
+            "基本面未過門檻",
+            "歷史勝率 39% 低於五成"
+          ],
+          "action": "WATCH",
+          "signal_score": 56.4,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": -1.86,
+            "roe_min": -9.44,
+            "tech_score": 68,
+            "tech_signals": [
+              "MACD多頭",
+              "多方吞噬"
+            ],
+            "backtest_winrate": 0.388,
+            "backtest_samples": 206,
+            "volume_patterns": [
+              "低量柱"
+            ],
+            "volume_details": {
+              "低量柱": "今日量僅 20 日均量 50%，拋壓耗盡"
+            },
+            "volume_bonus": 8,
+            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
+            "kline_domain": {
+              "buyer_pct": 95.0,
+              "seller_pct": 5.0,
+              "type": "強勢控盤"
+            },
+            "kline_position": "低檔",
+            "kline_verdict": "收盤價領域強勢控盤（買方95% / 賣方5%），訊號：多方吞噬，位置：低檔第16天。",
+            "kline_warnings": [],
+            "action_reason": "搶反彈四問3/4通過"
+          },
+          "trend": {
+            "chg_5d": -12.76,
+            "chg_20d": 11.04,
+            "vol_ratio": 0.82,
+            "pct_from_high": -27.6,
+            "above_ma20": true,
+            "above_ma60": false
+          },
+          "entry_price": 68.4,
+          "stop_loss_price": 62.93,
+          "target_price": 75.24,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
+          "stock_id": "2303",
+          "name": "聯電",
+          "date": "2026-08-21",
+          "strategy_id": "kline-chu",
+          "risk_notes": [
+            "已在月線下方 6 日",
+            "基本面未過門檻"
+          ],
+          "action": "WATCH",
+          "signal_score": 52.5,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": 3.33,
+            "roe_min": 9.66,
+            "tech_score": 51,
+            "tech_signals": [
+              "MACD多頭",
+              "母子線"
+            ],
+            "backtest_winrate": 0.598,
+            "backtest_samples": 209,
+            "volume_patterns": [
+              "低量柱"
+            ],
+            "volume_details": {
+              "低量柱": "今日量僅 20 日均量 34%，拋壓耗盡"
+            },
+            "volume_bonus": 8,
+            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
+            "kline_domain": {
+              "buyer_pct": 83.3,
+              "seller_pct": 16.7,
+              "type": "強勢控盤"
+            },
+            "kline_position": "低檔",
+            "kline_verdict": "收盤價領域強勢控盤（買方83% / 賣方17%），訊號：母子線，位置：低檔第17天。",
+            "kline_warnings": [],
+            "action_reason": "搶反彈四問3/4通過"
+          },
+          "trend": {
+            "chg_5d": -3.72,
+            "chg_20d": -8.98,
+            "vol_ratio": 0.52,
+            "pct_from_high": -37.2,
+            "above_ma20": false,
+            "above_ma60": false
+          },
+          "entry_price": 116.5,
+          "stop_loss_price": 107.18,
+          "target_price": 128.15,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -182,7 +298,7 @@
         {
           "stock_id": "2408",
           "name": "南亞科",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "基本面未過門檻",
@@ -197,8 +313,7 @@
             "tech_score": 54,
             "tech_signals": [
               "均線多頭",
-              "MACD多頭",
-              "長紅K"
+              "MACD多頭"
             ],
             "backtest_winrate": 0.344,
             "backtest_samples": 224,
@@ -207,26 +322,26 @@
             "volume_bonus": 0,
             "volume_verdict": "量能平淡，無特殊訊號",
             "kline_domain": {
-              "buyer_pct": 76.0,
-              "seller_pct": 24.0,
+              "buyer_pct": 72.7,
+              "seller_pct": 27.3,
               "type": "偏多"
             },
             "kline_position": "高檔",
-            "kline_verdict": "收盤價領域偏多（買方76% / 賣方24%），訊號：長紅K，位置：高檔第15天。",
+            "kline_verdict": "收盤價領域偏多（買方73% / 賣方27%），無明顯K線訊號，位置：高檔第16天。",
             "kline_warnings": [],
             "action_reason": "搶反彈四問3/4通過"
           },
           "trend": {
-            "chg_5d": 0.58,
-            "chg_20d": 21.36,
-            "vol_ratio": 0.93,
-            "pct_from_high": -6.5,
+            "chg_5d": 3.12,
+            "chg_20d": 31.67,
+            "vol_ratio": 0.85,
+            "pct_from_high": -4.5,
             "above_ma20": true,
             "above_ma60": true
           },
-          "entry_price": 517.0,
-          "stop_loss_price": 475.64,
-          "target_price": 568.7,
+          "entry_price": 528.0,
+          "stop_loss_price": 485.76,
+          "target_price": 580.8,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -234,134 +349,290 @@
         {
           "stock_id": "2327",
           "name": "國巨",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "kline-chu",
           "risk_notes": [
-            "已在月線下方 3 日",
+            "已在月線下方 4 日",
             "基本面未過門檻"
           ],
           "action": "WATCH",
-          "signal_score": 39.2,
+          "signal_score": 44.6,
           "components": {
             "fundamental_pass": false,
             "eps_min": 26.9,
             "roe_min": 12.15,
-            "tech_score": 31,
+            "tech_score": 40,
             "tech_signals": [
-              "MACD多頭",
-              "長黑K"
+              "MACD多頭"
             ],
             "backtest_winrate": 0.554,
             "backtest_samples": 222,
+            "volume_patterns": [
+              "縮量柱",
+              "低量柱"
+            ],
+            "volume_details": {
+              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕",
+              "低量柱": "今日量僅 20 日均量 39%，拋壓耗盡"
+            },
+            "volume_bonus": 13,
+            "volume_verdict": "🟡 底部極限縮量 + 洗盤完成，逢訊號可伏擊",
+            "kline_domain": {
+              "buyer_pct": 7.1,
+              "seller_pct": 92.9,
+              "type": "強勢賣壓"
+            },
+            "kline_position": "低檔",
+            "kline_verdict": "收盤價領域強勢賣壓（買方7% / 賣方93%），無明顯K線訊號，位置：低檔第16天。",
+            "kline_warnings": [],
+            "action_reason": "搶反彈四問3/4通過"
+          },
+          "trend": {
+            "chg_5d": -10.93,
+            "chg_20d": -13.71,
+            "vol_ratio": 0.76,
+            "pct_from_high": -54.6,
+            "above_ma20": false,
+            "above_ma60": false
+          },
+          "entry_price": 554.0,
+          "stop_loss_price": 509.68,
+          "target_price": 609.4,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
+          "stock_id": "2454",
+          "name": "聯發科",
+          "date": "2026-08-21",
+          "strategy_id": "kline-chu",
+          "risk_notes": [
+            "已在月線下方 2 日",
+            "歷史勝率 46% 低於五成"
+          ],
+          "action": "WATCH",
+          "signal_score": 34.8,
+          "components": {
+            "fundamental_pass": true,
+            "eps_min": 48.51,
+            "roe_min": 22.05,
+            "tech_score": 18,
+            "tech_signals": [
+              "母子線"
+            ],
+            "backtest_winrate": 0.465,
+            "backtest_samples": 187,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
             "volume_verdict": "量能平淡，無特殊訊號",
             "kline_domain": {
-              "buyer_pct": 36.4,
-              "seller_pct": 63.6,
-              "type": "偏空"
+              "buyer_pct": 82.6,
+              "seller_pct": 17.4,
+              "type": "強勢控盤"
             },
-            "kline_position": "低檔",
-            "kline_verdict": "收盤價領域偏空（買方36% / 賣方64%），訊號：長黑K，位置：低檔第15天。",
+            "kline_position": "行進中",
+            "kline_verdict": "收盤價領域強勢控盤（買方83% / 賣方17%），訊號：母子線，位置：行進中第17天。",
             "kline_warnings": [],
             "action_reason": "搶反彈四問3/4通過"
           },
           "trend": {
-            "chg_5d": -15.11,
-            "chg_20d": -19.25,
+            "chg_5d": -9.98,
+            "chg_20d": 1.07,
             "vol_ratio": 0.94,
-            "pct_from_high": -53.9,
+            "pct_from_high": -23.7,
             "above_ma20": false,
             "above_ma60": false
           },
-          "entry_price": 562.0,
-          "stop_loss_price": 517.04,
-          "target_price": 618.2,
+          "entry_price": 3790.0,
+          "stop_loss_price": 3486.8,
+          "target_price": 4169.0,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
-          "stock_id": "6770",
-          "name": "力積電",
-          "date": "2026-08-20",
+          "stock_id": "2330",
+          "name": "台積電",
+          "date": "2026-08-21",
           "strategy_id": "kline-chu",
-          "risk_notes": [
-            "基本面未過門檻",
-            "歷史勝率 39% 低於五成"
-          ],
-          "action": "WATCH",
-          "signal_score": 38.4,
+          "risk_notes": [],
+          "action": "SKIP",
+          "signal_score": 68.2,
           "components": {
-            "fundamental_pass": false,
-            "eps_min": -1.86,
-            "roe_min": -9.44,
-            "tech_score": 38,
+            "fundamental_pass": true,
+            "eps_min": 32.34,
+            "roe_min": 23.97,
+            "tech_score": 58,
             "tech_signals": [
-              "MACD多頭"
+              "MACD多頭",
+              "三白兵"
             ],
-            "backtest_winrate": 0.388,
-            "backtest_samples": 206,
+            "backtest_winrate": 0.78,
+            "backtest_samples": 209,
             "volume_patterns": [
-              "縮量柱"
+              "低量柱"
             ],
             "volume_details": {
-              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕"
+              "低量柱": "今日量僅 20 日均量 55%，拋壓耗盡"
             },
-            "volume_bonus": 5,
-            "volume_verdict": "🟡 量縮洗盤，主力未退場",
+            "volume_bonus": 8,
+            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
             "kline_domain": {
-              "buyer_pct": 33.3,
-              "seller_pct": 66.7,
-              "type": "偏空"
+              "buyer_pct": 100.0,
+              "seller_pct": 0.0,
+              "type": "強勢控盤"
             },
-            "kline_position": "低檔",
-            "kline_verdict": "收盤價領域偏空（買方33% / 賣方67%），無明顯K線訊號，位置：低檔第15天。",
+            "kline_position": "高檔",
+            "kline_verdict": "收盤價領域強勢控盤（買方100% / 賣方0%），訊號：三白兵，位置：高檔第17天。",
             "kline_warnings": [],
-            "action_reason": "搶反彈四問3/4通過"
+            "action_reason": "搶反彈四問僅2/4通過，不建議進場"
           },
           "trend": {
-            "chg_5d": -10.15,
-            "chg_20d": 1.97,
-            "vol_ratio": 1.17,
-            "pct_from_high": -28.8,
+            "chg_5d": 0.63,
+            "chg_20d": 2.55,
+            "vol_ratio": 0.59,
+            "pct_from_high": -4.9,
             "above_ma20": true,
-            "above_ma60": false
+            "above_ma60": true
           },
-          "entry_price": 67.3,
-          "stop_loss_price": 61.92,
-          "target_price": 74.03,
+          "entry_price": 2410.0,
+          "stop_loss_price": 2217.2,
+          "target_price": 2651.0,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
-          "stock_id": "7765",
-          "name": "中華資安",
-          "date": "2026-08-20",
+          "stock_id": "0050",
+          "name": "元大台灣50",
+          "date": "2026-08-21",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "基本面未過門檻"
           ],
           "action": "SKIP",
-          "signal_score": 65.7,
+          "signal_score": 59.5,
           "components": {
             "fundamental_pass": false,
-            "eps_min": 7.8,
+            "eps_min": null,
             "roe_min": null,
-            "tech_score": 74,
+            "tech_score": 58,
             "tech_signals": [
-              "布林下軌反彈",
-              "MACD多頭"
+              "MACD多頭",
+              "多方吞噬"
             ],
-            "backtest_winrate": 0.577,
-            "backtest_samples": 130,
+            "backtest_winrate": 0.691,
+            "backtest_samples": 207,
             "volume_patterns": [
               "低量柱"
             ],
             "volume_details": {
-              "低量柱": "今日量僅 20 日均量 53%，拋壓耗盡"
+              "低量柱": "今日量僅 20 日均量 26%，拋壓耗盡"
+            },
+            "volume_bonus": 8,
+            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
+            "kline_domain": {
+              "buyer_pct": 90.6,
+              "seller_pct": 9.4,
+              "type": "強勢控盤"
+            },
+            "kline_position": "行進中",
+            "kline_verdict": "收盤價領域強勢控盤（買方91% / 賣方9%），訊號：多方吞噬，位置：行進中第17天。",
+            "kline_warnings": [],
+            "action_reason": "搶反彈四問僅2/4通過，不建議進場"
+          },
+          "trend": {
+            "chg_5d": -1.64,
+            "chg_20d": 2.9,
+            "vol_ratio": 0.4,
+            "pct_from_high": -6.8,
+            "above_ma20": true,
+            "above_ma60": true
+          },
+          "entry_price": 104.65,
+          "stop_loss_price": 96.28,
+          "target_price": 115.12,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
+          "stock_id": "2498",
+          "name": "宏達電",
+          "date": "2026-08-21",
+          "strategy_id": "kline-chu",
+          "risk_notes": [
+            "基本面未過門檻",
+            "歷史勝率 45% 低於五成"
+          ],
+          "action": "SKIP",
+          "signal_score": 57.1,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": -4.11,
+            "roe_min": -12.67,
+            "tech_score": 66,
+            "tech_signals": [
+              "KD黃金交叉",
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.449,
+            "backtest_samples": 205,
+            "volume_patterns": [],
+            "volume_details": {},
+            "volume_bonus": 0,
+            "volume_verdict": "量能平淡，無特殊訊號",
+            "kline_domain": {
+              "buyer_pct": 73.1,
+              "seller_pct": 26.9,
+              "type": "偏多"
+            },
+            "kline_position": "行進中",
+            "kline_verdict": "收盤價領域偏多（買方73% / 賣方27%），無明顯K線訊號，位置：行進中第16天。",
+            "kline_warnings": [],
+            "action_reason": "搶反彈四問僅2/4通過，不建議進場"
+          },
+          "trend": {
+            "chg_5d": 1.11,
+            "chg_20d": -1.92,
+            "vol_ratio": 1.1,
+            "pct_from_high": -46.7,
+            "above_ma20": true,
+            "above_ma60": false
+          },
+          "entry_price": 40.95,
+          "stop_loss_price": 37.67,
+          "target_price": 45.05,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
+          "stock_id": "2317",
+          "name": "鴻海",
+          "date": "2026-08-21",
+          "strategy_id": "kline-chu",
+          "risk_notes": [
+            "已在月線下方 4 日",
+            "基本面未過門檻"
+          ],
+          "action": "SKIP",
+          "signal_score": 33.4,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": 10.25,
+            "roe_min": 8.07,
+            "tech_score": 22,
+            "tech_signals": [],
+            "backtest_winrate": 0.54,
+            "backtest_samples": 211,
+            "volume_patterns": [
+              "低量柱"
+            ],
+            "volume_details": {
+              "低量柱": "今日量僅 20 日均量 46%，拋壓耗盡"
             },
             "volume_bonus": 8,
             "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
@@ -376,280 +647,16 @@
             "action_reason": "搶反彈四問僅2/4通過，不建議進場"
           },
           "trend": {
-            "chg_5d": -0.66,
-            "chg_20d": -0.44,
+            "chg_5d": -5.39,
+            "chg_20d": -2.77,
             "vol_ratio": 0.65,
-            "pct_from_high": -39.9,
-            "above_ma20": true,
-            "above_ma60": false
-          },
-          "entry_price": 225.0,
-          "stop_loss_price": 207.0,
-          "target_price": 247.5,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "2330",
-          "name": "台積電",
-          "date": "2026-08-20",
-          "strategy_id": "kline-chu",
-          "risk_notes": [],
-          "action": "SKIP",
-          "signal_score": 65.2,
-          "components": {
-            "fundamental_pass": true,
-            "eps_min": 32.34,
-            "roe_min": 23.97,
-            "tech_score": 53,
-            "tech_signals": [
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.78,
-            "backtest_samples": 209,
-            "volume_patterns": [
-              "低量柱"
-            ],
-            "volume_details": {
-              "低量柱": "今日量僅 20 日均量 49%，拋壓耗盡"
-            },
-            "volume_bonus": 8,
-            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
-            "kline_domain": {
-              "buyer_pct": 100.0,
-              "seller_pct": 0.0,
-              "type": "強勢控盤"
-            },
-            "kline_position": "行進中",
-            "kline_verdict": "收盤價領域強勢控盤（買方100% / 賣方0%），無明顯K線訊號，位置：行進中第16天。",
-            "kline_warnings": [],
-            "action_reason": "搶反彈四問僅2/4通過，不建議進場"
-          },
-          "trend": {
-            "chg_5d": -2.46,
-            "chg_20d": -1.25,
-            "vol_ratio": 0.6,
-            "pct_from_high": -6.3,
-            "above_ma20": true,
-            "above_ma60": false
-          },
-          "entry_price": 2375.0,
-          "stop_loss_price": 2185.0,
-          "target_price": 2612.5,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "0050",
-          "name": "元大台灣50",
-          "date": "2026-08-20",
-          "strategy_id": "kline-chu",
-          "risk_notes": [
-            "基本面未過門檻"
-          ],
-          "action": "SKIP",
-          "signal_score": 57.1,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": null,
-            "roe_min": null,
-            "tech_score": 54,
-            "tech_signals": [
-              "MACD多頭",
-              "錘子"
-            ],
-            "backtest_winrate": 0.691,
-            "backtest_samples": 207,
-            "volume_patterns": [
-              "低量柱"
-            ],
-            "volume_details": {
-              "低量柱": "今日量僅 20 日均量 28%，拋壓耗盡"
-            },
-            "volume_bonus": 8,
-            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
-            "kline_domain": {
-              "buyer_pct": 65.4,
-              "seller_pct": 34.6,
-              "type": "偏多"
-            },
-            "kline_position": "行進中",
-            "kline_verdict": "收盤價領域偏多（買方65% / 賣方35%），訊號：錘子，位置：行進中第16天。",
-            "kline_warnings": [],
-            "action_reason": "搶反彈四問僅2/4通過，不建議進場"
-          },
-          "trend": {
-            "chg_5d": -2.72,
-            "chg_20d": -0.1,
-            "vol_ratio": 0.45,
-            "pct_from_high": -7.6,
-            "above_ma20": true,
-            "above_ma60": false
-          },
-          "entry_price": 103.8,
-          "stop_loss_price": 95.5,
-          "target_price": 114.18,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "2308",
-          "name": "台達電",
-          "date": "2026-08-20",
-          "strategy_id": "kline-chu",
-          "risk_notes": [],
-          "action": "SKIP",
-          "signal_score": 47.5,
-          "components": {
-            "fundamental_pass": true,
-            "eps_min": 12.86,
-            "roe_min": 19.19,
-            "tech_score": 32,
-            "tech_signals": [
-              "MACD多頭",
-              "空方吞噬"
-            ],
-            "backtest_winrate": 0.61,
-            "backtest_samples": 218,
-            "volume_patterns": [],
-            "volume_details": {},
-            "volume_bonus": 0,
-            "volume_verdict": "量能平淡，無特殊訊號",
-            "kline_domain": {
-              "buyer_pct": 50.0,
-              "seller_pct": 50.0,
-              "type": "拉鋸"
-            },
-            "kline_position": "低檔",
-            "kline_verdict": "收盤價領域拉鋸（買方50% / 賣方50%），訊號：空方吞噬，位置：低檔第16天。",
-            "kline_warnings": [],
-            "action_reason": "搶反彈四問僅2/4通過，不建議進場"
-          },
-          "trend": {
-            "chg_5d": -7.43,
-            "chg_20d": -7.18,
-            "vol_ratio": 0.82,
-            "pct_from_high": -32.5,
-            "above_ma20": true,
-            "above_ma60": false
-          },
-          "entry_price": 1745.0,
-          "stop_loss_price": 1605.4,
-          "target_price": 1919.5,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "2317",
-          "name": "鴻海",
-          "date": "2026-08-20",
-          "strategy_id": "kline-chu",
-          "risk_notes": [
-            "已在月線下方 3 日",
-            "基本面未過門檻"
-          ],
-          "action": "SKIP",
-          "signal_score": 31.7,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": 10.25,
-            "roe_min": 8.07,
-            "tech_score": 19,
-            "tech_signals": [],
-            "backtest_winrate": 0.543,
-            "backtest_samples": 210,
-            "volume_patterns": [
-              "縮量柱",
-              "低量柱"
-            ],
-            "volume_details": {
-              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕",
-              "低量柱": "今日量僅 20 日均量 47%，拋壓耗盡"
-            },
-            "volume_bonus": 13,
-            "volume_verdict": "🟡 底部極限縮量 + 洗盤完成，逢訊號可伏擊",
-            "kline_domain": {
-              "buyer_pct": 38.5,
-              "seller_pct": 61.5,
-              "type": "偏空"
-            },
-            "kline_position": "低檔",
-            "kline_verdict": "收盤價領域偏空（買方38% / 賣方62%），無明顯K線訊號，位置：低檔第15天。",
-            "kline_warnings": [],
-            "action_reason": "搶反彈四問僅1/4通過，不建議進場"
-          },
-          "trend": {
-            "chg_5d": -5.92,
-            "chg_20d": -4.27,
-            "vol_ratio": 0.74,
-            "pct_from_high": -21.5,
+            "pct_from_high": -21.8,
             "above_ma20": false,
             "above_ma60": false
           },
-          "entry_price": 246.5,
-          "stop_loss_price": 226.78,
-          "target_price": 271.15,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "2498",
-          "name": "宏達電",
-          "date": "2026-08-20",
-          "strategy_id": "kline-chu",
-          "risk_notes": [
-            "已在月線下方 3 日",
-            "基本面未過門檻",
-            "歷史勝率 45% 低於五成",
-            "偵測到放量滯漲，高檔爆量疑似出貨"
-          ],
-          "action": "SKIP",
-          "signal_score": 21.7,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": -4.11,
-            "roe_min": -12.67,
-            "tech_score": 7,
-            "tech_signals": [
-              "MACD多頭",
-              "十字線"
-            ],
-            "backtest_winrate": 0.449,
-            "backtest_samples": 205,
-            "volume_patterns": [
-              "放量滯漲"
-            ],
-            "volume_details": {
-              "放量滯漲": "量放大 2.1x 但 K 線收黑或留上影"
-            },
-            "volume_bonus": -20,
-            "volume_verdict": "⚠️ 高檔爆量疑似出貨，持有者應考慮砍半鎖利",
-            "kline_domain": {
-              "buyer_pct": 0.0,
-              "seller_pct": 100.0,
-              "type": "強勢賣壓"
-            },
-            "kline_position": "低檔",
-            "kline_verdict": "收盤價領域強勢賣壓（買方0% / 賣方100%），訊號：十字線，位置：低檔第15天。",
-            "kline_warnings": [],
-            "action_reason": "搶反彈四問僅2/4通過，不建議進場"
-          },
-          "trend": {
-            "chg_5d": -0.25,
-            "chg_20d": -4.53,
-            "vol_ratio": 1.08,
-            "pct_from_high": -48.0,
-            "above_ma20": false,
-            "above_ma60": false
-          },
-          "entry_price": 40.0,
-          "stop_loss_price": 36.8,
-          "target_price": 44.0,
+          "entry_price": 245.5,
+          "stop_loss_price": 225.86,
+          "target_price": 270.05,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -663,16 +670,68 @@
       "summary": {
         "total": 12,
         "sell": 0,
-        "buy": 0,
-        "watch": 5,
+        "buy": 1,
+        "watch": 4,
         "skip": 7,
         "error": 0
       },
       "results": [
         {
+          "stock_id": "2308",
+          "name": "台達電",
+          "date": "2026-08-21",
+          "strategy_id": "default",
+          "risk_notes": [],
+          "action": "BUY",
+          "signal_score": 69.3,
+          "components": {
+            "fundamental_pass": true,
+            "eps_min": 12.86,
+            "roe_min": 19.19,
+            "tech_score": 50,
+            "tech_signals": [
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.607,
+            "backtest_samples": 219,
+            "volume_patterns": [
+              "縮量柱",
+              "低量柱"
+            ],
+            "volume_details": {
+              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕",
+              "低量柱": "今日量僅 20 日均量 29%，拋壓耗盡"
+            },
+            "volume_bonus": 13,
+            "volume_verdict": "🟡 底部極限縮量 + 洗盤完成，逢訊號可伏擊",
+            "kline_domain": {
+              "buyer_pct": 0.0,
+              "seller_pct": 0.0,
+              "type": ""
+            },
+            "kline_position": "",
+            "kline_verdict": "",
+            "kline_warnings": []
+          },
+          "trend": {
+            "chg_5d": -7.16,
+            "chg_20d": -1.96,
+            "vol_ratio": 0.71,
+            "pct_from_high": -32.3,
+            "above_ma20": true,
+            "above_ma60": false
+          },
+          "entry_price": 1750.0,
+          "stop_loss_price": 1610.0,
+          "target_price": 1925.0,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
           "stock_id": "2330",
           "name": "台積電",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "default",
           "risk_notes": [],
           "action": "WATCH",
@@ -691,7 +750,7 @@
               "低量柱"
             ],
             "volume_details": {
-              "低量柱": "今日量僅 20 日均量 49%，拋壓耗盡"
+              "低量柱": "今日量僅 20 日均量 55%，拋壓耗盡"
             },
             "volume_bonus": 8,
             "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
@@ -705,115 +764,16 @@
             "kline_warnings": []
           },
           "trend": {
-            "chg_5d": -2.46,
-            "chg_20d": -1.25,
-            "vol_ratio": 0.6,
-            "pct_from_high": -6.3,
+            "chg_5d": 0.63,
+            "chg_20d": 2.55,
+            "vol_ratio": 0.59,
+            "pct_from_high": -4.9,
             "above_ma20": true,
-            "above_ma60": false
+            "above_ma60": true
           },
-          "entry_price": 2375.0,
-          "stop_loss_price": 2185.0,
-          "target_price": 2612.5,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "2308",
-          "name": "台達電",
-          "date": "2026-08-20",
-          "strategy_id": "default",
-          "risk_notes": [],
-          "action": "WATCH",
-          "signal_score": 65.5,
-          "components": {
-            "fundamental_pass": true,
-            "eps_min": 12.86,
-            "roe_min": 19.19,
-            "tech_score": 37,
-            "tech_signals": [
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.61,
-            "backtest_samples": 218,
-            "volume_patterns": [],
-            "volume_details": {},
-            "volume_bonus": 0,
-            "volume_verdict": "量能平淡，無特殊訊號",
-            "kline_domain": {
-              "buyer_pct": 0.0,
-              "seller_pct": 0.0,
-              "type": ""
-            },
-            "kline_position": "",
-            "kline_verdict": "",
-            "kline_warnings": []
-          },
-          "trend": {
-            "chg_5d": -7.43,
-            "chg_20d": -7.18,
-            "vol_ratio": 0.82,
-            "pct_from_high": -32.5,
-            "above_ma20": true,
-            "above_ma60": false
-          },
-          "entry_price": 1745.0,
-          "stop_loss_price": 1605.4,
-          "target_price": 1919.5,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "7765",
-          "name": "中華資安",
-          "date": "2026-08-20",
-          "strategy_id": "default",
-          "risk_notes": [
-            "基本面未過門檻"
-          ],
-          "action": "WATCH",
-          "signal_score": 56.1,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": 7.8,
-            "roe_min": null,
-            "tech_score": 70,
-            "tech_signals": [
-              "布林下軌反彈",
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.577,
-            "backtest_samples": 130,
-            "volume_patterns": [
-              "低量柱"
-            ],
-            "volume_details": {
-              "低量柱": "今日量僅 20 日均量 53%，拋壓耗盡"
-            },
-            "volume_bonus": 8,
-            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
-            "kline_domain": {
-              "buyer_pct": 0.0,
-              "seller_pct": 0.0,
-              "type": ""
-            },
-            "kline_position": "",
-            "kline_verdict": "",
-            "kline_warnings": []
-          },
-          "trend": {
-            "chg_5d": -0.66,
-            "chg_20d": -0.44,
-            "vol_ratio": 0.65,
-            "pct_from_high": -39.9,
-            "above_ma20": true,
-            "above_ma60": false
-          },
-          "entry_price": 225.0,
-          "stop_loss_price": 207.0,
-          "target_price": 247.5,
+          "entry_price": 2410.0,
+          "stop_loss_price": 2217.2,
+          "target_price": 2651.0,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -821,7 +781,7 @@
         {
           "stock_id": "0050",
           "name": "元大台灣50",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
@@ -842,7 +802,7 @@
               "低量柱"
             ],
             "volume_details": {
-              "低量柱": "今日量僅 20 日均量 28%，拋壓耗盡"
+              "低量柱": "今日量僅 20 日均量 26%，拋壓耗盡"
             },
             "volume_bonus": 8,
             "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
@@ -856,16 +816,69 @@
             "kline_warnings": []
           },
           "trend": {
-            "chg_5d": -2.72,
-            "chg_20d": -0.1,
-            "vol_ratio": 0.45,
-            "pct_from_high": -7.6,
+            "chg_5d": -1.64,
+            "chg_20d": 2.9,
+            "vol_ratio": 0.4,
+            "pct_from_high": -6.8,
             "above_ma20": true,
+            "above_ma60": true
+          },
+          "entry_price": 104.65,
+          "stop_loss_price": 96.28,
+          "target_price": 115.12,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
+          "stock_id": "7765",
+          "name": "中華資安",
+          "date": "2026-08-21",
+          "strategy_id": "default",
+          "risk_notes": [
+            "基本面未過門檻"
+          ],
+          "action": "WATCH",
+          "signal_score": 52.3,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": 7.8,
+            "roe_min": null,
+            "tech_score": 58,
+            "tech_signals": [
+              "布林下軌反彈",
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.573,
+            "backtest_samples": 131,
+            "volume_patterns": [
+              "低量柱"
+            ],
+            "volume_details": {
+              "低量柱": "今日量僅 20 日均量 17%，拋壓耗盡"
+            },
+            "volume_bonus": 8,
+            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
+            "kline_domain": {
+              "buyer_pct": 0.0,
+              "seller_pct": 0.0,
+              "type": ""
+            },
+            "kline_position": "",
+            "kline_verdict": "",
+            "kline_warnings": []
+          },
+          "trend": {
+            "chg_5d": -1.1,
+            "chg_20d": -1.32,
+            "vol_ratio": 0.62,
+            "pct_from_high": -40.2,
+            "above_ma20": false,
             "above_ma60": false
           },
-          "entry_price": 103.8,
-          "stop_loss_price": 95.5,
-          "target_price": 114.18,
+          "entry_price": 224.0,
+          "stop_loss_price": 206.08,
+          "target_price": 246.4,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -873,7 +886,7 @@
         {
           "stock_id": "2454",
           "name": "聯發科",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 46% 低於五成"
@@ -902,16 +915,16 @@
             "kline_warnings": []
           },
           "trend": {
-            "chg_5d": -12.43,
-            "chg_20d": -4.52,
-            "vol_ratio": 1.02,
-            "pct_from_high": -25.6,
+            "chg_5d": -9.98,
+            "chg_20d": 1.07,
+            "vol_ratio": 0.94,
+            "pct_from_high": -23.7,
             "above_ma20": false,
             "above_ma60": false
           },
-          "entry_price": 3700.0,
-          "stop_loss_price": 3404.0,
-          "target_price": 4070.0,
+          "entry_price": 3790.0,
+          "stop_loss_price": 3486.8,
+          "target_price": 4169.0,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -919,7 +932,7 @@
         {
           "stock_id": "3008",
           "name": "大立光",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻",
@@ -952,16 +965,16 @@
             "kline_warnings": []
           },
           "trend": {
-            "chg_5d": 18.35,
-            "chg_20d": 33.21,
-            "vol_ratio": 1.23,
-            "pct_from_high": -3.6,
+            "chg_5d": 21.69,
+            "chg_20d": 43.11,
+            "vol_ratio": 1.31,
+            "pct_from_high": -2.4,
             "above_ma20": true,
             "above_ma60": true
           },
-          "entry_price": 5515.0,
-          "stop_loss_price": 5073.8,
-          "target_price": 6066.5,
+          "entry_price": 5610.0,
+          "stop_loss_price": 5161.2,
+          "target_price": 6171.0,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -969,7 +982,7 @@
         {
           "stock_id": "2303",
           "name": "聯電",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
@@ -990,7 +1003,7 @@
               "低量柱"
             ],
             "volume_details": {
-              "低量柱": "今日量僅 20 日均量 59%，拋壓耗盡"
+              "低量柱": "今日量僅 20 日均量 34%，拋壓耗盡"
             },
             "volume_bonus": 8,
             "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
@@ -1004,16 +1017,16 @@
             "kline_warnings": []
           },
           "trend": {
-            "chg_5d": -7.23,
-            "chg_20d": -16.61,
-            "vol_ratio": 0.57,
-            "pct_from_high": -37.7,
+            "chg_5d": -3.72,
+            "chg_20d": -8.98,
+            "vol_ratio": 0.52,
+            "pct_from_high": -37.2,
             "above_ma20": false,
             "above_ma60": false
           },
-          "entry_price": 115.5,
-          "stop_loss_price": 106.26,
-          "target_price": 127.05,
+          "entry_price": 116.5,
+          "stop_loss_price": 107.18,
+          "target_price": 128.15,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -1021,23 +1034,79 @@
         {
           "stock_id": "2327",
           "name": "國巨",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
           ],
           "action": "SKIP",
-          "signal_score": 44.7,
+          "signal_score": 48.6,
           "components": {
             "fundamental_pass": false,
             "eps_min": 26.9,
             "roe_min": 12.15,
-            "tech_score": 35,
+            "tech_score": 48,
             "tech_signals": [
               "MACD多頭"
             ],
             "backtest_winrate": 0.554,
             "backtest_samples": 222,
+            "volume_patterns": [
+              "縮量柱",
+              "低量柱"
+            ],
+            "volume_details": {
+              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕",
+              "低量柱": "今日量僅 20 日均量 39%，拋壓耗盡"
+            },
+            "volume_bonus": 13,
+            "volume_verdict": "🟡 底部極限縮量 + 洗盤完成，逢訊號可伏擊",
+            "kline_domain": {
+              "buyer_pct": 0.0,
+              "seller_pct": 0.0,
+              "type": ""
+            },
+            "kline_position": "",
+            "kline_verdict": "",
+            "kline_warnings": []
+          },
+          "trend": {
+            "chg_5d": -10.93,
+            "chg_20d": -13.71,
+            "vol_ratio": 0.76,
+            "pct_from_high": -54.6,
+            "above_ma20": false,
+            "above_ma60": false
+          },
+          "entry_price": 554.0,
+          "stop_loss_price": 509.68,
+          "target_price": 609.4,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
+          "stock_id": "2498",
+          "name": "宏達電",
+          "date": "2026-08-21",
+          "strategy_id": "default",
+          "risk_notes": [
+            "基本面未過門檻",
+            "歷史勝率 45% 低於五成"
+          ],
+          "action": "SKIP",
+          "signal_score": 48.6,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": -4.11,
+            "roe_min": -12.67,
+            "tech_score": 62,
+            "tech_signals": [
+              "KD黃金交叉",
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.449,
+            "backtest_samples": 205,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -1052,16 +1121,69 @@
             "kline_warnings": []
           },
           "trend": {
-            "chg_5d": -15.11,
-            "chg_20d": -19.25,
-            "vol_ratio": 0.94,
-            "pct_from_high": -53.9,
-            "above_ma20": false,
+            "chg_5d": 1.11,
+            "chg_20d": -1.92,
+            "vol_ratio": 1.1,
+            "pct_from_high": -46.7,
+            "above_ma20": true,
             "above_ma60": false
           },
-          "entry_price": 562.0,
-          "stop_loss_price": 517.04,
-          "target_price": 618.2,
+          "entry_price": 40.95,
+          "stop_loss_price": 37.67,
+          "target_price": 45.05,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
+          "stock_id": "6770",
+          "name": "力積電",
+          "date": "2026-08-21",
+          "strategy_id": "default",
+          "risk_notes": [
+            "基本面未過門檻",
+            "歷史勝率 39% 低於五成"
+          ],
+          "action": "SKIP",
+          "signal_score": 41.0,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": -1.86,
+            "roe_min": -9.44,
+            "tech_score": 45,
+            "tech_signals": [
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.388,
+            "backtest_samples": 206,
+            "volume_patterns": [
+              "低量柱"
+            ],
+            "volume_details": {
+              "低量柱": "今日量僅 20 日均量 50%，拋壓耗盡"
+            },
+            "volume_bonus": 8,
+            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
+            "kline_domain": {
+              "buyer_pct": 0.0,
+              "seller_pct": 0.0,
+              "type": ""
+            },
+            "kline_position": "",
+            "kline_verdict": "",
+            "kline_warnings": []
+          },
+          "trend": {
+            "chg_5d": -12.76,
+            "chg_20d": 11.04,
+            "vol_ratio": 0.82,
+            "pct_from_high": -27.6,
+            "above_ma20": true,
+            "above_ma60": false
+          },
+          "entry_price": 68.4,
+          "stop_loss_price": 62.93,
+          "target_price": 75.24,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -1069,7 +1191,7 @@
         {
           "stock_id": "2408",
           "name": "南亞科",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻",
@@ -1102,16 +1224,16 @@
             "kline_warnings": []
           },
           "trend": {
-            "chg_5d": 0.58,
-            "chg_20d": 21.36,
-            "vol_ratio": 0.93,
-            "pct_from_high": -6.5,
+            "chg_5d": 3.12,
+            "chg_20d": 31.67,
+            "vol_ratio": 0.85,
+            "pct_from_high": -4.5,
             "above_ma20": true,
             "above_ma60": true
           },
-          "entry_price": 517.0,
-          "stop_loss_price": 475.64,
-          "target_price": 568.7,
+          "entry_price": 528.0,
+          "stop_loss_price": 485.76,
+          "target_price": 580.8,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -1119,31 +1241,29 @@
         {
           "stock_id": "2317",
           "name": "鴻海",
-          "date": "2026-08-20",
+          "date": "2026-08-21",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
           ],
           "action": "SKIP",
-          "signal_score": 40.6,
+          "signal_score": 39.0,
           "components": {
             "fundamental_pass": false,
             "eps_min": 10.25,
             "roe_min": 8.07,
-            "tech_score": 23,
+            "tech_score": 18,
             "tech_signals": [],
-            "backtest_winrate": 0.543,
-            "backtest_samples": 210,
+            "backtest_winrate": 0.54,
+            "backtest_samples": 211,
             "volume_patterns": [
-              "縮量柱",
               "低量柱"
             ],
             "volume_details": {
-              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕",
-              "低量柱": "今日量僅 20 日均量 47%，拋壓耗盡"
+              "低量柱": "今日量僅 20 日均量 46%，拋壓耗盡"
             },
-            "volume_bonus": 13,
-            "volume_verdict": "🟡 底部極限縮量 + 洗盤完成，逢訊號可伏擊",
+            "volume_bonus": 8,
+            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
             "kline_domain": {
               "buyer_pct": 0.0,
               "seller_pct": 0.0,
@@ -1154,123 +1274,16 @@
             "kline_warnings": []
           },
           "trend": {
-            "chg_5d": -5.92,
-            "chg_20d": -4.27,
-            "vol_ratio": 0.74,
-            "pct_from_high": -21.5,
+            "chg_5d": -5.39,
+            "chg_20d": -2.77,
+            "vol_ratio": 0.65,
+            "pct_from_high": -21.8,
             "above_ma20": false,
             "above_ma60": false
           },
-          "entry_price": 246.5,
-          "stop_loss_price": 226.78,
-          "target_price": 271.15,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "6770",
-          "name": "力積電",
-          "date": "2026-08-20",
-          "strategy_id": "default",
-          "risk_notes": [
-            "基本面未過門檻",
-            "歷史勝率 39% 低於五成"
-          ],
-          "action": "SKIP",
-          "signal_score": 40.1,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": -1.86,
-            "roe_min": -9.44,
-            "tech_score": 42,
-            "tech_signals": [
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.388,
-            "backtest_samples": 206,
-            "volume_patterns": [
-              "縮量柱"
-            ],
-            "volume_details": {
-              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕"
-            },
-            "volume_bonus": 5,
-            "volume_verdict": "🟡 量縮洗盤，主力未退場",
-            "kline_domain": {
-              "buyer_pct": 0.0,
-              "seller_pct": 0.0,
-              "type": ""
-            },
-            "kline_position": "",
-            "kline_verdict": "",
-            "kline_warnings": []
-          },
-          "trend": {
-            "chg_5d": -10.15,
-            "chg_20d": 1.97,
-            "vol_ratio": 1.17,
-            "pct_from_high": -28.8,
-            "above_ma20": true,
-            "above_ma60": false
-          },
-          "entry_price": 67.3,
-          "stop_loss_price": 61.92,
-          "target_price": 74.03,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "2498",
-          "name": "宏達電",
-          "date": "2026-08-20",
-          "strategy_id": "default",
-          "risk_notes": [
-            "基本面未過門檻",
-            "歷史勝率 45% 低於五成",
-            "偵測到放量滯漲，高檔爆量疑似出貨"
-          ],
-          "action": "SKIP",
-          "signal_score": 34.5,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": -4.11,
-            "roe_min": -12.67,
-            "tech_score": 15,
-            "tech_signals": [
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.449,
-            "backtest_samples": 205,
-            "volume_patterns": [
-              "放量滯漲"
-            ],
-            "volume_details": {
-              "放量滯漲": "量放大 2.1x 但 K 線收黑或留上影"
-            },
-            "volume_bonus": -20,
-            "volume_verdict": "⚠️ 高檔爆量疑似出貨，持有者應考慮砍半鎖利",
-            "kline_domain": {
-              "buyer_pct": 0.0,
-              "seller_pct": 0.0,
-              "type": ""
-            },
-            "kline_position": "",
-            "kline_verdict": "",
-            "kline_warnings": []
-          },
-          "trend": {
-            "chg_5d": -0.25,
-            "chg_20d": -4.53,
-            "vol_ratio": 1.08,
-            "pct_from_high": -48.0,
-            "above_ma20": false,
-            "above_ma60": false
-          },
-          "entry_price": 40.0,
-          "stop_loss_price": 36.8,
-          "target_price": 44.0,
+          "entry_price": 245.5,
+          "stop_loss_price": 225.86,
+          "target_price": 270.05,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -1282,27 +1295,29 @@
     "2330": {
       "stock_id": "2330",
       "name": "台積電",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 2365.0,
-        "high": 2375.0,
-        "low": 2350.0,
-        "close": 2375.0,
-        "volume": 15873737.0,
-        "chg_pct": 1.06
+        "open": 2375.0,
+        "high": 2410.0,
+        "low": 2365.0,
+        "close": 2410.0,
+        "volume": 17227480.0,
+        "chg_pct": 1.47
       },
       "snapshot": {
-        "signals": [],
-        "bonus": 8,
+        "signals": [
+          "三白兵"
+        ],
+        "bonus": 13,
         "domain": {
           "buyer_pct": 100.0,
           "seller_pct": 0.0,
           "type": "強勢控盤"
         },
-        "position": "行進中",
-        "leg_days": 16,
+        "position": "高檔",
+        "leg_days": 17,
         "warnings": [],
-        "verdict": "收盤價領域強勢控盤（買方100% / 賣方0%），無明顯K線訊號，位置：行進中第16天。"
+        "verdict": "收盤價領域強勢控盤（買方100% / 賣方0%），訊號：三白兵，位置：高檔第17天。"
       },
       "wave": {
         "trend": "盤整",
@@ -1339,7 +1354,7 @@
             "price": 2180.0
           }
         ],
-        "evidence": "轉折高：07/31 2425.0 → 08/13 2445.0（較高）；轉折低：07/17 2290.0 → 07/29 2180.0（較低）；今日收盤2375.0尚未突破最近確認轉折高2445.0（-2.9%）；尚未跌破最近確認轉折低2180.0（+8.9%）"
+        "evidence": "轉折高：07/31 2425.0 → 08/13 2445.0（較高）；轉折低：07/17 2290.0 → 07/29 2180.0（較低）；今日收盤2410.0尚未突破最近確認轉折高2445.0（-1.4%）；尚未跌破最近確認轉折低2180.0（+10.6%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -1353,7 +1368,7 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "底底高尚未成立：最近轉折低 2180.0 仍低於前低 2290.0。（均線部分已達標：MA10 2388.00→2389.50、MA20 2354.50→2358.25，皆翻揚/走平）"
+            "detail": "底底高尚未成立：最近轉折低 2180.0 仍低於前低 2290.0。（均線部分已達標：MA10 2385.00→2393.50、MA20 2359.75→2361.25，皆翻揚/走平）"
           },
           {
             "name": "③突破",
@@ -1363,7 +1378,7 @@
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=2380.00 MA10=2389.50 MA20=2358.25（未多排），目前為盤整。"
+            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=2383.00 MA10=2393.50 MA20=2361.25（未多排），目前為盤整。"
           }
         ],
         "skipped_stages": [],
@@ -1392,7 +1407,7 @@
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤2375.00尚未突破近20日內任一轉折高"
+            "detail": "收盤2410.00尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -1401,58 +1416,58 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "盤整",
-          "detail": "轉折高：07/31 2425.0 → 08/13 2445.0（較高）；轉折低：07/17 2290.0 → 07/29 2180.0（較低）；今日收盤2375.0尚未突破最近確認轉折高2445.0（-2.9%）；尚未跌破最近確認轉折低2180.0（+8.9%）"
+          "detail": "轉折高：07/31 2425.0 → 08/13 2445.0（較高）；轉折低：07/17 2290.0 → 07/29 2180.0（較低）；今日收盤2410.0尚未突破最近確認轉折高2445.0（-1.4%）；尚未跌破最近確認轉折低2180.0（+10.6%）"
         },
         {
           "step": 2,
           "name": "均線",
           "verdict": "糾結",
-          "detail": "MA5=2380.00 MA10=2389.50 MA20=2358.25（糾結）；季線在股價下方，上揚"
+          "detail": "MA5=2383.00 MA10=2393.50 MA20=2361.25（糾結）；季線在股價上方，上揚"
         },
         {
           "step": 3,
           "name": "位置",
-          "verdict": "行進中",
-          "detail": "行進中第16天，收盤價領域強勢控盤"
+          "verdict": "高檔",
+          "detail": "高檔第17天，收盤價領域強勢控盤"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "無",
-          "detail": "收盤價領域強勢控盤（買方100% / 賣方0%），無明顯K線訊號，位置：行進中第16天。"
+          "verdict": "三白兵",
+          "detail": "收盤價領域強勢控盤（買方100% / 賣方0%），訊號：三白兵，位置：高檔第17天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.50x（第16天）",
-          "detail": "今量15873737／20日均量31529968"
+          "verdict": "0.55x（第17天）",
+          "detail": "今量17227480／20日均量31205517"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "中性",
-          "detail": "週收盤2375.00跌破週MA5(2383.00)，日線趨勢盤整，暫無明確方向可比對"
+          "detail": "週收盤2410.00站上週MA5(2390.00)，日線趨勢盤整，暫無明確方向可比對"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "MA10法停損2389.5（已跌破（+0.6%））",
-          "detail": "行進中部位，用中期MA10法，最常用的移動停利"
+          "verdict": "MA5法停損2383.0（-1.1%）",
+          "detail": "高檔部位，用最緊的MA5法保護獲利，跌破立即出場"
         }
       ],
       "discipline": {
-        "passed": 5,
+        "passed": 4,
         "total": 5,
         "items": [
           {
             "rule": "高檔不追多",
-            "pass": true,
-            "detail": "位置行進中第16天，非高檔久盤"
+            "pass": false,
+            "detail": "位置高檔第17天，已達7天門檻，不宜追高"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離0.7%"
+            "detail": "對MA20乖離2.1%"
           },
           {
             "rule": "突破需收盤確認",
@@ -1462,7 +1477,7 @@
           {
             "rule": "長線保護短線",
             "pass": true,
-            "detail": "週收盤2375.00跌破週MA5(2383.00)，日線趨勢盤整，暫無明確方向可比對"
+            "detail": "週收盤2410.00站上週MA5(2390.00)，日線趨勢盤整，暫無明確方向可比對"
           },
           {
             "rule": "不接下跌刀",
@@ -1472,65 +1487,65 @@
         ]
       },
       "stop_loss": {
-        "recommended": "MA10法",
-        "price": 2389.5,
-        "distance_pct": -0.61,
-        "reason": "行進中部位，用中期MA10法，最常用的移動停利",
+        "recommended": "MA5法",
+        "price": 2383.0,
+        "distance_pct": 1.12,
+        "reason": "高檔部位，用最緊的MA5法保護獲利，跌破立即出場",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 2335.0,
-            "distance_pct": 1.68
+            "price": 2350.0,
+            "distance_pct": 2.49
           },
           {
             "method": "MA5法",
-            "price": 2380.0,
-            "distance_pct": -0.21
+            "price": 2383.0,
+            "distance_pct": 1.12
           },
           {
             "method": "MA10法",
-            "price": 2389.5,
-            "distance_pct": -0.61
+            "price": 2393.5,
+            "distance_pct": 0.68
           },
           {
             "method": "前波低點法",
             "price": 2180.0,
-            "distance_pct": 8.21
+            "distance_pct": 9.54
           },
           {
             "method": "固定5%法",
-            "price": 2256.25,
+            "price": 2289.5,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "台積電(2330)目前處於行進中第16天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問2/4通過（2/4通過，訊號打折扣，需保守看待）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以MA10法停損於2389.5（已跌破（+0.6%））。",
+      "verdict": "台積電(2330)目前處於高檔第17天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問2/4通過（2/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：高檔不追多，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以MA5法停損於2383.0（-1.1%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "2317": {
       "stock_id": "2317",
       "name": "鴻海",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 250.5,
-        "high": 250.5,
-        "low": 244.0,
-        "close": 246.5,
-        "volume": 26344428.0,
-        "chg_pct": 0.61
+        "open": 245.0,
+        "high": 247.0,
+        "low": 243.0,
+        "close": 245.5,
+        "volume": 25135299.0,
+        "chg_pct": -0.41
       },
       "snapshot": {
         "signals": [],
-        "bonus": -4,
+        "bonus": 4,
         "domain": {
-          "buyer_pct": 38.5,
-          "seller_pct": 61.5,
-          "type": "偏空"
+          "buyer_pct": 62.5,
+          "seller_pct": 37.5,
+          "type": "偏多"
         },
         "position": "低檔",
-        "leg_days": 15,
+        "leg_days": 16,
         "warnings": [],
-        "verdict": "收盤價領域偏空（買方38% / 賣方62%），無明顯K線訊號，位置：低檔第15天。"
+        "verdict": "收盤價領域偏多（買方62% / 賣方38%），無明顯K線訊號，位置：低檔第16天。"
       },
       "wave": {
         "trend": "盤整",
@@ -1567,7 +1582,7 @@
             "price": 226.5
           }
         ],
-        "evidence": "轉折高：07/23 259.5 → 08/13 274.5（較高）；轉折低：07/20 230.5 → 07/30 226.5（較低）；今日收盤246.5尚未突破最近確認轉折高274.5（-10.2%）；尚未跌破最近確認轉折低226.5（+8.8%）"
+        "evidence": "轉折高：07/23 259.5 → 08/13 274.5（較高）；轉折低：07/20 230.5 → 07/30 226.5（較低）；今日收盤245.5尚未突破最近確認轉折高274.5（-10.6%）；尚未跌破最近確認轉折低226.5（+8.4%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -1581,26 +1596,26 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "底底高尚未成立：最近轉折低 226.5 仍低於前低 230.5；且MA10 259.60→257.45、MA20 251.47→253.05（仍下彎）。"
+            "detail": "底底高尚未成立：最近轉折低 226.5 仍低於前低 230.5；且MA10 260.50→256.00、MA20 252.75→252.70（仍下彎）。"
           },
           {
             "name": "③突破",
             "pass": false,
-            "detail": "價格條件未達標：收盤 246.5 未站上 MA20 253.1、尚未突破前轉折高 274.5。"
+            "detail": "價格條件未達標：收盤 245.5 未站上 MA20 252.7、尚未突破前轉折高 274.5。"
           },
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=251.00 MA10=257.45 MA20=253.05（未多排），目前為盤整。"
+            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=248.20 MA10=256.00 MA20=252.70（未多排），目前為盤整。"
           }
         ],
         "skipped_stages": [],
         "stage_note": ""
       },
       "rebound_check": {
-        "passed": 1,
+        "passed": 2,
         "total": 4,
-        "conclusion": "僅1/4通過，不建議搶反彈",
+        "conclusion": "2/4通過，訊號打折扣，需保守看待",
         "items": [
           {
             "q": "①有沒有急跌",
@@ -1614,13 +1629,13 @@
           },
           {
             "q": "③有沒有止跌",
-            "pass": false,
-            "detail": "近10日無明顯止跌K線"
+            "pass": true,
+            "detail": "止跌訊號：08/21長下影"
           },
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤246.50尚未突破近20日內任一轉折高"
+            "detail": "收盤245.50尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -1629,42 +1644,42 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "盤整",
-          "detail": "轉折高：07/23 259.5 → 08/13 274.5（較高）；轉折低：07/20 230.5 → 07/30 226.5（較低）；今日收盤246.5尚未突破最近確認轉折高274.5（-10.2%）；尚未跌破最近確認轉折低226.5（+8.8%）"
+          "detail": "轉折高：07/23 259.5 → 08/13 274.5（較高）；轉折低：07/20 230.5 → 07/30 226.5（較低）；今日收盤245.5尚未突破最近確認轉折高274.5（-10.6%）；尚未跌破最近確認轉折低226.5（+8.4%）"
         },
         {
           "step": 2,
           "name": "均線",
           "verdict": "不明確",
-          "detail": "MA5=251.00 MA10=257.45 MA20=253.05（不明確）；季線在股價下方，下彎"
+          "detail": "MA5=248.20 MA10=256.00 MA20=252.70（不明確）；季線在股價下方，下彎"
         },
         {
           "step": 3,
           "name": "位置",
           "verdict": "低檔",
-          "detail": "低檔第15天，收盤價領域偏空"
+          "detail": "低檔第16天，收盤價領域偏多"
         },
         {
           "step": 4,
           "name": "K線訊號",
           "verdict": "無",
-          "detail": "收盤價領域偏空（買方38% / 賣方62%），無明顯K線訊號，位置：低檔第15天。"
+          "detail": "收盤價領域偏多（買方62% / 賣方38%），無明顯K線訊號，位置：低檔第16天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.48x（第15天）",
-          "detail": "今量26344428／20日均量54398520"
+          "verdict": "0.47x（第16天）",
+          "detail": "今量25135299／20日均量53970557"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "中性",
-          "detail": "週收盤246.50跌破週MA5(253.80)，日線趨勢盤整，暫無明確方向可比對"
+          "detail": "週收盤245.50跌破週MA5(253.60)，日線趨勢盤整，暫無明確方向可比對"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "前波低點法停損226.5（-8.1%）",
+          "verdict": "前波低點法停損226.5（-7.7%）",
           "detail": "低檔剛止跌，給較大空間確認打底，用前波低點法"
         }
       ],
@@ -1675,12 +1690,12 @@
           {
             "rule": "高檔不追多",
             "pass": true,
-            "detail": "位置低檔第15天，非高檔久盤"
+            "detail": "位置低檔第16天，非高檔久盤"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離-2.6%"
+            "detail": "對MA20乖離-2.8%"
           },
           {
             "rule": "突破需收盤確認",
@@ -1690,77 +1705,77 @@
           {
             "rule": "長線保護短線",
             "pass": true,
-            "detail": "週收盤246.50跌破週MA5(253.80)，日線趨勢盤整，暫無明確方向可比對"
+            "detail": "週收盤245.50跌破週MA5(253.60)，日線趨勢盤整，暫無明確方向可比對"
           },
           {
             "rule": "不接下跌刀",
             "pass": true,
-            "detail": "趨勢盤整，搶反彈四問1/4通過"
+            "detail": "趨勢盤整，搶反彈四問2/4通過"
           }
         ]
       },
       "stop_loss": {
         "recommended": "前波低點法",
         "price": 226.5,
-        "distance_pct": 8.11,
+        "distance_pct": 7.74,
         "reason": "低檔剛止跌，給較大空間確認打底，用前波低點法",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 242.5,
-            "distance_pct": 1.62
+            "price": 244.0,
+            "distance_pct": 0.61
           },
           {
             "method": "MA5法",
-            "price": 251.0,
-            "distance_pct": -1.83
+            "price": 248.2,
+            "distance_pct": -1.1
           },
           {
             "method": "MA10法",
-            "price": 257.45,
-            "distance_pct": -4.44
+            "price": 256.0,
+            "distance_pct": -4.28
           },
           {
             "method": "前波低點法",
             "price": 226.5,
-            "distance_pct": 8.11
+            "distance_pct": 7.74
           },
           {
             "method": "固定5%法",
-            "price": 234.17,
+            "price": 233.22,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "鴻海(2317)目前處於低檔第15天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問1/4通過（僅1/4通過，不建議搶反彈）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以前波低點法停損於226.5（-8.1%）。",
+      "verdict": "鴻海(2317)目前處於低檔第16天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問2/4通過（2/4通過，訊號打折扣，需保守看待）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以前波低點法停損於226.5（-7.7%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "2454": {
       "stock_id": "2454",
       "name": "聯發科",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 3820.0,
-        "high": 3870.0,
-        "low": 3675.0,
-        "close": 3700.0,
-        "volume": 12864952.0,
-        "chg_pct": -3.77
+        "open": 3725.0,
+        "high": 3810.0,
+        "low": 3695.0,
+        "close": 3790.0,
+        "volume": 6012234.0,
+        "chg_pct": 2.43
       },
       "snapshot": {
         "signals": [
-          "長黑K"
+          "母子線"
         ],
-        "bonus": -8,
+        "bonus": 8,
         "domain": {
-          "buyer_pct": 12.8,
-          "seller_pct": 87.2,
-          "type": "強勢賣壓"
+          "buyer_pct": 82.6,
+          "seller_pct": 17.4,
+          "type": "強勢控盤"
         },
-        "position": "低檔",
-        "leg_days": 16,
+        "position": "行進中",
+        "leg_days": 17,
         "warnings": [],
-        "verdict": "收盤價領域強勢賣壓（買方13% / 賣方87%），訊號：長黑K，位置：低檔第16天。"
+        "verdict": "收盤價領域強勢控盤（買方83% / 賣方17%），訊號：母子線，位置：行進中第17天。"
       },
       "wave": {
         "trend": "多頭轉弱",
@@ -1797,11 +1812,11 @@
             "price": 3810.0
           }
         ],
-        "evidence": "轉折高：08/05 4125.0 → 08/14 4400.0（較高）；轉折低：07/29 2990.0 → 08/11 3810.0（較高）；今日收盤3700.0尚未突破最近確認轉折高4400.0（-15.9%）；已跌破最近確認轉折低3810.0（-2.9%）"
+        "evidence": "轉折高：08/05 4125.0 → 08/14 4400.0（較高）；轉折低：07/29 2990.0 → 08/11 3810.0（較高）；今日收盤3790.0尚未突破最近確認轉折高4400.0（-13.9%）；已跌破最近確認轉折低3810.0（-0.5%）"
       },
       "bottom_stage": {
-        "stage": "②打底",
-        "stage_index": 2,
+        "stage": "①止跌",
+        "stage_index": 1,
         "checks": [
           {
             "name": "①止跌",
@@ -1810,18 +1825,18 @@
           },
           {
             "name": "②打底",
-            "pass": true,
-            "detail": "打底已完成：最近轉折低 3810.0 高於前低 2990.0，且MA10 3937.00→3981.00、MA20 3730.25→3809.50（皆翻揚/走平）。"
+            "pass": false,
+            "detail": "均線尚未翻揚：MA10 4002.50→3970.00、MA20 3772.25→3811.50，仍下彎。（底底高已成立）"
           },
           {
             "name": "③突破",
             "pass": false,
-            "detail": "價格條件未達標：收盤 3700.0 未站上 MA20 3809.5、尚未突破前轉折高 4400.0。"
+            "detail": "價格條件未達標：收盤 3790.0 未站上 MA20 3811.5、尚未突破前轉折高 4400.0。"
           },
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=3938.00 MA10=3981.00 MA20=3809.50（未多排），目前為多頭轉弱。"
+            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=3854.00 MA10=3970.00 MA20=3811.50（未多排），目前為多頭轉弱。"
           }
         ],
         "skipped_stages": [],
@@ -1835,7 +1850,7 @@
           {
             "q": "①有沒有急跌",
             "pass": true,
-            "detail": "近20日最大回檔25.4%（4010.0→2990.0）"
+            "detail": "近20日最大回檔19.4%（3710.0→2990.0）"
           },
           {
             "q": "②有沒有爆量",
@@ -1850,7 +1865,7 @@
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤3700.00尚未突破近20日內任一轉折高"
+            "detail": "收盤3790.00尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -1859,43 +1874,43 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "多頭轉弱",
-          "detail": "轉折高：08/05 4125.0 → 08/14 4400.0（較高）；轉折低：07/29 2990.0 → 08/11 3810.0（較高）；今日收盤3700.0尚未突破最近確認轉折高4400.0（-15.9%）；已跌破最近確認轉折低3810.0（-2.9%）"
+          "detail": "轉折高：08/05 4125.0 → 08/14 4400.0（較高）；轉折低：07/29 2990.0 → 08/11 3810.0（較高）；今日收盤3790.0尚未突破最近確認轉折高4400.0（-13.9%）；已跌破最近確認轉折低3810.0（-0.5%）"
         },
         {
           "step": 2,
           "name": "均線",
           "verdict": "不明確",
-          "detail": "MA5=3938.00 MA10=3981.00 MA20=3809.50（不明確）；季線在股價下方，上揚"
+          "detail": "MA5=3854.00 MA10=3970.00 MA20=3811.50（不明確）；季線在股價下方，下彎"
         },
         {
           "step": 3,
           "name": "位置",
-          "verdict": "低檔",
-          "detail": "低檔第16天，收盤價領域強勢賣壓"
+          "verdict": "行進中",
+          "detail": "行進中第17天，收盤價領域強勢控盤"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "長黑K",
-          "detail": "收盤價領域強勢賣壓（買方13% / 賣方87%），訊號：長黑K，位置：低檔第16天。"
+          "verdict": "母子線",
+          "detail": "收盤價領域強勢控盤（買方83% / 賣方17%），訊號：母子線，位置：行進中第17天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "1.30x（第16天）",
-          "detail": "今量12864952／20日均量9917078"
+          "verdict": "0.61x（第17天）",
+          "detail": "今量6012234／20日均量9786135"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "衝突",
-          "detail": "週收盤3700.00跌破週MA5(3823.00)，日線趨勢多頭轉弱，週線與日線方向衝突"
+          "detail": "週收盤3790.00跌破週MA5(3841.00)，日線趨勢多頭轉弱，週線與日線方向衝突"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "前波低點法停損3810.0（已跌破（+3.0%））",
-          "detail": "低檔剛止跌，給較大空間確認打底，用前波低點法"
+          "verdict": "MA10法停損3970.0（已跌破（+4.8%））",
+          "detail": "行進中部位，用中期MA10法，最常用的移動停利"
         }
       ],
       "discipline": {
@@ -1905,12 +1920,12 @@
           {
             "rule": "高檔不追多",
             "pass": true,
-            "detail": "位置低檔第16天，非高檔久盤"
+            "detail": "位置行進中第17天，非高檔久盤"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離-2.9%"
+            "detail": "對MA20乖離-0.6%"
           },
           {
             "rule": "突破需收盤確認",
@@ -1920,7 +1935,7 @@
           {
             "rule": "長線保護短線",
             "pass": false,
-            "detail": "週收盤3700.00跌破週MA5(3823.00)，日線趨勢多頭轉弱，週線與日線方向衝突"
+            "detail": "週收盤3790.00跌破週MA5(3841.00)，日線趨勢多頭轉弱，週線與日線方向衝突"
           },
           {
             "rule": "不接下跌刀",
@@ -1930,65 +1945,65 @@
         ]
       },
       "stop_loss": {
-        "recommended": "前波低點法",
-        "price": 3810.0,
-        "distance_pct": -2.97,
-        "reason": "低檔剛止跌，給較大空間確認打底，用前波低點法",
+        "recommended": "MA10法",
+        "price": 3970.0,
+        "distance_pct": -4.75,
+        "reason": "行進中部位，用中期MA10法，最常用的移動停利",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 3750.0,
-            "distance_pct": -1.35
+            "price": 3675.0,
+            "distance_pct": 3.03
           },
           {
             "method": "MA5法",
-            "price": 3938.0,
-            "distance_pct": -6.43
+            "price": 3854.0,
+            "distance_pct": -1.69
           },
           {
             "method": "MA10法",
-            "price": 3981.0,
-            "distance_pct": -7.59
+            "price": 3970.0,
+            "distance_pct": -4.75
           },
           {
             "method": "前波低點法",
             "price": 3810.0,
-            "distance_pct": -2.97
+            "distance_pct": -0.53
           },
           {
             "method": "固定5%法",
-            "price": 3515.0,
+            "price": 3600.5,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "聯發科(2454)目前處於低檔第16天，波浪型態頭頭高、底底高（多頭轉弱）。打底四階段目前達「②打底」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：長線保護短線，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以前波低點法停損於3810.0（已跌破（+3.0%））。",
+      "verdict": "聯發科(2454)目前處於行進中第17天，波浪型態頭頭高、底底高（多頭轉弱）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：長線保護短線，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以MA10法停損於3970.0（已跌破（+4.8%））。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "3008": {
       "stock_id": "3008",
       "name": "大立光",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 5570.0,
-        "high": 5680.0,
-        "low": 5405.0,
-        "close": 5515.0,
-        "volume": 2952357.0,
-        "chg_pct": -0.63
+        "open": 5520.0,
+        "high": 5750.0,
+        "low": 5260.0,
+        "close": 5610.0,
+        "volume": 3439678.0,
+        "chg_pct": 1.72
       },
       "snapshot": {
         "signals": [],
-        "bonus": -4,
+        "bonus": 4,
         "domain": {
-          "buyer_pct": 40.0,
-          "seller_pct": 60.0,
-          "type": "偏空"
+          "buyer_pct": 71.4,
+          "seller_pct": 28.6,
+          "type": "偏多"
         },
         "position": "高檔",
-        "leg_days": 15,
+        "leg_days": 16,
         "warnings": [],
-        "verdict": "收盤價領域偏空（買方40% / 賣方60%），無明顯K線訊號，位置：高檔第15天。"
+        "verdict": "收盤價領域偏多（買方71% / 賣方29%），無明顯K線訊號，位置：高檔第16天。"
       },
       "wave": {
         "trend": "多頭",
@@ -2025,7 +2040,7 @@
             "price": 4230.0
           }
         ],
-        "evidence": "轉折高：07/23 4175.0 → 08/06 4770.0（較高）；轉折低：07/30 3670.0 → 08/11 4230.0（較高）；今日收盤5515.0已突破最近確認轉折高4770.0（+15.6%）；尚未跌破最近確認轉折低4230.0（+30.4%）"
+        "evidence": "轉折高：07/23 4175.0 → 08/06 4770.0（較高）；轉折低：07/30 3670.0 → 08/11 4230.0（較高）；今日收盤5610.0已突破最近確認轉折高4770.0（+17.6%）；尚未跌破最近確認轉折低4230.0（+32.6%）"
       },
       "bottom_stage": {
         "stage": "②打底",
@@ -2039,17 +2054,17 @@
           {
             "name": "②打底",
             "pass": true,
-            "detail": "打底已完成：最近轉折低 4230.0 高於前低 3670.0，且MA10 4393.50→4842.00、MA20 4171.00→4472.25（皆翻揚/走平）。"
+            "detail": "打底已完成：最近轉折低 4230.0 高於前低 3670.0，且MA10 4451.00→4964.50、MA20 4201.00→4556.75（皆翻揚/走平）。"
           },
           {
             "name": "③突破",
             "pass": false,
-            "detail": "量能不足：突破量為前5日均量 0.98x，未達 1.5x 門檻。（價格部分已達標：收盤 5515.0 站上 MA20 4472.2、且突破前轉折高 4770.0）"
+            "detail": "量能不足：突破量為前5日均量 1.09x，未達 1.5x 門檻。（價格部分已達標：收盤 5610.0 站上 MA20 4556.8、且突破前轉折高 4770.0）"
           },
           {
             "name": "④回升確立",
             "pass": true,
-            "detail": "回升已確立：MA5=5207.00 MA10=4842.00 MA20=4472.25多排，且趨勢已為多頭。"
+            "detail": "回升已確立：MA5=5407.00 MA10=4964.50 MA20=4556.75多排，且趨勢已為多頭。"
           }
         ],
         "skipped_stages": [
@@ -2075,12 +2090,12 @@
           {
             "q": "③有沒有止跌",
             "pass": true,
-            "detail": "止跌訊號：08/11長下影、08/13長下影、08/20長下影；底底高成立"
+            "detail": "止跌訊號：08/11長下影、08/13長下影、08/20長下影、08/21長下影；底底高成立"
           },
           {
             "q": "④有沒有過高",
             "pass": true,
-            "detail": "收盤5515.00已突破08/06轉折高4770.00"
+            "detail": "收盤5610.00已突破08/06轉折高4770.00"
           }
         ]
       },
@@ -2089,42 +2104,42 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "多頭",
-          "detail": "轉折高：07/23 4175.0 → 08/06 4770.0（較高）；轉折低：07/30 3670.0 → 08/11 4230.0（較高）；今日收盤5515.0已突破最近確認轉折高4770.0（+15.6%）；尚未跌破最近確認轉折低4230.0（+30.4%）"
+          "detail": "轉折高：07/23 4175.0 → 08/06 4770.0（較高）；轉折低：07/30 3670.0 → 08/11 4230.0（較高）；今日收盤5610.0已突破最近確認轉折高4770.0（+17.6%）；尚未跌破最近確認轉折低4230.0（+32.6%）"
         },
         {
           "step": 2,
           "name": "均線",
           "verdict": "多排",
-          "detail": "MA5=5207.00 MA10=4842.00 MA20=4472.25（多排）；季線在股價上方，上揚"
+          "detail": "MA5=5407.00 MA10=4964.50 MA20=4556.75（多排）；季線在股價上方，上揚"
         },
         {
           "step": 3,
           "name": "位置",
           "verdict": "高檔",
-          "detail": "高檔第15天，收盤價領域偏空"
+          "detail": "高檔第16天，收盤價領域偏多"
         },
         {
           "step": 4,
           "name": "K線訊號",
           "verdict": "無",
-          "detail": "收盤價領域偏空（買方40% / 賣方60%），無明顯K線訊號，位置：高檔第15天。"
+          "detail": "收盤價領域偏多（買方71% / 賣方29%），無明顯K線訊號，位置：高檔第16天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "1.15x（第15天）",
-          "detail": "今量2952357／20日均量2567972"
+          "verdict": "1.29x（第16天）",
+          "detail": "今量3439678／20日均量2661074"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "支持",
-          "detail": "週收盤5515.00站上週MA5(4493.00)，日線趨勢多頭，週線與日線方向一致"
+          "detail": "週收盤5610.00站上週MA5(4512.00)，日線趨勢多頭，週線與日線方向一致"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "MA5法停損5207.0（-5.6%）",
+          "verdict": "MA5法停損5407.0（-3.6%）",
           "detail": "高檔部位，用最緊的MA5法保護獲利，跌破立即出場"
         }
       ],
@@ -2135,12 +2150,12 @@
           {
             "rule": "高檔不追多",
             "pass": false,
-            "detail": "位置高檔第15天，已達7天門檻，不宜追高"
+            "detail": "位置高檔第16天，已達7天門檻，不宜追高"
           },
           {
             "rule": "乖離未過熱",
             "pass": false,
-            "detail": "對MA20乖離23.3%，已超過20%警戒"
+            "detail": "對MA20乖離23.1%，已超過20%警戒"
           },
           {
             "rule": "突破需收盤確認",
@@ -2150,7 +2165,7 @@
           {
             "rule": "長線保護短線",
             "pass": true,
-            "detail": "週收盤5515.00站上週MA5(4493.00)，日線趨勢多頭，週線與日線方向一致"
+            "detail": "週收盤5610.00站上週MA5(4512.00)，日線趨勢多頭，週線與日線方向一致"
           },
           {
             "rule": "不接下跌刀",
@@ -2161,79 +2176,73 @@
       },
       "stop_loss": {
         "recommended": "MA5法",
-        "price": 5207.0,
-        "distance_pct": 5.58,
+        "price": 5407.0,
+        "distance_pct": 3.62,
         "reason": "高檔部位，用最緊的MA5法保護獲利，跌破立即出場",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 5110.0,
-            "distance_pct": 7.34
+            "price": 5405.0,
+            "distance_pct": 3.65
           },
           {
             "method": "MA5法",
-            "price": 5207.0,
-            "distance_pct": 5.58
+            "price": 5407.0,
+            "distance_pct": 3.62
           },
           {
             "method": "MA10法",
-            "price": 4842.0,
-            "distance_pct": 12.2
+            "price": 4964.5,
+            "distance_pct": 11.51
           },
           {
             "method": "前波低點法",
             "price": 4230.0,
-            "distance_pct": 23.3
+            "distance_pct": 24.6
           },
           {
             "method": "固定5%法",
-            "price": 5239.25,
+            "price": 5329.5,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "大立光(3008)目前處於高檔第15天，波浪型態頭頭高、底底高（多頭）。打底四階段目前達「②打底」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查3/5項通過。未過項目：高檔不追多、乖離未過熱，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以MA5法停損於5207.0（-5.6%）。",
+      "verdict": "大立光(3008)目前處於高檔第16天，波浪型態頭頭高、底底高（多頭）。打底四階段目前達「②打底」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查3/5項通過。未過項目：高檔不追多、乖離未過熱，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以MA5法停損於5407.0（-3.6%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "2408": {
       "stock_id": "2408",
       "name": "南亞科",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 498.0,
-        "high": 523.0,
-        "low": 498.0,
-        "close": 517.0,
-        "volume": 88103385.0,
-        "chg_pct": 7.48
+        "open": 519.0,
+        "high": 534.0,
+        "low": 512.0,
+        "close": 528.0,
+        "volume": 65354270.0,
+        "chg_pct": 2.13
       },
       "snapshot": {
-        "signals": [
-          "長紅K"
-        ],
+        "signals": [],
         "bonus": 4,
         "domain": {
-          "buyer_pct": 76.0,
-          "seller_pct": 24.0,
+          "buyer_pct": 72.7,
+          "seller_pct": 27.3,
           "type": "偏多"
         },
         "position": "高檔",
-        "leg_days": 15,
+        "leg_days": 16,
         "warnings": [],
-        "verdict": "收盤價領域偏多（買方76% / 賣方24%），訊號：長紅K，位置：高檔第15天。"
+        "verdict": "收盤價領域偏多（買方73% / 賣方27%），無明顯K線訊號，位置：高檔第16天。"
       },
       "wave": {
-        "trend": "打底突破中",
-        "pattern": "頭頭低、底底低，但已突破前高（多空易位進行中）",
+        "trend": "盤整",
+        "pattern": "頭頭高、底底低",
         "higher_low": false,
-        "higher_high": false,
-        "broke_above_last_high": true,
+        "higher_high": true,
+        "broke_above_last_high": false,
         "broke_below_last_low": false,
         "recent_highs": [
-          {
-            "date": "2026-06-22",
-            "price": 505.0
-          },
           {
             "date": "2026-07-15",
             "price": 489.5
@@ -2241,6 +2250,10 @@
           {
             "date": "2026-07-23",
             "price": 452.0
+          },
+          {
+            "date": "2026-08-18",
+            "price": 553.0
           }
         ],
         "recent_lows": [
@@ -2257,7 +2270,7 @@
             "price": 322.0
           }
         ],
-        "evidence": "轉折高：07/15 489.5 → 07/23 452.0（較低）；轉折低：07/20 380.5 → 07/30 322.0（較低）；今日收盤517.0已突破最近確認轉折高452.0（+14.4%）；尚未跌破最近確認轉折低322.0（+60.6%）"
+        "evidence": "轉折高：07/23 452.0 → 08/18 553.0（較高）；轉折低：07/20 380.5 → 07/30 322.0（較低）；今日收盤528.0尚未突破最近確認轉折高553.0（-4.5%）；尚未跌破最近確認轉折低322.0（+64.0%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -2271,17 +2284,17 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "底底高尚未成立：最近轉折低 322.0 仍低於前低 380.5。（均線部分已達標：MA10 454.15→499.35、MA20 425.27→450.07，皆翻揚/走平）"
+            "detail": "底底高尚未成立：最近轉折低 322.0 仍低於前低 380.5。（均線部分已達標：MA10 469.30→506.45、MA20 431.10→456.43，皆翻揚/走平）"
           },
           {
             "name": "③突破",
             "pass": false,
-            "detail": "量能不足：突破量為前5日均量 0.98x，未達 1.5x 門檻。（價格部分已達標：收盤 517.0 站上 MA20 450.1、且突破前轉折高 452.0）"
+            "detail": "價格條件未達標：尚未突破前轉折高 553.0。"
           },
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "趨勢尚未確立為多頭：目前為打底突破中。（均線部分已達標：MA5>MA10>MA20 多排）"
+            "detail": "趨勢尚未確立為多頭：目前為盤整。（均線部分已達標：MA5>MA10>MA20 多排）"
           }
         ],
         "skipped_stages": [],
@@ -2305,12 +2318,12 @@
           {
             "q": "③有沒有止跌",
             "pass": true,
-            "detail": "止跌訊號：08/07長下影、08/11長下影"
+            "detail": "止跌訊號：08/11長下影"
           },
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤517.00尚未突破近20日內任一轉折高"
+            "detail": "收盤528.00尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -2318,43 +2331,43 @@
         {
           "step": 1,
           "name": "趨勢",
-          "verdict": "打底突破中",
-          "detail": "轉折高：07/15 489.5 → 07/23 452.0（較低）；轉折低：07/20 380.5 → 07/30 322.0（較低）；今日收盤517.0已突破最近確認轉折高452.0（+14.4%）；尚未跌破最近確認轉折低322.0（+60.6%）"
+          "verdict": "盤整",
+          "detail": "轉折高：07/23 452.0 → 08/18 553.0（較高）；轉折低：07/20 380.5 → 07/30 322.0（較低）；今日收盤528.0尚未突破最近確認轉折高553.0（-4.5%）；尚未跌破最近確認轉折低322.0（+64.0%）"
         },
         {
           "step": 2,
           "name": "均線",
           "verdict": "多排",
-          "detail": "MA5=509.80 MA10=499.35 MA20=450.07（多排）；季線在股價上方，上揚"
+          "detail": "MA5=513.00 MA10=506.45 MA20=456.43（多排）；季線在股價上方，上揚"
         },
         {
           "step": 3,
           "name": "位置",
           "verdict": "高檔",
-          "detail": "高檔第15天，收盤價領域偏多"
+          "detail": "高檔第16天，收盤價領域偏多"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "長紅K",
-          "detail": "收盤價領域偏多（買方76% / 賣方24%），訊號：長紅K，位置：高檔第15天。"
+          "verdict": "無",
+          "detail": "收盤價領域偏多（買方73% / 賣方27%），無明顯K線訊號，位置：高檔第16天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "1.00x（第15天）",
-          "detail": "今量88103385／20日均量87794876"
+          "verdict": "0.75x（第16天）",
+          "detail": "今量65354270／20日均量87060296"
         },
         {
           "step": 6,
           "name": "週線確認",
-          "verdict": "支持",
-          "detail": "週收盤517.00站上週MA5(449.50)，日線趨勢打底突破中，週線與日線方向一致"
+          "verdict": "中性",
+          "detail": "週收盤528.00站上週MA5(451.70)，日線趨勢盤整，暫無明確方向可比對"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "MA5法停損509.8（-1.4%）",
+          "verdict": "MA5法停損513.0（-2.8%）",
           "detail": "高檔部位，用最緊的MA5法保護獲利，跌破立即出場"
         }
       ],
@@ -2365,12 +2378,12 @@
           {
             "rule": "高檔不追多",
             "pass": false,
-            "detail": "位置高檔第15天，已達7天門檻，不宜追高"
+            "detail": "位置高檔第16天，已達7天門檻，不宜追高"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離14.9%"
+            "detail": "對MA20乖離15.7%"
           },
           {
             "rule": "突破需收盤確認",
@@ -2380,77 +2393,78 @@
           {
             "rule": "長線保護短線",
             "pass": true,
-            "detail": "週收盤517.00站上週MA5(449.50)，日線趨勢打底突破中，週線與日線方向一致"
+            "detail": "週收盤528.00站上週MA5(451.70)，日線趨勢盤整，暫無明確方向可比對"
           },
           {
             "rule": "不接下跌刀",
             "pass": true,
-            "detail": "趨勢打底突破中，搶反彈四問3/4通過"
+            "detail": "趨勢盤整，搶反彈四問3/4通過"
           }
         ]
       },
       "stop_loss": {
         "recommended": "MA5法",
-        "price": 509.8,
-        "distance_pct": 1.39,
+        "price": 513.0,
+        "distance_pct": 2.84,
         "reason": "高檔部位，用最緊的MA5法保護獲利，跌破立即出場",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 480.0,
-            "distance_pct": 7.16
+            "price": 498.0,
+            "distance_pct": 5.68
           },
           {
             "method": "MA5法",
-            "price": 509.8,
-            "distance_pct": 1.39
+            "price": 513.0,
+            "distance_pct": 2.84
           },
           {
             "method": "MA10法",
-            "price": 499.35,
-            "distance_pct": 3.41
+            "price": 506.45,
+            "distance_pct": 4.08
           },
           {
             "method": "前波低點法",
             "price": 322.0,
-            "distance_pct": 37.72
+            "distance_pct": 39.02
           },
           {
             "method": "固定5%法",
-            "price": 491.15,
+            "price": 501.6,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "南亞科(2408)目前處於高檔第15天，波浪型態頭頭低、底底低，但已突破前高（多空易位進行中）（打底突破中）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：高檔不追多，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以MA5法停損於509.8（-1.4%）。",
+      "verdict": "南亞科(2408)目前處於高檔第16天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：高檔不追多，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以MA5法停損於513.0（-2.8%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "2308": {
       "stock_id": "2308",
       "name": "台達電",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 1770.0,
-        "high": 1785.0,
-        "low": 1705.0,
-        "close": 1745.0,
-        "volume": 9813621.0,
-        "chg_pct": -1.13
+        "open": 1760.0,
+        "high": 1760.0,
+        "low": 1720.0,
+        "close": 1750.0,
+        "volume": 4398589.0,
+        "chg_pct": 0.29
       },
       "snapshot": {
         "signals": [
-          "空方吞噬"
+          "錘子",
+          "母子線"
         ],
-        "bonus": -5,
+        "bonus": 19,
         "domain": {
-          "buyer_pct": 50.0,
-          "seller_pct": 50.0,
-          "type": "拉鋸"
+          "buyer_pct": 75.0,
+          "seller_pct": 25.0,
+          "type": "偏多"
         },
         "position": "低檔",
-        "leg_days": 16,
+        "leg_days": 17,
         "warnings": [],
-        "verdict": "收盤價領域拉鋸（買方50% / 賣方50%），訊號：空方吞噬，位置：低檔第16天。"
+        "verdict": "收盤價領域偏多（買方75% / 賣方25%），訊號：錘子、母子線，位置：低檔第17天。"
       },
       "wave": {
         "trend": "盤整",
@@ -2487,7 +2501,7 @@
             "price": 1425.0
           }
         ],
-        "evidence": "轉折高：07/22 1950.0 → 08/17 2005.0（較高）；轉折低：07/20 1665.0 → 07/29 1425.0（較低）；今日收盤1745.0尚未突破最近確認轉折高2005.0（-13.0%）；尚未跌破最近確認轉折低1425.0（+22.5%）"
+        "evidence": "轉折高：07/22 1950.0 → 08/17 2005.0（較高）；轉折低：07/20 1665.0 → 07/29 1425.0（較低）；今日收盤1750.0尚未突破最近確認轉折高2005.0（-12.7%）；尚未跌破最近確認轉折低1425.0（+22.8%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -2501,7 +2515,7 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "底底高尚未成立：最近轉折低 1425.0 仍低於前低 1665.0。（均線部分已達標：MA10 1711.50→1804.50、MA20 1715.00→1718.00，皆翻揚/走平）"
+            "detail": "底底高尚未成立：最近轉折低 1425.0 仍低於前低 1665.0；且MA10 1736.00→1814.50、MA20 1722.25→1716.25（仍下彎）。"
           },
           {
             "name": "③突破",
@@ -2511,21 +2525,21 @@
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "趨勢尚未確立為多頭：目前為盤整。（均線部分已達標：MA5>MA10>MA20 多排）"
+            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=1793.00 MA10=1814.50 MA20=1716.25（未多排），目前為盤整。"
           }
         ],
         "skipped_stages": [],
         "stage_note": ""
       },
       "rebound_check": {
-        "passed": 2,
+        "passed": 3,
         "total": 4,
-        "conclusion": "2/4通過，訊號打折扣，需保守看待",
+        "conclusion": "3/4通過，訊號打折扣，需保守看待",
         "items": [
           {
             "q": "①有沒有急跌",
             "pass": true,
-            "detail": "近20日最大回檔24.6%（1890.0→1425.0）"
+            "detail": "近20日最大回檔20.2%（1785.0→1425.0）"
           },
           {
             "q": "②有沒有爆量",
@@ -2534,13 +2548,13 @@
           },
           {
             "q": "③有沒有止跌",
-            "pass": false,
-            "detail": "近10日無明顯止跌K線"
+            "pass": true,
+            "detail": "止跌訊號：08/21錘子/長下影"
           },
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤1745.00尚未突破近20日內任一轉折高"
+            "detail": "收盤1750.00尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -2549,42 +2563,42 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "盤整",
-          "detail": "轉折高：07/22 1950.0 → 08/17 2005.0（較高）；轉折低：07/20 1665.0 → 07/29 1425.0（較低）；今日收盤1745.0尚未突破最近確認轉折高2005.0（-13.0%）；尚未跌破最近確認轉折低1425.0（+22.5%）"
+          "detail": "轉折高：07/22 1950.0 → 08/17 2005.0（較高）；轉折低：07/20 1665.0 → 07/29 1425.0（較低）；今日收盤1750.0尚未突破最近確認轉折高2005.0（-12.7%）；尚未跌破最近確認轉折低1425.0（+22.8%）"
         },
         {
           "step": 2,
           "name": "均線",
-          "verdict": "多排",
-          "detail": "MA5=1820.00 MA10=1804.50 MA20=1718.00（多排）；季線在股價下方，下彎"
+          "verdict": "不明確",
+          "detail": "MA5=1793.00 MA10=1814.50 MA20=1716.25（不明確）；季線在股價下方，下彎"
         },
         {
           "step": 3,
           "name": "位置",
           "verdict": "低檔",
-          "detail": "低檔第16天，收盤價領域拉鋸"
+          "detail": "低檔第17天，收盤價領域偏多"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "空方吞噬",
-          "detail": "收盤價領域拉鋸（買方50% / 賣方50%），訊號：空方吞噬，位置：低檔第16天。"
+          "verdict": "錘子、母子線",
+          "detail": "收盤價領域偏多（買方75% / 賣方25%），訊號：錘子、母子線，位置：低檔第17天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.65x（第16天）",
-          "detail": "今量9813621／20日均量15024887"
+          "verdict": "0.29x（第17天）",
+          "detail": "今量4398589／20日均量14952768"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "中性",
-          "detail": "週收盤1745.00站上週MA5(1741.00)，日線趨勢盤整，暫無明確方向可比對"
+          "detail": "週收盤1750.00站上週MA5(1742.00)，日線趨勢盤整，暫無明確方向可比對"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "前波低點法停損1425.0（-18.3%）",
+          "verdict": "前波低點法停損1425.0（-18.6%）",
           "detail": "低檔剛止跌，給較大空間確認打底，用前波低點法"
         }
       ],
@@ -2595,12 +2609,12 @@
           {
             "rule": "高檔不追多",
             "pass": true,
-            "detail": "位置低檔第16天，非高檔久盤"
+            "detail": "位置低檔第17天，非高檔久盤"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離1.6%"
+            "detail": "對MA20乖離2.0%"
           },
           {
             "rule": "突破需收盤確認",
@@ -2610,77 +2624,75 @@
           {
             "rule": "長線保護短線",
             "pass": true,
-            "detail": "週收盤1745.00站上週MA5(1741.00)，日線趨勢盤整，暫無明確方向可比對"
+            "detail": "週收盤1750.00站上週MA5(1742.00)，日線趨勢盤整，暫無明確方向可比對"
           },
           {
             "rule": "不接下跌刀",
             "pass": true,
-            "detail": "趨勢盤整，搶反彈四問2/4通過"
+            "detail": "趨勢盤整，搶反彈四問3/4通過"
           }
         ]
       },
       "stop_loss": {
         "recommended": "前波低點法",
         "price": 1425.0,
-        "distance_pct": 18.34,
+        "distance_pct": 18.57,
         "reason": "低檔剛止跌，給較大空間確認打底，用前波低點法",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 1740.0,
-            "distance_pct": 0.29
+            "price": 1705.0,
+            "distance_pct": 2.57
           },
           {
             "method": "MA5法",
-            "price": 1820.0,
-            "distance_pct": -4.3
+            "price": 1793.0,
+            "distance_pct": -2.46
           },
           {
             "method": "MA10法",
-            "price": 1804.5,
-            "distance_pct": -3.41
+            "price": 1814.5,
+            "distance_pct": -3.69
           },
           {
             "method": "前波低點法",
             "price": 1425.0,
-            "distance_pct": 18.34
+            "distance_pct": 18.57
           },
           {
             "method": "固定5%法",
-            "price": 1657.75,
+            "price": 1662.5,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "台達電(2308)目前處於低檔第16天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問2/4通過（2/4通過，訊號打折扣，需保守看待）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以前波低點法停損於1425.0（-18.3%）。",
+      "verdict": "台達電(2308)目前處於低檔第17天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以前波低點法停損於1425.0（-18.6%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "2327": {
       "stock_id": "2327",
       "name": "國巨",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 583.0,
-        "high": 583.0,
-        "low": 550.0,
-        "close": 562.0,
-        "volume": 43070768.0,
-        "chg_pct": -2.43
+        "open": 561.0,
+        "high": 567.0,
+        "low": 553.0,
+        "close": 554.0,
+        "volume": 20632149.0,
+        "chg_pct": -1.42
       },
       "snapshot": {
-        "signals": [
-          "長黑K"
-        ],
-        "bonus": -4,
+        "signals": [],
+        "bonus": -8,
         "domain": {
-          "buyer_pct": 36.4,
-          "seller_pct": 63.6,
-          "type": "偏空"
+          "buyer_pct": 7.1,
+          "seller_pct": 92.9,
+          "type": "強勢賣壓"
         },
         "position": "低檔",
-        "leg_days": 15,
+        "leg_days": 16,
         "warnings": [],
-        "verdict": "收盤價領域偏空（買方36% / 賣方64%），訊號：長黑K，位置：低檔第15天。"
+        "verdict": "收盤價領域強勢賣壓（買方7% / 賣方93%），無明顯K線訊號，位置：低檔第16天。"
       },
       "wave": {
         "trend": "多頭",
@@ -2717,7 +2729,7 @@
             "price": 531.0
           }
         ],
-        "evidence": "轉折高：08/05 618.0 → 08/14 668.0（較高）；轉折低：07/30 456.5 → 08/07 531.0（較高）；今日收盤562.0尚未突破最近確認轉折高668.0（-15.9%）；尚未跌破最近確認轉折低531.0（+5.8%）"
+        "evidence": "轉折高：08/05 618.0 → 08/14 668.0（較高）；轉折低：07/30 456.5 → 08/07 531.0（較高）；今日收盤554.0尚未突破最近確認轉折高668.0（-17.1%）；尚未跌破最近確認轉折低531.0（+4.3%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -2731,17 +2743,17 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "均線尚未翻揚：MA10 576.20→593.80、MA20 597.67→574.98，仍下彎。（底底高已成立）"
+            "detail": "均線尚未翻揚：MA10 588.20→595.20、MA20 593.83→570.58，仍下彎。（底底高已成立）"
           },
           {
             "name": "③突破",
             "pass": false,
-            "detail": "價格條件未達標：收盤 562.0 未站上 MA20 575.0、尚未突破前轉折高 668.0。"
+            "detail": "價格條件未達標：收盤 554.0 未站上 MA20 570.6、尚未突破前轉折高 668.0。"
           },
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "均線尚未多排：MA5=588.80 MA10=593.80 MA20=574.98。（趨勢部分已達標：已為多頭）"
+            "detail": "均線尚未多排：MA5=575.20 MA10=595.20 MA20=570.58。（趨勢部分已達標：已為多頭）"
           }
         ],
         "skipped_stages": [],
@@ -2755,7 +2767,7 @@
           {
             "q": "①有沒有急跌",
             "pass": true,
-            "detail": "近20日最大回檔33.4%（685.0→456.5）"
+            "detail": "近20日最大回檔30.3%（655.0→456.5）"
           },
           {
             "q": "②有沒有爆量",
@@ -2770,7 +2782,7 @@
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤562.00尚未突破近20日內任一轉折高"
+            "detail": "收盤554.00尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -2779,42 +2791,42 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "多頭",
-          "detail": "轉折高：08/05 618.0 → 08/14 668.0（較高）；轉折低：07/30 456.5 → 08/07 531.0（較高）；今日收盤562.0尚未突破最近確認轉折高668.0（-15.9%）；尚未跌破最近確認轉折低531.0（+5.8%）"
+          "detail": "轉折高：08/05 618.0 → 08/14 668.0（較高）；轉折低：07/30 456.5 → 08/07 531.0（較高）；今日收盤554.0尚未突破最近確認轉折高668.0（-17.1%）；尚未跌破最近確認轉折低531.0（+4.3%）"
         },
         {
           "step": 2,
           "name": "均線",
           "verdict": "不明確",
-          "detail": "MA5=588.80 MA10=593.80 MA20=574.98（不明確）；季線在股價下方，下彎"
+          "detail": "MA5=575.20 MA10=595.20 MA20=570.58（不明確）；季線在股價下方，下彎"
         },
         {
           "step": 3,
           "name": "位置",
           "verdict": "低檔",
-          "detail": "低檔第15天，收盤價領域偏空"
+          "detail": "低檔第16天，收盤價領域強勢賣壓"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "長黑K",
-          "detail": "收盤價領域偏空（買方36% / 賣方64%），訊號：長黑K，位置：低檔第15天。"
+          "verdict": "無",
+          "detail": "收盤價領域強勢賣壓（買方7% / 賣方93%），無明顯K線訊號，位置：低檔第16天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.82x（第15天）",
-          "detail": "今量43070768／20日均量52452270"
+          "verdict": "0.40x（第16天）",
+          "detail": "今量20632149／20日均量51393962"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "衝突",
-          "detail": "週收盤562.00跌破週MA5(573.60)，日線趨勢多頭，週線與日線方向衝突"
+          "detail": "週收盤554.00跌破週MA5(572.00)，日線趨勢多頭，週線與日線方向衝突"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "前波低點法停損531.0（-5.5%）",
+          "verdict": "前波低點法停損531.0（-4.2%）",
           "detail": "低檔剛止跌，給較大空間確認打底，用前波低點法"
         }
       ],
@@ -2825,12 +2837,12 @@
           {
             "rule": "高檔不追多",
             "pass": true,
-            "detail": "位置低檔第15天，非高檔久盤"
+            "detail": "位置低檔第16天，非高檔久盤"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離-2.3%"
+            "detail": "對MA20乖離-2.9%"
           },
           {
             "rule": "突破需收盤確認",
@@ -2840,7 +2852,7 @@
           {
             "rule": "長線保護短線",
             "pass": false,
-            "detail": "週收盤562.00跌破週MA5(573.60)，日線趨勢多頭，週線與日線方向衝突"
+            "detail": "週收盤554.00跌破週MA5(572.00)，日線趨勢多頭，週線與日線方向衝突"
           },
           {
             "rule": "不接下跌刀",
@@ -2852,65 +2864,65 @@
       "stop_loss": {
         "recommended": "前波低點法",
         "price": 531.0,
-        "distance_pct": 5.52,
+        "distance_pct": 4.15,
         "reason": "低檔剛止跌，給較大空間確認打底，用前波低點法",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 547.0,
-            "distance_pct": 2.67
+            "price": 550.0,
+            "distance_pct": 0.72
           },
           {
             "method": "MA5法",
-            "price": 588.8,
-            "distance_pct": -4.77
+            "price": 575.2,
+            "distance_pct": -3.83
           },
           {
             "method": "MA10法",
-            "price": 593.8,
-            "distance_pct": -5.66
+            "price": 595.2,
+            "distance_pct": -7.44
           },
           {
             "method": "前波低點法",
             "price": 531.0,
-            "distance_pct": 5.52
+            "distance_pct": 4.15
           },
           {
             "method": "固定5%法",
-            "price": 533.9,
+            "price": 526.3,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "國巨(2327)目前處於低檔第15天，波浪型態頭頭高、底底高（多頭）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：長線保護短線，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以前波低點法停損於531.0（-5.5%）。",
+      "verdict": "國巨(2327)目前處於低檔第16天，波浪型態頭頭高、底底高（多頭）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：長線保護短線，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以前波低點法停損於531.0（-4.2%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "0050": {
       "stock_id": "0050",
       "name": "元大台灣50",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 104.2,
-        "high": 104.25,
-        "low": 102.95,
-        "close": 103.8,
-        "volume": 43382378.0,
-        "chg_pct": 0.68
+        "open": 103.8,
+        "high": 104.8,
+        "low": 103.2,
+        "close": 104.65,
+        "volume": 41340817.0,
+        "chg_pct": 0.82
       },
       "snapshot": {
         "signals": [
-          "錘子"
+          "多方吞噬"
         ],
-        "bonus": 9,
+        "bonus": 13,
         "domain": {
-          "buyer_pct": 65.4,
-          "seller_pct": 34.6,
-          "type": "偏多"
+          "buyer_pct": 90.6,
+          "seller_pct": 9.4,
+          "type": "強勢控盤"
         },
         "position": "行進中",
-        "leg_days": 16,
+        "leg_days": 17,
         "warnings": [],
-        "verdict": "收盤價領域偏多（買方65% / 賣方35%），訊號：錘子，位置：行進中第16天。"
+        "verdict": "收盤價領域強勢控盤（買方91% / 賣方9%），訊號：多方吞噬，位置：行進中第17天。"
       },
       "wave": {
         "trend": "盤整",
@@ -2947,7 +2959,7 @@
             "price": 91.8
           }
         ],
-        "evidence": "轉折高：08/05 104.8 → 08/14 107.5（較高）；轉折低：07/20 98.3 → 07/29 91.8（較低）；今日收盤103.8尚未突破最近確認轉折高107.5（-3.4%）；尚未跌破最近確認轉折低91.8（+13.1%）"
+        "evidence": "轉折高：08/05 104.8 → 08/14 107.5（較高）；轉折低：07/20 98.3 → 07/29 91.8（較低）；今日收盤104.7尚未突破最近確認轉折高107.5（-2.7%）；尚未跌破最近確認轉折低91.8（+14.0%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -2961,7 +2973,7 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "底底高尚未成立：最近轉折低 91.8 仍低於前低 98.3。（均線部分已達標：MA10 103.62→104.83、MA20 101.66→102.42，皆翻揚/走平）"
+            "detail": "底底高尚未成立：最近轉折低 91.8 仍低於前低 98.3。（均線部分已達標：MA10 103.97→105.00、MA20 101.98→102.57，皆翻揚/走平）"
           },
           {
             "name": "③突破",
@@ -2971,7 +2983,7 @@
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "趨勢尚未確立為多頭：目前為盤整。（均線部分已達標：MA5>MA10>MA20 多排）"
+            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=104.58 MA10=105.00 MA20=102.57（未多排），目前為盤整。"
           }
         ],
         "skipped_stages": [],
@@ -2985,7 +2997,7 @@
           {
             "q": "①有沒有急跌",
             "pass": false,
-            "detail": "近20日最大回檔10.9%（103.0→91.8）"
+            "detail": "近20日最大回檔9.6%（101.6→91.8）"
           },
           {
             "q": "②有沒有爆量",
@@ -2995,12 +3007,12 @@
           {
             "q": "③有沒有止跌",
             "pass": true,
-            "detail": "止跌訊號：08/12錘子/長下影、08/13長下影、08/17長下影、08/19長下影、08/20錘子/長下影"
+            "detail": "止跌訊號：08/12錘子/長下影、08/13長下影、08/17長下影、08/19長下影、08/20錘子/長下影、08/21多方吞噬"
           },
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤103.80尚未突破近20日內任一轉折高"
+            "detail": "收盤104.65尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -3009,42 +3021,42 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "盤整",
-          "detail": "轉折高：08/05 104.8 → 08/14 107.5（較高）；轉折低：07/20 98.3 → 07/29 91.8（較低）；今日收盤103.8尚未突破最近確認轉折高107.5（-3.4%）；尚未跌破最近確認轉折低91.8（+13.1%）"
+          "detail": "轉折高：08/05 104.8 → 08/14 107.5（較高）；轉折低：07/20 98.3 → 07/29 91.8（較低）；今日收盤104.7尚未突破最近確認轉折高107.5（-2.7%）；尚未跌破最近確認轉折低91.8（+14.0%）"
         },
         {
           "step": 2,
           "name": "均線",
-          "verdict": "多排",
-          "detail": "MA5=104.93 MA10=104.83 MA20=102.42（多排）；季線在股價下方，上揚"
+          "verdict": "不明確",
+          "detail": "MA5=104.58 MA10=105.00 MA20=102.57（不明確）；季線在股價上方，上揚"
         },
         {
           "step": 3,
           "name": "位置",
           "verdict": "行進中",
-          "detail": "行進中第16天，收盤價領域偏多"
+          "detail": "行進中第17天，收盤價領域強勢控盤"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "錘子",
-          "detail": "收盤價領域偏多（買方65% / 賣方35%），訊號：錘子，位置：行進中第16天。"
+          "verdict": "多方吞噬",
+          "detail": "收盤價領域強勢控盤（買方91% / 賣方9%），訊號：多方吞噬，位置：行進中第17天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.28x（第16天）",
-          "detail": "今量43382378／20日均量156936195"
+          "verdict": "0.27x（第17天）",
+          "detail": "今量41340817／20日均量153746290"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "中性",
-          "detail": "週收盤103.80站上週MA5(103.52)，日線趨勢盤整，暫無明確方向可比對"
+          "detail": "週收盤104.65站上週MA5(103.69)，日線趨勢盤整，暫無明確方向可比對"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "MA10法停損104.83（已跌破（+1.0%））",
+          "verdict": "MA10法停損105.0（已跌破（+0.3%））",
           "detail": "行進中部位，用中期MA10法，最常用的移動停利"
         }
       ],
@@ -3055,12 +3067,12 @@
           {
             "rule": "高檔不追多",
             "pass": true,
-            "detail": "位置行進中第16天，非高檔久盤"
+            "detail": "位置行進中第17天，非高檔久盤"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離1.3%"
+            "detail": "對MA20乖離2.0%"
           },
           {
             "rule": "突破需收盤確認",
@@ -3070,7 +3082,7 @@
           {
             "rule": "長線保護短線",
             "pass": true,
-            "detail": "週收盤103.80站上週MA5(103.52)，日線趨勢盤整，暫無明確方向可比對"
+            "detail": "週收盤104.65站上週MA5(103.69)，日線趨勢盤整，暫無明確方向可比對"
           },
           {
             "rule": "不接下跌刀",
@@ -3081,64 +3093,66 @@
       },
       "stop_loss": {
         "recommended": "MA10法",
-        "price": 104.83,
-        "distance_pct": -0.99,
+        "price": 105.0,
+        "distance_pct": -0.34,
         "reason": "行進中部位，用中期MA10法，最常用的移動停利",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 102.7,
-            "distance_pct": 1.06
+            "price": 102.95,
+            "distance_pct": 1.62
           },
           {
             "method": "MA5法",
-            "price": 104.93,
-            "distance_pct": -1.09
+            "price": 104.58,
+            "distance_pct": 0.07
           },
           {
             "method": "MA10法",
-            "price": 104.83,
-            "distance_pct": -0.99
+            "price": 105.0,
+            "distance_pct": -0.34
           },
           {
             "method": "前波低點法",
             "price": 91.8,
-            "distance_pct": 11.56
+            "distance_pct": 12.28
           },
           {
             "method": "固定5%法",
-            "price": 98.61,
+            "price": 99.42,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "元大台灣50(0050)目前處於行進中第16天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問2/4通過（2/4通過，訊號打折扣，需保守看待）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以MA10法停損於104.83（已跌破（+1.0%））。",
+      "verdict": "元大台灣50(0050)目前處於行進中第17天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問2/4通過（2/4通過，訊號打折扣，需保守看待）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以MA10法停損於105.0（已跌破（+0.3%））。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "7765": {
       "stock_id": "7765",
       "name": "中華資安",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 222.5,
-        "high": 226.5,
-        "low": 222.5,
-        "close": 225.0,
-        "volume": 24771.0,
-        "chg_pct": 1.35
+        "open": 224.0,
+        "high": 224.0,
+        "low": 224.0,
+        "close": 224.0,
+        "volume": 8033.0,
+        "chg_pct": -0.44
       },
       "snapshot": {
-        "signals": [],
-        "bonus": 4,
+        "signals": [
+          "母子線"
+        ],
+        "bonus": 0,
         "domain": {
-          "buyer_pct": 62.5,
-          "seller_pct": 37.5,
-          "type": "偏多"
+          "buyer_pct": 0.0,
+          "seller_pct": 0.0,
+          "type": ""
         },
         "position": "低檔",
-        "leg_days": 16,
+        "leg_days": 17,
         "warnings": [],
-        "verdict": "收盤價領域偏多（買方62% / 賣方38%），無明顯K線訊號，位置：低檔第16天。"
+        "verdict": "訊號：母子線，位置：低檔第17天。"
       },
       "wave": {
         "trend": "盤整",
@@ -3175,7 +3189,7 @@
             "price": 220.5
           }
         ],
-        "evidence": "轉折高：07/27 232.0 → 08/12 234.5（較高）；轉折低：08/04 220.5 → 08/06 220.5（較低）；今日收盤225.0尚未突破最近確認轉折高234.5（-4.1%）；尚未跌破最近確認轉折低220.5（+2.0%）"
+        "evidence": "轉折高：07/27 232.0 → 08/12 234.5（較高）；轉折低：08/04 220.5 → 08/06 220.5（較低）；今日收盤224.0尚未突破最近確認轉折高234.5（-4.5%）；尚未跌破最近確認轉折低220.5（+1.6%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -3189,26 +3203,26 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "底底高尚未成立：最近轉折低 220.5 持平於前低 220.5；且MA10 224.80→225.50、MA20 225.40→224.82（仍下彎）。"
+            "detail": "底底高尚未成立：最近轉折低 220.5 持平於前低 220.5；且MA10 224.90→225.25、MA20 225.60→224.68（仍下彎）。"
           },
           {
             "name": "③突破",
             "pass": false,
-            "detail": "價格條件未達標：尚未突破前轉折高 234.5。"
+            "detail": "價格條件未達標：收盤 224.0 未站上 MA20 224.7、尚未突破前轉折高 234.5。"
           },
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=224.20 MA10=225.50 MA20=224.82（未多排），目前為盤整。"
+            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=223.70 MA10=225.25 MA20=224.68（未多排），目前為盤整。"
           }
         ],
         "skipped_stages": [],
         "stage_note": ""
       },
       "rebound_check": {
-        "passed": 2,
+        "passed": 1,
         "total": 4,
-        "conclusion": "2/4通過，訊號打折扣，需保守看待",
+        "conclusion": "僅1/4通過，不建議搶反彈",
         "items": [
           {
             "q": "①有沒有急跌",
@@ -3222,13 +3236,13 @@
           },
           {
             "q": "③有沒有止跌",
-            "pass": true,
-            "detail": "止跌訊號：08/07長下影"
+            "pass": false,
+            "detail": "近10日無明顯止跌K線"
           },
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤225.00尚未突破近20日內任一轉折高"
+            "detail": "收盤224.00尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -3237,42 +3251,42 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "盤整",
-          "detail": "轉折高：07/27 232.0 → 08/12 234.5（較高）；轉折低：08/04 220.5 → 08/06 220.5（較低）；今日收盤225.0尚未突破最近確認轉折高234.5（-4.1%）；尚未跌破最近確認轉折低220.5（+2.0%）"
+          "detail": "轉折高：07/27 232.0 → 08/12 234.5（較高）；轉折低：08/04 220.5 → 08/06 220.5（較低）；今日收盤224.0尚未突破最近確認轉折高234.5（-4.5%）；尚未跌破最近確認轉折低220.5（+1.6%）"
         },
         {
           "step": 2,
           "name": "均線",
           "verdict": "糾結",
-          "detail": "MA5=224.20 MA10=225.50 MA20=224.82（糾結）；季線在股價下方，下彎"
+          "detail": "MA5=223.70 MA10=225.25 MA20=224.68（糾結）；季線在股價下方，下彎"
         },
         {
           "step": 3,
           "name": "位置",
           "verdict": "低檔",
-          "detail": "低檔第16天，收盤價領域偏多"
+          "detail": "低檔第17天，收盤價領域—"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "無",
-          "detail": "收盤價領域偏多（買方62% / 賣方38%），無明顯K線訊號，位置：低檔第16天。"
+          "verdict": "母子線",
+          "detail": "訊號：母子線，位置：低檔第17天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.53x（第16天）",
-          "detail": "今量24771／20日均量46689"
+          "verdict": "0.18x（第17天）",
+          "detail": "今量8033／20日均量44755"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "中性",
-          "detail": "週收盤225.00跌破週MA5(226.10)，日線趨勢盤整，暫無明確方向可比對"
+          "detail": "週收盤224.00跌破週MA5(225.90)，日線趨勢盤整，暫無明確方向可比對"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "前波低點法停損220.5（-2.0%）",
+          "verdict": "前波低點法停損220.5（-1.6%）",
           "detail": "低檔剛止跌，給較大空間確認打底，用前波低點法"
         }
       ],
@@ -3283,12 +3297,12 @@
           {
             "rule": "高檔不追多",
             "pass": true,
-            "detail": "位置低檔第16天，非高檔久盤"
+            "detail": "位置低檔第17天，非高檔久盤"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離0.1%"
+            "detail": "對MA20乖離-0.3%"
           },
           {
             "rule": "突破需收盤確認",
@@ -3298,77 +3312,75 @@
           {
             "rule": "長線保護短線",
             "pass": true,
-            "detail": "週收盤225.00跌破週MA5(226.10)，日線趨勢盤整，暫無明確方向可比對"
+            "detail": "週收盤224.00跌破週MA5(225.90)，日線趨勢盤整，暫無明確方向可比對"
           },
           {
             "rule": "不接下跌刀",
             "pass": true,
-            "detail": "趨勢盤整，搶反彈四問2/4通過"
+            "detail": "趨勢盤整，搶反彈四問1/4通過"
           }
         ]
       },
       "stop_loss": {
         "recommended": "前波低點法",
         "price": 220.5,
-        "distance_pct": 2.0,
+        "distance_pct": 1.56,
         "reason": "低檔剛止跌，給較大空間確認打底，用前波低點法",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 221.0,
-            "distance_pct": 1.78
+            "price": 222.5,
+            "distance_pct": 0.67
           },
           {
             "method": "MA5法",
-            "price": 224.2,
-            "distance_pct": 0.36
+            "price": 223.7,
+            "distance_pct": 0.13
           },
           {
             "method": "MA10法",
-            "price": 225.5,
-            "distance_pct": -0.22
+            "price": 225.25,
+            "distance_pct": -0.56
           },
           {
             "method": "前波低點法",
             "price": 220.5,
-            "distance_pct": 2.0
+            "distance_pct": 1.56
           },
           {
             "method": "固定5%法",
-            "price": 213.75,
+            "price": 212.8,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "中華資安(7765)目前處於低檔第16天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問2/4通過（2/4通過，訊號打折扣，需保守看待）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以前波低點法停損於220.5（-2.0%）。",
+      "verdict": "中華資安(7765)目前處於低檔第17天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問1/4通過（僅1/4通過，不建議搶反彈）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以前波低點法停損於220.5（-1.6%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "2498": {
       "stock_id": "2498",
       "name": "宏達電",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 40.25,
-        "high": 42.5,
+        "open": 40.35,
+        "high": 41.3,
         "low": 40.0,
-        "close": 40.0,
-        "volume": 7695569.0,
-        "chg_pct": 0.38
+        "close": 40.95,
+        "volume": 3800168.0,
+        "chg_pct": 2.38
       },
       "snapshot": {
-        "signals": [
-          "十字線"
-        ],
-        "bonus": -8,
+        "signals": [],
+        "bonus": 4,
         "domain": {
-          "buyer_pct": 0.0,
-          "seller_pct": 100.0,
-          "type": "強勢賣壓"
+          "buyer_pct": 73.1,
+          "seller_pct": 26.9,
+          "type": "偏多"
         },
-        "position": "低檔",
-        "leg_days": 15,
+        "position": "行進中",
+        "leg_days": 16,
         "warnings": [],
-        "verdict": "收盤價領域強勢賣壓（買方0% / 賣方100%），訊號：十字線，位置：低檔第15天。"
+        "verdict": "收盤價領域偏多（買方73% / 賣方27%），無明顯K線訊號，位置：行進中第16天。"
       },
       "wave": {
         "trend": "空頭",
@@ -3405,7 +3417,7 @@
             "price": 37.7
           }
         ],
-        "evidence": "轉折高：07/24 43.5 → 08/10 41.4（較低）；轉折低：07/20 39.9 → 07/30 37.7（較低）；今日收盤40.0尚未突破最近確認轉折高41.4（-3.4%）；尚未跌破最近確認轉折低37.7（+6.1%）"
+        "evidence": "轉折高：07/24 43.5 → 08/10 41.4（較低）；轉折低：07/20 39.9 → 07/30 37.7（較低）；今日收盤41.0尚未突破最近確認轉折高41.4（-1.1%）；尚未跌破最近確認轉折低37.7（+8.6%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -3419,17 +3431,17 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "底底高尚未成立：最近轉折低 37.7 仍低於前低 39.9；且MA10 40.27→40.25、MA20 40.53→40.16（仍下彎）。"
+            "detail": "底底高尚未成立：最近轉折低 37.7 仍低於前低 39.9；且MA10 40.33→40.35、MA20 40.50→40.11（仍下彎）。"
           },
           {
             "name": "③突破",
             "pass": false,
-            "detail": "價格條件未達標：收盤 40.0 未站上 MA20 40.2、尚未突破前轉折高 41.4。（量能部分已達標：突破量為前5日均量 2.08x）"
+            "detail": "價格條件未達標：尚未突破前轉折高 41.4。"
           },
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=40.15 MA10=40.25 MA20=40.16（未多排），目前為空頭。"
+            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=40.24 MA10=40.35 MA20=40.11（未多排），目前為空頭。"
           }
         ],
         "skipped_stages": [],
@@ -3443,7 +3455,7 @@
           {
             "q": "①有沒有急跌",
             "pass": false,
-            "detail": "近20日最大回檔13.2%（43.5→37.7）"
+            "detail": "近20日最大回檔10.9%（42.3→37.7）"
           },
           {
             "q": "②有沒有爆量",
@@ -3458,7 +3470,7 @@
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤40.00尚未突破近20日內任一轉折高"
+            "detail": "收盤40.95尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -3467,58 +3479,58 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "空頭",
-          "detail": "轉折高：07/24 43.5 → 08/10 41.4（較低）；轉折低：07/20 39.9 → 07/30 37.7（較低）；今日收盤40.0尚未突破最近確認轉折高41.4（-3.4%）；尚未跌破最近確認轉折低37.7（+6.1%）"
+          "detail": "轉折高：07/24 43.5 → 08/10 41.4（較低）；轉折低：07/20 39.9 → 07/30 37.7（較低）；今日收盤41.0尚未突破最近確認轉折高41.4（-1.1%）；尚未跌破最近確認轉折低37.7（+8.6%）"
         },
         {
           "step": 2,
           "name": "均線",
           "verdict": "糾結",
-          "detail": "MA5=40.15 MA10=40.25 MA20=40.16（糾結）；季線在股價下方，下彎"
+          "detail": "MA5=40.24 MA10=40.35 MA20=40.11（糾結）；季線在股價下方，下彎"
         },
         {
           "step": 3,
           "name": "位置",
-          "verdict": "低檔",
-          "detail": "低檔第15天，收盤價領域強勢賣壓"
+          "verdict": "行進中",
+          "detail": "行進中第16天，收盤價領域偏多"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "十字線",
-          "detail": "收盤價領域強勢賣壓（買方0% / 賣方100%），訊號：十字線，位置：低檔第15天。"
+          "verdict": "無",
+          "detail": "收盤價領域偏多（買方73% / 賣方27%），無明顯K線訊號，位置：行進中第16天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "1.82x（第15天）",
-          "detail": "今量7695569／20日均量4221150"
+          "verdict": "0.91x（第16天）",
+          "detail": "今量3800168／20日均量4192674"
         },
         {
           "step": 6,
           "name": "週線確認",
-          "verdict": "支持",
-          "detail": "週收盤40.00跌破週MA5(40.42)，日線趨勢空頭，週線與日線方向一致"
+          "verdict": "衝突",
+          "detail": "週收盤40.95站上週MA5(40.61)，日線趨勢空頭，週線與日線方向衝突"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "前波低點法停損37.7（-5.8%）",
-          "detail": "低檔剛止跌，給較大空間確認打底，用前波低點法"
+          "verdict": "MA10法停損40.35（-1.5%）",
+          "detail": "行進中部位，用中期MA10法，最常用的移動停利"
         }
       ],
       "discipline": {
-        "passed": 4,
+        "passed": 3,
         "total": 5,
         "items": [
           {
             "rule": "高檔不追多",
             "pass": true,
-            "detail": "位置低檔第15天，非高檔久盤"
+            "detail": "位置行進中第16天，非高檔久盤"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離-0.4%"
+            "detail": "對MA20乖離2.1%"
           },
           {
             "rule": "突破需收盤確認",
@@ -3527,8 +3539,8 @@
           },
           {
             "rule": "長線保護短線",
-            "pass": true,
-            "detail": "週收盤40.00跌破週MA5(40.42)，日線趨勢空頭，週線與日線方向一致"
+            "pass": false,
+            "detail": "週收盤40.95站上週MA5(40.61)，日線趨勢空頭，週線與日線方向衝突"
           },
           {
             "rule": "不接下跌刀",
@@ -3538,65 +3550,67 @@
         ]
       },
       "stop_loss": {
-        "recommended": "前波低點法",
-        "price": 37.7,
-        "distance_pct": 5.75,
-        "reason": "低檔剛止跌，給較大空間確認打底，用前波低點法",
+        "recommended": "MA10法",
+        "price": 40.35,
+        "distance_pct": 1.47,
+        "reason": "行進中部位，用中期MA10法，最常用的移動停利",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 38.85,
-            "distance_pct": 2.87
+            "price": 40.0,
+            "distance_pct": 2.32
           },
           {
             "method": "MA5法",
-            "price": 40.15,
-            "distance_pct": -0.37
+            "price": 40.24,
+            "distance_pct": 1.73
           },
           {
             "method": "MA10法",
-            "price": 40.25,
-            "distance_pct": -0.61
+            "price": 40.35,
+            "distance_pct": 1.47
           },
           {
             "method": "前波低點法",
             "price": 37.7,
-            "distance_pct": 5.75
+            "distance_pct": 7.94
           },
           {
             "method": "固定5%法",
-            "price": 38.0,
+            "price": 38.9,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "宏達電(2498)目前處於低檔第15天，波浪型態頭頭低、底底低（空頭）。打底四階段目前達「①止跌」；搶反彈四問2/4通過（2/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：不接下跌刀，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以前波低點法停損於37.7（-5.8%）。",
+      "verdict": "宏達電(2498)目前處於行進中第16天，波浪型態頭頭低、底底低（空頭）。打底四階段目前達「①止跌」；搶反彈四問2/4通過（2/4通過，訊號打折扣，需保守看待）。紀律檢查3/5項通過。未過項目：長線保護短線、不接下跌刀，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以MA10法停損於40.35（-1.5%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "6770": {
       "stock_id": "6770",
       "name": "力積電",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 68.1,
-        "high": 69.5,
-        "low": 66.2,
-        "close": 67.3,
-        "volume": 165662077.0,
-        "chg_pct": 1.05
+        "open": 67.0,
+        "high": 68.5,
+        "low": 66.5,
+        "close": 68.4,
+        "volume": 116273055.0,
+        "chg_pct": 1.63
       },
       "snapshot": {
-        "signals": [],
-        "bonus": -4,
+        "signals": [
+          "多方吞噬"
+        ],
+        "bonus": 23,
         "domain": {
-          "buyer_pct": 33.3,
-          "seller_pct": 66.7,
-          "type": "偏空"
+          "buyer_pct": 95.0,
+          "seller_pct": 5.0,
+          "type": "強勢控盤"
         },
         "position": "低檔",
-        "leg_days": 15,
+        "leg_days": 16,
         "warnings": [],
-        "verdict": "收盤價領域偏空（買方33% / 賣方67%），無明顯K線訊號，位置：低檔第15天。"
+        "verdict": "收盤價領域強勢控盤（買方95% / 賣方5%），訊號：多方吞噬，位置：低檔第16天。"
       },
       "wave": {
         "trend": "盤整",
@@ -3633,7 +3647,7 @@
             "price": 48.0
           }
         ],
-        "evidence": "轉折高：07/16 79.5 → 08/14 81.8（較高）；轉折低：07/20 62.2 → 07/30 48.0（較低）；今日收盤67.3尚未突破最近確認轉折高81.8（-17.7%）；尚未跌破最近確認轉折低48.0（+40.2%）"
+        "evidence": "轉折高：07/16 79.5 → 08/14 81.8（較高）；轉折低：07/20 62.2 → 07/30 48.0（較低）；今日收盤68.4尚未突破最近確認轉折高81.8（-16.4%）；尚未跌破最近確認轉折低48.0（+42.5%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -3647,7 +3661,7 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "底底高尚未成立：最近轉折低 48.0 仍低於前低 62.2。（均線部分已達標：MA10 65.07→70.53、MA20 63.04→64.33，皆翻揚/走平）"
+            "detail": "底底高尚未成立：最近轉折低 48.0 仍低於前低 62.2。（均線部分已達標：MA10 67.46→70.82、MA20 63.52→64.67，皆翻揚/走平）"
           },
           {
             "name": "③突破",
@@ -3657,7 +3671,7 @@
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "趨勢尚未確立為多頭：目前為盤整。（均線部分已達標：MA5>MA10>MA20 多排）"
+            "detail": "均線未多排且趨勢尚未確立為多頭：MA5=69.32 MA10=70.82 MA20=64.67（未多排），目前為盤整。"
           }
         ],
         "skipped_stages": [],
@@ -3671,7 +3685,7 @@
           {
             "q": "①有沒有急跌",
             "pass": true,
-            "detail": "近20日最大回檔25.5%（64.4→48.0）"
+            "detail": "近20日最大回檔22.7%（62.1→48.0）"
           },
           {
             "q": "②有沒有爆量",
@@ -3681,12 +3695,12 @@
           {
             "q": "③有沒有止跌",
             "pass": true,
-            "detail": "止跌訊號：08/13長下影"
+            "detail": "止跌訊號：08/13長下影、08/21多方吞噬"
           },
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤67.30尚未突破近20日內任一轉折高"
+            "detail": "收盤68.40尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -3695,42 +3709,42 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "盤整",
-          "detail": "轉折高：07/16 79.5 → 08/14 81.8（較高）；轉折低：07/20 62.2 → 07/30 48.0（較低）；今日收盤67.3尚未突破最近確認轉折高81.8（-17.7%）；尚未跌破最近確認轉折低48.0（+40.2%）"
+          "detail": "轉折高：07/16 79.5 → 08/14 81.8（較高）；轉折低：07/20 62.2 → 07/30 48.0（較低）；今日收盤68.4尚未突破最近確認轉折高81.8（-16.4%）；尚未跌破最近確認轉折低48.0（+42.5%）"
         },
         {
           "step": 2,
           "name": "均線",
-          "verdict": "多排",
-          "detail": "MA5=71.32 MA10=70.53 MA20=64.33（多排）；季線在股價下方，上揚"
+          "verdict": "不明確",
+          "detail": "MA5=69.32 MA10=70.82 MA20=64.67（不明確）；季線在股價下方，上揚"
         },
         {
           "step": 3,
           "name": "位置",
           "verdict": "低檔",
-          "detail": "低檔第15天，收盤價領域偏空"
+          "detail": "低檔第16天，收盤價領域強勢控盤"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "無",
-          "detail": "收盤價領域偏空（買方33% / 賣方67%），無明顯K線訊號，位置：低檔第15天。"
+          "verdict": "多方吞噬",
+          "detail": "收盤價領域強勢控盤（買方95% / 賣方5%），訊號：多方吞噬，位置：低檔第16天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.71x（第15天）",
-          "detail": "今量165662077／20日均量232138330"
+          "verdict": "0.50x（第16天）",
+          "detail": "今量116273055／20日均量230309402"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "中性",
-          "detail": "週收盤67.30站上週MA5(65.46)，日線趨勢盤整，暫無明確方向可比對"
+          "detail": "週收盤68.40站上週MA5(65.68)，日線趨勢盤整，暫無明確方向可比對"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "前波低點法停損48.0（-28.7%）",
+          "verdict": "前波低點法停損48.0（-29.8%）",
           "detail": "低檔剛止跌，給較大空間確認打底，用前波低點法"
         }
       ],
@@ -3741,12 +3755,12 @@
           {
             "rule": "高檔不追多",
             "pass": true,
-            "detail": "位置低檔第15天，非高檔久盤"
+            "detail": "位置低檔第16天，非高檔久盤"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離4.6%"
+            "detail": "對MA20乖離5.8%"
           },
           {
             "rule": "突破需收盤確認",
@@ -3756,7 +3770,7 @@
           {
             "rule": "長線保護短線",
             "pass": true,
-            "detail": "週收盤67.30站上週MA5(65.46)，日線趨勢盤整，暫無明確方向可比對"
+            "detail": "週收盤68.40站上週MA5(65.68)，日線趨勢盤整，暫無明確方向可比對"
           },
           {
             "rule": "不接下跌刀",
@@ -3768,65 +3782,65 @@
       "stop_loss": {
         "recommended": "前波低點法",
         "price": 48.0,
-        "distance_pct": 28.68,
+        "distance_pct": 29.82,
         "reason": "低檔剛止跌，給較大空間確認打底，用前波低點法",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 66.5,
-            "distance_pct": 1.19
+            "price": 66.2,
+            "distance_pct": 3.22
           },
           {
             "method": "MA5法",
-            "price": 71.32,
-            "distance_pct": -5.97
+            "price": 69.32,
+            "distance_pct": -1.35
           },
           {
             "method": "MA10法",
-            "price": 70.53,
-            "distance_pct": -4.8
+            "price": 70.82,
+            "distance_pct": -3.54
           },
           {
             "method": "前波低點法",
             "price": 48.0,
-            "distance_pct": 28.68
+            "distance_pct": 29.82
           },
           {
             "method": "固定5%法",
-            "price": 63.93,
+            "price": 64.98,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "力積電(6770)目前處於低檔第15天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以前波低點法停損於48.0（-28.7%）。",
+      "verdict": "力積電(6770)目前處於低檔第16天，波浪型態頭頭高、底底低（盤整）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查5/5項通過。紀律面全數通過，若進場可依SOP紀律執行。若持有部位，建議以前波低點法停損於48.0（-29.8%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     },
     "2303": {
       "stock_id": "2303",
       "name": "聯電",
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "price": {
-        "open": 117.0,
-        "high": 118.0,
-        "low": 112.0,
-        "close": 115.5,
-        "volume": 101462408.0,
-        "chg_pct": 0.0
+        "open": 115.5,
+        "high": 117.0,
+        "low": 114.0,
+        "close": 116.5,
+        "volume": 58537906.0,
+        "chg_pct": 0.87
       },
       "snapshot": {
         "signals": [
-          "錘子"
+          "母子線"
         ],
-        "bonus": 15,
+        "bonus": 8,
         "domain": {
-          "buyer_pct": 58.3,
-          "seller_pct": 41.7,
-          "type": "拉鋸"
+          "buyer_pct": 83.3,
+          "seller_pct": 16.7,
+          "type": "強勢控盤"
         },
         "position": "低檔",
-        "leg_days": 16,
+        "leg_days": 17,
         "warnings": [],
-        "verdict": "收盤價領域拉鋸（買方58% / 賣方42%），訊號：錘子，位置：低檔第16天。"
+        "verdict": "收盤價領域強勢控盤（買方83% / 賣方17%），訊號：母子線，位置：低檔第17天。"
       },
       "wave": {
         "trend": "多頭",
@@ -3863,7 +3877,7 @@
             "price": 114.0
           }
         ],
-        "evidence": "轉折高：08/05 129.0 → 08/13 130.5（較高）；轉折低：07/29 102.5 → 08/07 114.0（較高）；今日收盤115.5尚未突破最近確認轉折高130.5（-11.5%）；尚未跌破最近確認轉折低114.0（+1.3%）"
+        "evidence": "轉折高：08/05 129.0 → 08/13 130.5（較高）；轉折低：07/29 102.5 → 08/07 114.0（較高）；今日收盤116.5尚未突破最近確認轉折高130.5（-10.7%）；尚未跌破最近確認轉折低114.0（+2.2%）"
       },
       "bottom_stage": {
         "stage": "①止跌",
@@ -3877,17 +3891,17 @@
           {
             "name": "②打底",
             "pass": false,
-            "detail": "均線尚未翻揚：MA10 121.05→120.20、MA20 123.83→119.15，仍下彎。（底底高已成立）"
+            "detail": "均線尚未翻揚：MA10 121.05→120.25、MA20 122.67→118.58，仍下彎。（底底高已成立）"
           },
           {
             "name": "③突破",
             "pass": false,
-            "detail": "價格條件未達標：收盤 115.5 未站上 MA20 119.2、尚未突破前轉折高 130.5。"
+            "detail": "價格條件未達標：收盤 116.5 未站上 MA20 118.6、尚未突破前轉折高 130.5。"
           },
           {
             "name": "④回升確立",
             "pass": false,
-            "detail": "均線尚未多排：MA5=118.50 MA10=120.20 MA20=119.15。（趨勢部分已達標：已為多頭）"
+            "detail": "均線尚未多排：MA5=117.60 MA10=120.25 MA20=118.58。（趨勢部分已達標：已為多頭）"
           }
         ],
         "skipped_stages": [],
@@ -3901,7 +3915,7 @@
           {
             "q": "①有沒有急跌",
             "pass": true,
-            "detail": "近20日最大回檔25.7%（138.0→102.5）"
+            "detail": "近20日最大回檔19.3%（127.0→102.5）"
           },
           {
             "q": "②有沒有爆量",
@@ -3916,7 +3930,7 @@
           {
             "q": "④有沒有過高",
             "pass": false,
-            "detail": "收盤115.50尚未突破近20日內任一轉折高"
+            "detail": "收盤116.50尚未突破近20日內任一轉折高"
           }
         ]
       },
@@ -3925,42 +3939,42 @@
           "step": 1,
           "name": "趨勢",
           "verdict": "多頭",
-          "detail": "轉折高：08/05 129.0 → 08/13 130.5（較高）；轉折低：07/29 102.5 → 08/07 114.0（較高）；今日收盤115.5尚未突破最近確認轉折高130.5（-11.5%）；尚未跌破最近確認轉折低114.0（+1.3%）"
+          "detail": "轉折高：08/05 129.0 → 08/13 130.5（較高）；轉折低：07/29 102.5 → 08/07 114.0（較高）；今日收盤116.5尚未突破最近確認轉折高130.5（-10.7%）；尚未跌破最近確認轉折低114.0（+2.2%）"
         },
         {
           "step": 2,
           "name": "均線",
-          "verdict": "糾結",
-          "detail": "MA5=118.50 MA10=120.20 MA20=119.15（糾結）；季線在股價下方，下彎"
+          "verdict": "不明確",
+          "detail": "MA5=117.60 MA10=120.25 MA20=118.58（不明確）；季線在股價下方，下彎"
         },
         {
           "step": 3,
           "name": "位置",
           "verdict": "低檔",
-          "detail": "低檔第16天，收盤價領域拉鋸"
+          "detail": "低檔第17天，收盤價領域強勢控盤"
         },
         {
           "step": 4,
           "name": "K線訊號",
-          "verdict": "錘子",
-          "detail": "收盤價領域拉鋸（買方58% / 賣方42%），訊號：錘子，位置：低檔第16天。"
+          "verdict": "母子線",
+          "detail": "收盤價領域強勢控盤（買方83% / 賣方17%），訊號：母子線，位置：低檔第17天。"
         },
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.60x（第16天）",
-          "detail": "今量101462408／20日均量170274902"
+          "verdict": "0.35x（第17天）",
+          "detail": "今量58537906／20日均量165607270"
         },
         {
           "step": 6,
           "name": "週線確認",
           "verdict": "衝突",
-          "detail": "週收盤115.50跌破週MA5(120.30)，日線趨勢多頭，週線與日線方向衝突"
+          "detail": "週收盤116.50跌破週MA5(120.50)，日線趨勢多頭，週線與日線方向衝突"
         },
         {
           "step": 7,
           "name": "風險",
-          "verdict": "前波低點法停損114.0（-1.3%）",
+          "verdict": "前波低點法停損114.0（-2.1%）",
           "detail": "低檔剛止跌，給較大空間確認打底，用前波低點法"
         }
       ],
@@ -3971,12 +3985,12 @@
           {
             "rule": "高檔不追多",
             "pass": true,
-            "detail": "位置低檔第16天，非高檔久盤"
+            "detail": "位置低檔第17天，非高檔久盤"
           },
           {
             "rule": "乖離未過熱",
             "pass": true,
-            "detail": "對MA20乖離-3.1%"
+            "detail": "對MA20乖離-1.7%"
           },
           {
             "rule": "突破需收盤確認",
@@ -3986,7 +4000,7 @@
           {
             "rule": "長線保護短線",
             "pass": false,
-            "detail": "週收盤115.50跌破週MA5(120.30)，日線趨勢多頭，週線與日線方向衝突"
+            "detail": "週收盤116.50跌破週MA5(120.50)，日線趨勢多頭，週線與日線方向衝突"
           },
           {
             "rule": "不接下跌刀",
@@ -3998,37 +4012,37 @@
       "stop_loss": {
         "recommended": "前波低點法",
         "price": 114.0,
-        "distance_pct": 1.3,
+        "distance_pct": 2.15,
         "reason": "低檔剛止跌，給較大空間確認打底，用前波低點法",
         "alternatives": [
           {
             "method": "前一日低點法",
-            "price": 113.5,
-            "distance_pct": 1.73
+            "price": 112.0,
+            "distance_pct": 3.86
           },
           {
             "method": "MA5法",
-            "price": 118.5,
-            "distance_pct": -2.6
+            "price": 117.6,
+            "distance_pct": -0.94
           },
           {
             "method": "MA10法",
-            "price": 120.2,
-            "distance_pct": -4.07
+            "price": 120.25,
+            "distance_pct": -3.22
           },
           {
             "method": "前波低點法",
             "price": 114.0,
-            "distance_pct": 1.3
+            "distance_pct": 2.15
           },
           {
             "method": "固定5%法",
-            "price": 109.72,
+            "price": 110.67,
             "distance_pct": 5.0
           }
         ]
       },
-      "verdict": "聯電(2303)目前處於低檔第16天，波浪型態頭頭高、底底高（多頭）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：長線保護短線，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以前波低點法停損於114.0（-1.3%）。",
+      "verdict": "聯電(2303)目前處於低檔第17天，波浪型態頭頭高、底底高（多頭）。打底四階段目前達「①止跌」；搶反彈四問3/4通過（3/4通過，訊號打折扣，需保守看待）。紀律檢查4/5項通過。未過項目：長線保護短線，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。若持有部位，建議以前波低點法停損於114.0（-2.1%）。",
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議"
     }
   }
