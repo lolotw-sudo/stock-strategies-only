@@ -151,6 +151,11 @@
   .result-price .n { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1rem; font-variant-numeric: tabular-nums; }
   .result-price .c { font-size: 0.7rem; margin-top: 2px; font-variant-numeric: tabular-nums; }
   .result-reason { font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
+  .detail-link {
+    font-size: 0.7rem; color: var(--accent); border: 1px solid var(--line); border-radius: 6px;
+    padding: 3px 9px; flex-shrink: 0; text-decoration: none; white-space: nowrap;
+  }
+  .detail-link:hover { border-color: var(--accent); background: rgba(59,130,246,.1); }
   .caret { color: var(--muted); font-size: 0.7rem; flex-shrink: 0; transition: transform .15s; }
   .result-row.open .caret { transform: rotate(90deg); }
 
@@ -466,6 +471,7 @@
             '<div class="n">' + esc(close != null ? Number(close).toFixed(2) : "—") + '</div>' +
             '<div class="c ' + chgCls + '">' + esc(chgTxt) + '</div>' +
           '</div>' +
+          '<a class="detail-link" href="stock.html?id=' + esc(r.stock_id) + '" title="開啟完整分析頁">詳細</a>' +
           '<span class="caret">▶</span>' +
         '</div>';
 
@@ -625,7 +631,7 @@
 
     // 7. 停損建議
     html += '<div class="kline-section">';
-    html += '<div class="section-title">停損建議（7-5停利五法）</div>';
+    html += '<div class="section-title">停損建議（7-5 停利法／第八章 停損法）</div>';
     html += '<div class="stoploss-head">' +
       '<span class="method">' + esc(stopLoss.recommended) + '</span>' +
       '<span class="price">' + esc(stopLoss.price) + '</span>' +
@@ -675,6 +681,9 @@
   // ---------- events ----------
 
   function bindEvents() {
+    document.querySelectorAll(".detail-link").forEach(function (el) {
+      el.addEventListener("click", function (e) { e.stopPropagation(); });
+    });
     var tabs = document.getElementById("tabs");
     if (tabs) {
       tabs.querySelectorAll(".tab").forEach(function (el) {

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>個股分析 · 選股看板</title>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<style>
+  :root {
+    --bg: #0b0d10;
+    --panel: #13171d;
+    --panel2: #1a1f27;
+    --line: #252b35;
+    --muted: #8a93a0;
+    --text: #e6e9ee;
+    /* 台股慣例：買進／看漲＝紅，賣出／看跌＝綠（與歐美相反，勿還原） */
+    --buy: #f43f5e;
+    --watch: #eab308;
+    --skip: #64748b;
+    --err: #fb923c;
+    --sell: #22c55e;
+    --accent: #3b82f6;
+    --up-c: #f43f5e;
+    --down-c: #22c55e;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Noto Sans TC", "PingFang TC", sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 14px 13px 60px; }
+  .layout { display: flex; flex-direction: column; }
+  .layout > .side { order: -1; }
+  a { color: var(--accent); text-decoration: none; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric: tabular-nums; }
+  .up { color: var(--up-c); }
+  .down { color: var(--down-c); }
+  .flat { color: var(--muted); }
+
+  .back { display: inline-block; font-size: 0.8rem; margin-bottom: 12px; }
+
+  /* 頁首 */
+  .head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .head .sid { font-family: ui-monospace, monospace; font-size: 0.8rem; color: var(--muted); }
+  .head h1 { font-size: 1.35rem; margin: 2px 0 0; }
+  .head .px { text-align: right; }
+  .head .px .n { font-family: ui-monospace, monospace; font-size: 1.5rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .head .px .c { font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+  .badges { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; align-items: center; }
+  .badge {
+    font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+    border: 1px solid; white-space: nowrap;
+  }
+  .badge-buy { background: rgba(244,63,94,.15); color: var(--buy); border-color: rgba(244,63,94,.4); }
+  .badge-watch { background: rgba(234,179,8,.15); color: var(--watch); border-color: rgba(234,179,8,.35); }
+  .badge-skip { background: rgba(100,116,139,.18); color: var(--skip); border-color: rgba(100,116,139,.4); }
+  .badge-sell { background: rgba(34,197,94,.18); color: var(--sell); border-color: var(--sell); font-weight: 700; }
+  .badge-regime { background: var(--panel2); color: var(--text); border-color: var(--line); }
+  .badge-hot { background: rgba(244,63,94,.12); color: var(--up-c); border-color: rgba(244,63,94,.4); }
+  .wave-line { font-size: 0.8rem; color: var(--muted); margin-top: 7px; }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px; margin-top: 13px;
+  }
+  .card h2 {
+    font-size: 0.82rem; margin: 0 0 10px; color: var(--muted); font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .card h2 .sub { font-weight: 400; color: var(--skip); }
+
+  /* 操作計畫 */
+  .stance {
+    display: inline-block; font-size: 0.85rem; font-weight: 700; padding: 4px 13px;
+    border-radius: 999px; border: 1px solid; margin-bottom: 9px;
+  }
+  .stance-go { color: var(--buy); background: rgba(244,63,94,.12); border-color: rgba(244,63,94,.4); }
+  .stance-trim { color: var(--err); background: rgba(251,146,60,.12); border-color: rgba(251,146,60,.4); }
+  .stance-hold { color: var(--muted); background: rgba(138,147,160,.12); border-color: rgba(138,147,160,.35); }
+  .headline { font-size: 0.93rem; line-height: 1.6; }
+  .kv { font-size: 0.84rem; line-height: 1.65; margin-top: 10px; }
+  .kv .k {
+    display: inline-block; font-size: 0.67rem; color: var(--muted); border: 1px solid var(--line);
+    border-radius: 4px; padding: 0 6px; margin-right: 6px; vertical-align: 1px;
+  }
+
+  /* 價位列 */
+  .levels { margin-top: 11px; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+  .lv {
+    display: grid; grid-template-columns: 1fr auto; gap: 4px 10px;
+    padding: 9px 12px; border-bottom: 1px solid var(--line); background: var(--panel2);
+  }
+  .lv:last-child { border-bottom: none; }
+  .lv-label { font-size: 0.78rem; color: var(--muted); }
+  .lv-value { font-family: ui-monospace, monospace; font-size: 1rem; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+  .lv-note { grid-column: 1 / -1; font-size: 0.7rem; color: var(--skip); margin-top: -2px; }
+
+  /* 圖表 */
+  #chart { width: 100%; height: 260px; }
+  #vol { width: 100%; height: 74px; margin-top: 2px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 11px; font-size: 0.68rem; color: var(--muted); margin-bottom: 8px; }
+  .legend i { display: inline-block; width: 14px; height: 2px; vertical-align: 3px; margin-right: 4px; }
+
+  /* 持股 */
+  .pos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .pos-cell { background: var(--panel2); border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; }
+  .pos-cell .l { font-size: 0.68rem; color: var(--muted); }
+  .pos-cell .v { font-family: ui-monospace, monospace; font-size: 1.02rem; font-weight: 600; margin-top: 3px; font-variant-numeric: tabular-nums; }
+  .cost-note { font-size: 0.68rem; color: var(--skip); margin-top: 8px; }
+
+  /* 停利五法階梯 */
+  .ladder { border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+  .rung {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: baseline;
+    padding: 10px 12px; border-bottom: 1px solid var(--line); background: var(--panel2);
+  }
+  .rung:last-child { border-bottom: none; }
+  .rung.broken { background: rgba(251,146,60,.09); }
+  .rung.rec { background: rgba(59,130,246,.1); }
+  .rung .tag {
+    font-size: 0.6rem; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--line);
+    color: var(--muted); white-space: nowrap;
+  }
+  .rung .m { font-size: 0.8rem; }
+  .rung .p { font-family: ui-monospace, monospace; font-size: 0.95rem; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+  .rung .d { grid-column: 2 / -1; font-size: 0.68rem; color: var(--skip); margin-top: -3px; }
+
+  /* 檢查表 */
+  .chk { display: grid; grid-template-columns: auto 1fr; gap: 8px 9px; align-items: start; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .chk:last-child { border-bottom: none; }
+  .chk .mk { font-size: 0.8rem; line-height: 1.4; }
+  .chk .r { font-size: 0.82rem; font-weight: 500; }
+  .chk .dt { grid-column: 2; font-size: 0.72rem; color: var(--muted); line-height: 1.55; }
+
+  /* 壓力區 */
+  .zones { display: flex; flex-direction: column; gap: 7px; }
+  .zone {
+    display: flex; justify-content: space-between; align-items: baseline;
+    background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 11px;
+  }
+  .zone .z1 { font-family: ui-monospace, monospace; font-size: 0.95rem; font-weight: 600; }
+  .zone .z2 { font-size: 0.72rem; color: var(--muted); }
+
+  /* 折疊 */
+  details { margin-top: 13px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+  details > summary {
+    padding: 13px 14px; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    list-style: none; display: flex; justify-content: space-between; align-items: center;
+  }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::after { content: "▾"; color: var(--muted); font-size: 0.75rem; }
+  details[open] > summary::after { content: "▴"; }
+  details > .body { padding: 0 14px 14px; }
+  .sop-row { padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .sop-row:last-child { border-bottom: none; }
+  .sop-row .t { font-size: 0.8rem; font-weight: 600; }
+  .sop-row .t em { font-style: normal; color: var(--muted); font-weight: 400; margin-left: 6px; }
+  .sop-row .d { font-size: 0.72rem; color: var(--muted); line-height: 1.55; margin-top: 3px; }
+
+  .foot { color: var(--skip); font-size: 0.68rem; margin-top: 20px; line-height: 1.6; }
+  .empty { color: var(--muted); font-size: 0.85rem; padding: 40px 0; text-align: center; }
+
+  @media (min-width: 640px) {
+    #chart { height: 340px; }
+    .wrap { padding: 20px 18px 70px; }
+  }
+  /* 桌機為主：左欄放圖與檢查表，右欄放操作計畫並固定跟隨 */
+  @media (min-width: 960px) {
+    .layout {
+      display: grid; grid-template-columns: minmax(0, 1fr) 348px;
+      gap: 0 16px; align-items: start;
+    }
+    .layout > .main { grid-column: 1; }
+    .layout > .side { grid-column: 2; order: 0; position: sticky; top: 14px; }
+    #chart { height: 440px; }
+    #vol { height: 96px; }
+    .head h1 { font-size: 1.6rem; }
+    .head .px .n { font-size: 1.85rem; }
+    .pos-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><div class="empty">載入中…</div></div>
+
+<script>
+(function () {
+  var app = document.getElementById("app");
+
+  function esc(v) {
+    return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function num(v, d) { return Number(v).toFixed(d == null ? 2 : d); }
+  function pct(v) { return (v > 0 ? "+" : "") + Number(v).toFixed(2) + "%"; }
+  function cls(v) { return v > 0 ? "up" : v < 0 ? "down" : "flat"; }
+  function badgeCls(a) {
+    return { SELL: "badge-sell", BUY: "badge-buy", WATCH: "badge-watch", SKIP: "badge-skip" }[a] || "badge-skip";
+  }
+
+  var params = new URLSearchParams(location.search);
+  var sid = params.get("id");
+
+  fetch("data/latest.json?v=" + Date.now())
+    .then(function (r) { return r.json(); })
+    .then(function (d) { render(d); })
+    .catch(function () {
+      app.innerHTML = '<div class="empty">讀不到看板資料，請回<a href="./">看板首頁</a>重試。</div>';
+    });
+
+  function render(d) {
+    var a = (d.analysis || {})[sid];
+    if (!sid || !a) {
+      app.innerHTML = '<a class="back" href="./">← 回看板</a><div class="empty">找不到這檔股票的分析資料。</div>';
+      return;
+    }
+    if (a.error) {
+      app.innerHTML = '<a class="back" href="./">← 回看板</a><div class="empty">分析無法產生：' + esc(a.error) + "</div>";
+      return;
+    }
+
+    // 這檔股票在「朱家泓K線策略」下的燈號
+    var row = null;
+    (d.strategies || []).forEach(function (s) {
+      if (s.id === "kline-chu") {
+        (s.results || []).forEach(function (r) { if (r.stock_id === sid) row = r; });
+      }
+    });
+
+    var price = a.price || {};
+    var regime = a.regime || {};
+    var wave = a.wave || {};
+    var holding = a.holding;
+    var plan = a.plan;
+    var html = "";
+
+    html += '<a class="back" href="./">← 回看板</a>';
+
+    // ── 頁首 ──
+    html += '<div class="head">';
+    html += '<div><div class="sid">' + esc(sid) + "</div><h1>" + esc(a.name) + "</h1></div>";
+    html += '<div class="px"><div class="n">' + num(price.close) + "</div>" +
+            '<div class="c ' + cls(price.chg_pct) + '">' + pct(price.chg_pct) + "</div></div>";
+    html += "</div>";
+
+    html += '<div class="badges">';
+    if (row) html += '<span class="badge ' + badgeCls(row.action) + '">' + esc(row.action) + "</span>";
+    if (regime.label) html += '<span class="badge badge-regime">' + esc(regime.label) + "</span>";
+    if (regime.hot) html += '<span class="badge badge-hot">🔥 乖離 ' + esc(regime.bias_ma20) + "%</span>";
+    html += "</div>";
+    if (wave.trend) {
+      html += '<div class="wave-line"><span class="' + (wave.trend.indexOf("多頭") === 0 ? "up" : wave.trend.indexOf("空頭") === 0 ? "down" : "flat") +
+              '">' + esc(wave.trend) + "</span>・" + esc(wave.pattern) + "　" + esc(a.date) + " 收盤</div>";
+    }
+
+    html += '<div class="layout"><div class="side">' + sideHtml(a, plan, holding) + '</div><div class="main">';
+
+    // ── K線圖 ──
+    if (a.ohlc && a.ohlc.length) {
+      html += '<div class="card"><h2>日K　<span class="sub">近 ' + a.ohlc.length + " 個交易日</span></h2>";
+      html += '<div class="legend">' +
+              '<span><i style="background:#c77d1e"></i>MA5</span>' +
+              '<span><i style="background:#3b82f6"></i>MA10</span>' +
+              '<span><i style="background:#b5457a"></i>MA20</span>' +
+              (holding ? '<span><i style="background:#e6e9ee"></i>你的成本 ' + num(holding.cost) + "</span>" : "") +
+              "</div>";
+      html += '<div id="chart"></div><div id="vol"></div></div>';
+    }
+
+    // ── 依情境分流：有部位看減碼，沒部位看進場 ──
+    html += holding ? renderExitLadder(a, holding) : renderEntry(a);
+
+    // ── 上方壓力（兩種情境都有用：有部位是停利參考，沒部位是壓力關卡）──
+    if (a.resistance && a.resistance.length) {
+      html += '<div class="card"><h2>上方壓力關卡　<span class="sub">' +
+              (holding ? "手冊 7-5：分批停利的參考位置" : "突破這些關卡才是續攻") + "</span></h2>";
+      html += '<div class="zones">';
+      a.resistance.forEach(function (z) {
+        html += '<div class="zone"><span class="z1">' + esc(z.price) + "</span>" +
+                '<span class="z2">' + esc(z.date.slice(5)) + " 前波高　距現價 +" + esc(z.gap_pct) + "%</span></div>";
+      });
+      html += "</div></div>";
+    }
+
+    // ── 判讀細節（折疊，一次倒出來會淹沒重點）──
+    html += renderDetails(a);
+    html += '</div></div>';   // .main / .layout
+
+    html += '<div class="foot">' + esc(a.disclaimer) + "<br>資料日 " + esc(a.date) +
+            "，看板產生於 " + esc(d.generated_at_display || "") + "。</div>";
+
+    app.innerHTML = html;
+    // 不用 requestAnimationFrame：分頁在背景時它不會觸發，圖表就永遠不畫。
+    // 尺寸交由 autoSize 處理，這裡直接畫即可。
+    if (a.ohlc && a.ohlc.length) drawChart(a, holding);
+  }
+
+  // 側欄：操作計畫（桌機固定跟隨）＋ 你的部位
+  function sideHtml(a, plan, holding) {
+    var s = "";
+    if (plan) {
+      var sc = /可考慮進場|成立/.test(plan.stance) ? "stance-go"
+             : /停利|減碼/.test(plan.stance) ? "stance-trim" : "stance-hold";
+      s += '<div class="card">';
+      s += '<div class="stance ' + sc + '">' + esc(plan.stance) + "</div>";
+      s += '<div class="headline">' + esc(plan.headline) + "</div>";
+      s += '<div class="kv"><span class="k">該做</span>' + esc(plan.do) + "</div>";
+      if (plan.levels && plan.levels.length) {
+        s += '<div class="levels">';
+        plan.levels.forEach(function (lv) {
+          s += '<div class="lv"><span class="lv-label">' + esc(lv.label) + "</span>" +
+               '<span class="lv-value">' + esc(lv.value) + "</span>" +
+               '<span class="lv-note">' + esc(lv.note) + "</span></div>";
+        });
+        s += "</div>";
+      }
+      s += '<div class="kv"><span class="k">後續觀察</span>' + esc(plan.watch_for) + "</div>";
+      s += "</div>";
+    }
+    if (holding) s += renderPosition(holding, a);
+    return s;
+  }
+
+  // 你的部位
+  function renderPosition(h, a) {
+    var s = '<div class="card"><h2>你的部位</h2><div class="pos-grid">';
+    s += '<div class="pos-cell"><div class="l">成本</div><div class="v">' + num(h.cost) + "</div></div>";
+    s += '<div class="pos-cell"><div class="l">現價</div><div class="v">' + num(h.close) + "</div></div>";
+    s += '<div class="pos-cell"><div class="l">報酬率</div><div class="v ' + cls(h.return_pct) + '">' + pct(h.return_pct) + "</div></div>";
+    if (h.shares) {
+      s += '<div class="pos-cell"><div class="l">損益</div><div class="v ' + cls(h.pnl) +
+           '">' + (h.pnl > 0 ? "+" : "") + Number(h.pnl).toLocaleString() + "</div></div>";
+      s += '<div class="pos-cell"><div class="l">股數</div><div class="v">' + Number(h.shares).toLocaleString() + "</div></div>";
+      s += '<div class="pos-cell"><div class="l">市值</div><div class="v">' + Number(h.market_value).toLocaleString() + "</div></div>";
+    }
+    s += "</div>";
+    s += '<div class="cost-note">' + esc(h.cost_basis) + "——跌破它代表你最先由盈轉虧的那一筆已翻黑，與技術面訊號分開看。</div>";
+    return s + "</div>";
+  }
+
+  // 手冊有兩套五法，不可混為一談：
+  //   7-5「停利五法」＝持有中的移動停利（前一日低點／MA5／MA10／前波低點／型態法）
+  //   第八章「停損五法」＝進場前設定（趨勢／均線／固定比例／支阻／絕對）
+  function methodSource(m) {
+    if (/前一日低點|MA5|MA10|前波低點|型態/.test(m)) return "7-5 停利";
+    if (/固定/.test(m)) return "第八章 停損";
+    return "";
+  }
+
+  // 減碼訊號：把各種停利／停損法的觸發價由緊到鬆排成階梯
+  function renderExitLadder(a, h) {
+    var sl = a.stop_loss || {};
+    var alts = (sl.alternatives || []).slice();
+    if (!alts.length) return "";
+    var close = (a.price || {}).close;
+
+    var rows = alts.map(function (x) {
+      return { method: x.method, price: x.price, dist: x.distance_pct, kind: "手冊五法" };
+    });
+    if (h) rows.push({ method: "你的成本", price: h.cost, dist: (close / h.cost - 1) * 100, kind: "個人參考" });
+    // 由緊到鬆＝觸發價由高到低
+    rows.sort(function (p, q) { return q.price - p.price; });
+
+    var s = '<div class="card"><h2>減碼訊號　<span class="sub">移動停利／停損的觸發價，由緊到鬆</span></h2>';
+    s += '<div class="ladder">';
+    rows.forEach(function (r) {
+      var broken = r.price > close;
+      var rec = r.method === sl.recommended;
+      s += '<div class="rung' + (broken ? " broken" : rec ? " rec" : "") + '">';
+      s += '<span class="tag">' + (broken ? "已跌破" : rec ? "建議" : r.kind === "個人參考" ? "成本" : "未觸發") + "</span>";
+      s += '<span class="m">' + esc(r.method) +
+           (methodSource(r.method) ? ' <span style="color:var(--skip);font-size:.68rem">' + methodSource(r.method) + "</span>" : "") + "</span>";
+      s += '<span class="p">' + num(r.price) + "</span>";
+      s += '<div class="d">' + (broken
+            ? "現價已在此線下方，這個方法本身已失效"
+            : "距現價 " + num(Math.abs(r.dist), 1) + "%") +
+           (rec ? "　·　" + esc(sl.reason) : "") + "</div>";
+      s += "</div>";
+    });
+    s += "</div>";
+    var pat = (a.wave || {}).pattern || "";
+    var patBroken = pat.indexOf("頭頭低") !== -1;
+    s += '<div class="cost-note"><b>型態法（7-5 第五法，無固定價位）</b>：目前波浪型態為「' + esc(pat) + '」——' +
+         (patBroken ? "頭頭低已確立，依型態法這裡就是出場訊號。" : "頭頭低尚未確立，型態法未觸發。") + "</div>";
+    s += '<div class="cost-note">手冊 7-5：五種方法選一種、只用一種。賺錢時換到寬的、賠錢時換到緊的，是最典型的自我欺騙。</div>';
+    return s + "</div>";
+  }
+
+  // 沒部位：看該狀態的進場檢查表
+  function renderEntry(a) {
+    var cl = a.checklist;
+    if (!cl) {
+      return '<div class="card"><h2>進場檢查表</h2><div class="chk"><div class="mk">—</div><div class="dt">' +
+             esc((a.regime || {}).label) + "，手冊第六章列為不該進場的狀態，沒有對應的買點檢查表。</div></div></div>";
+    }
+    var s = '<div class="card"><h2>進場檢查表　<span class="sub">' + esc(cl.name) + "（" + cl.passed + "/" + cl.total + "）</span></h2>";
+    (cl.items || []).forEach(function (it) {
+      s += '<div class="chk"><div class="mk">' + (it.pass ? "✅" : "❌") + "</div>" +
+           '<div class="r">' + esc(it.rule || it.q) + "</div>" +
+           '<div class="dt">' + esc(it.detail) + "</div></div>";
+    });
+    return s + "</div>";
+  }
+
+  function renderDetails(a) {
+    var s = "";
+    var cl = a.checklist;
+    var holding = a.holding;
+
+    // 有部位的人，進場檢查表收進折疊區（他關心的是續抱或減碼）
+    if (holding && cl) {
+      s += '<details><summary>' + esc(cl.name) + "（" + cl.passed + "/" + cl.total + "）</summary><div class=\"body\">";
+      (cl.items || []).forEach(function (it) {
+        s += '<div class="chk"><div class="mk">' + (it.pass ? "✅" : "❌") + '</div><div class="r">' +
+             esc(it.rule || it.q) + '</div><div class="dt">' + esc(it.detail) + "</div></div>";
+      });
+      s += "</div></details>";
+    }
+
+    var rs = a.rebound_strength;
+    if (rs) {
+      s += '<details><summary>反彈強弱（手冊 5-2-5）：' + esc(rs.verdict) + "</summary><div class=\"body\">";
+      s += '<div class="cost-note" style="margin:0 0 8px">' + esc(rs.note) + "</div>";
+      (rs.items || []).forEach(function (it) {
+        s += '<div class="chk"><div class="mk">' + (it.pass ? "✅" : "❌") + '</div><div class="r">' +
+             esc(it.rule) + '</div><div class="dt">' + esc(it.detail) + "</div></div>";
+      });
+      s += "</div></details>";
+    }
+
+    var sop = a.sop || [];
+    if (sop.length) {
+      s += '<details><summary>實戰 SOP 七步（手冊第八章）</summary><div class="body">';
+      sop.forEach(function (x) {
+        s += '<div class="sop-row"><div class="t">' + x.step + ". " + esc(x.name) +
+             "<em>" + esc(x.verdict) + '</em></div><div class="d">' + esc(x.detail) + "</div></div>";
+      });
+      s += "</div></details>";
+    }
+
+    var bs = a.bottom_stage;
+    var showStage = ["basing", "confirmed", "downtrend"].indexOf((a.regime || {}).code) !== -1;
+    if (bs && showStage) {
+      s += '<details><summary>空頭轉多頭四階段：' + esc(bs.stage) + "</summary><div class=\"body\">";
+      (bs.checks || []).forEach(function (c) {
+        s += '<div class="chk"><div class="mk">' + (c.pass ? "✅" : "❌") + '</div><div class="r">' +
+             esc(c.name) + '</div><div class="dt">' + esc(c.detail) + "</div></div>";
+      });
+      s += "</div></details>";
+    }
+
+    var dc = a.discipline;
+    if (dc) {
+      s += '<details><summary>紀律檢查（' + dc.passed + "/" + dc.total + "）</summary><div class=\"body\">";
+      (dc.items || []).forEach(function (it) {
+        s += '<div class="chk"><div class="mk">' + (it.pass ? "✅" : "❌") + '</div><div class="r">' +
+             esc(it.rule) + '</div><div class="dt">' + esc(it.detail) + "</div></div>";
+      });
+      s += "</div></details>";
+    }
+
+    var w = a.wave;
+    if (w) {
+      s += '<details><summary>波浪型態：' + esc(w.trend) + "・" + esc(w.pattern) + "</summary><div class=\"body\">";
+      s += '<div class="sop-row"><div class="d">' + esc(w.evidence) + "</div></div>";
+      s += "</div></details>";
+    }
+
+    var f = a.fib;
+    if (f) {
+      s += '<details><summary>波段回撤位（輔助刻度）</summary><div class="body">';
+      s += '<div class="cost-note" style="margin:0 0 9px">' + esc(f.source_note) + "。本波段：" +
+           esc(f.high) + "（" + esc(f.high_date.slice(5)) + "）跌到 " + esc(f.low) + "（" +
+           esc(f.low_date.slice(5)) + "），目前回升 " + esc(f.retrace_pct) + "%。</div>";
+      s += '<div class="zones">';
+      f.levels.forEach(function (l) {
+        s += '<div class="zone"><span class="z1">' + esc(l.price) + '</span><span class="z2">' +
+             l.ratio.toFixed(3) + " 回撤位</span></div>";
+      });
+      s += "</div></div></details>";
+    }
+    return s;
+  }
+
+  function sma(data, n) {
+    var out = [];
+    for (var i = n - 1; i < data.length; i++) {
+      var sum = 0;
+      for (var j = i - n + 1; j <= i; j++) sum += data[j].close;
+      out.push({ time: data[i].time, value: +(sum / n).toFixed(2) });
+    }
+    return out;
+  }
+
+  function drawChart(a, holding) {
+    if (typeof LightweightCharts === "undefined") {
+      document.getElementById("chart").innerHTML =
+        '<div class="empty" style="padding:20px 0">圖表元件載入失敗（可能是離線），其餘判讀不受影響。</div>';
+      return;
+    }
+    var bars = a.ohlc.map(function (r) {
+      return { time: r[0], open: r[1], high: r[2], low: r[3], close: r[4], volume: r[5] };
+    });
+    var common = {
+      layout: { background: { color: "transparent" }, textColor: "#8a93a0", fontSize: 10 },
+      grid: { vertLines: { color: "rgba(140,150,170,.07)" }, horzLines: { color: "rgba(140,150,170,.07)" } },
+      rightPriceScale: { borderVisible: false },
+      timeScale: { borderVisible: false },
+      handleScroll: true, handleScale: true,
+    };
+    // 容器在建立當下可能還沒完成佈局（clientWidth 為 0），canvas 會停在預設的
+    // 300x150 什麼都畫不出來；autoSize 的 ResizeObserver 在背景分頁也不可靠。
+    // 因此明確給尺寸，並在資料設定完成後再確認一次。
+    function sizeOf(node, fallbackH) {
+      var r = node.getBoundingClientRect();
+      return {
+        width: Math.round(node.clientWidth || r.width || node.parentElement.clientWidth || 700),
+        height: Math.round(node.clientHeight || r.height || fallbackH),
+      };
+    }
+
+    var el = document.getElementById("chart");
+    var chart = LightweightCharts.createChart(el, Object.assign({}, common, sizeOf(el, 340)));
+    // 台股慣例：漲紅跌綠
+    var candle = chart.addCandlestickSeries({
+      upColor: "#f43f5e", downColor: "#22c55e",
+      borderUpColor: "#f43f5e", borderDownColor: "#22c55e",
+      wickUpColor: "#f43f5e", wickDownColor: "#22c55e",
+    });
+    candle.setData(bars);
+    [[5, "#c77d1e"], [10, "#3b82f6"], [20, "#b5457a"]].forEach(function (p) {
+      var ls = chart.addLineSeries({ color: p[1], lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
+      ls.setData(sma(bars, p[0]));
+    });
+    if (holding) {
+      candle.createPriceLine({
+        price: holding.cost, color: "#e6e9ee", lineWidth: 1,
+        lineStyle: LightweightCharts.LineStyle.Dashed, title: "成本 " + holding.cost,
+      });
+    }
+
+    var ve = document.getElementById("vol");
+    var vchart = LightweightCharts.createChart(ve, Object.assign({}, common, sizeOf(ve, 80)));
+    var vol = vchart.addHistogramSeries({ priceFormat: { type: "volume" }, priceLineVisible: false });
+    vol.setData(bars.map(function (b) {
+      return { time: b.time, value: b.volume, color: b.close >= b.open ? "rgba(244,63,94,.5)" : "rgba(34,197,94,.5)" };
+    }));
+
+    chart.timeScale().subscribeVisibleLogicalRangeChange(function (r) { if (r) vchart.timeScale().setVisibleLogicalRange(r); });
+    vchart.timeScale().subscribeVisibleLogicalRangeChange(function (r) { if (r) chart.timeScale().setVisibleLogicalRange(r); });
+    chart.applyOptions(sizeOf(el, 340));
+    vchart.applyOptions(sizeOf(ve, 80));
+    chart.timeScale().fitContent();
+    vchart.timeScale().fitContent();
+
+    // 視窗改變時跟著調整（含手機轉向）
+    window.addEventListener("resize", function () {
+      chart.applyOptions(sizeOf(el, 340));
+      vchart.applyOptions(sizeOf(ve, 80));
+    });
+
+  }
+})();
+</script>
+</body>
+</html>
