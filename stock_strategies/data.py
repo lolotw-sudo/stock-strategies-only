@@ -51,6 +51,28 @@ def fetch_finmind(
     return pd.DataFrame()
 
 
+# 台股有 10% 漲跌停，正常單日收盤不可能倍增或腰斬；超出這個範圍必是
+# 分割／減資／大額除權造成的價格斷層（FinMind TaiwanStockPrice 未還原權值）。
+SPLIT_RATIO_LOW = 0.5
+SPLIT_RATIO_HIGH = 2.0
+
+
+def drop_pre_split(df: pd.DataFrame) -> pd.DataFrame:
+    """截掉最後一次價格斷層之前的資料。
+
+    例：00631L 於 2026-03-31 由 443.15 跳到 19.26（約 1:23 分割）。斷層前後的
+    價格不在同一個基準上，若一併餵進均線、乖離、波浪與回撤位計算，結果全是錯的。
+    技術分析只看得懂連續的價格序列，因此一律只保留最近一段。
+    """
+    if len(df) < 2:
+        return df
+    ratio = df["close"] / df["close"].shift(1)
+    breaks = df.index[(ratio < SPLIT_RATIO_LOW) | (ratio > SPLIT_RATIO_HIGH)]
+    if len(breaks) == 0:
+        return df
+    return df.iloc[int(breaks[-1]):].reset_index(drop=True)
+
+
 def get_price_history(stock_id: str, years: int = 3) -> pd.DataFrame:
     start = (datetime.now() - timedelta(days=365 * years + 60)).strftime("%Y-%m-%d")
     df = fetch_finmind_cached("TaiwanStockPrice", stock_id, start)
@@ -60,7 +82,7 @@ def get_price_history(stock_id: str, years: int = 3) -> pd.DataFrame:
     for col in ["open", "high", "low", "close", "volume"]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
-    return df.sort_values("date").reset_index(drop=True)
+    return drop_pre_split(df.sort_values("date").reset_index(drop=True))
 
 
 def get_fundamental(stock_id: str) -> dict:
