@@ -219,12 +219,14 @@ def evaluate(stock_id: str, name: str, strategy: dict | None = None) -> Optional
             f"停利 +{params['target_return']*100:.0f}%（下方參考價為今日收盤）"
         )
 
-        if bt.get("samples", 0) < 8:
-            result["risk_notes"].append(f"回測樣本僅 {bt.get('samples', 0)} 次，統計弱")
+        # kline_sop 模式的燈號完全不看回測，勝率／樣本數提示在該模式下只是雜訊
+        if action_mode != "kline_sop":
+            if bt.get("samples", 0) < 8:
+                result["risk_notes"].append(f"回測樣本僅 {bt.get('samples', 0)} 次，統計弱")
+            if winrate < 0.5:
+                result["risk_notes"].append(f"歷史勝率 {winrate*100:.0f}% 低於五成")
         if not fund_pass:
             result["risk_notes"].append("基本面未過門檻")
-        if winrate < 0.5:
-            result["risk_notes"].append(f"歷史勝率 {winrate*100:.0f}% 低於五成")
         if pd.notna(latest.get("bb_upper")) and latest["close"] > latest["bb_upper"]:
             result["risk_notes"].append("已突破布林上軌，追高風險")
         if "放量滯漲" in vp["patterns"]:

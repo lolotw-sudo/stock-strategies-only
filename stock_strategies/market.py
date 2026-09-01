@@ -22,9 +22,9 @@ def get_market_state(ma_period: int = 20) -> dict:
         bullish = close > ma20
         pct = (close / ma20 - 1) * 100
         if bullish:
-            note = f"🟢 加權 {close:.0f} 站上 {ma_period} 日線 ({pct:+.1f}%)，BUY 訊號照常發出"
+            note = f"▲ 加權 {close:.0f} 站上 {ma_period} 日線 ({pct:+.1f}%)，BUY 訊號照常發出"
         else:
-            note = f"🔴 加權 {close:.0f} 跌破 {ma_period} 日線 ({pct:+.1f}%)，BUY 全數降為 WATCH"
+            note = f"▼ 加權 {close:.0f} 跌破 {ma_period} 日線 ({pct:+.1f}%)，BUY 全數降為 WATCH"
         return {"bullish": bullish, "close": close, "ma20": ma20, "note": note}
     except Exception as e:
         return {"bullish": True, "close": None, "ma20": None,

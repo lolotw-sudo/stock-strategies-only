@@ -357,7 +357,10 @@ def _rebound_check(hist: pd.DataFrame, li: int, wave: dict, highs: list) -> dict
     peak_val = float(running_max.iloc[dd_pos])
     trough_val = float(window["low"].iloc[dd_pos])
     q1_pass = max_dd >= REBOUND_DRAWDOWN_PCT
-    q1_detail = f"近{REBOUND_WINDOW}日最大回檔{max_dd*100:.1f}%（{peak_val:.1f}→{trough_val:.1f}）"
+    q1_detail = (
+        f"近{REBOUND_WINDOW}日最大回檔{max_dd*100:.1f}%（{peak_val:.1f}→{trough_val:.1f}）"
+        f"，門檻{REBOUND_DRAWDOWN_PCT*100:.0f}%"
+    )
 
     # ②爆量：任一成立即通過 (a) 量≥前5日均量2倍 或 (b) 量≥前一日2倍（倍量柱）
     q2_pass = False
@@ -769,6 +772,18 @@ def _regime(wave, bottom_stage, bias_ma20) -> dict:
 # ────────────────────────── 總結 ──────────────────────────
 
 
+def _nearest_above(pivots: list, price: float):
+    """找出價格上方最近的轉折高（突破要跨的那一關）。"""
+    above = [p for p in pivots if p["price"] > price]
+    return min(above, key=lambda p: p["price"]) if above else None
+
+
+def _nearest_below(pivots: list, price: float):
+    """找出價格下方最近的轉折低（跌破就代表結構壞掉）。"""
+    below = [p for p in pivots if p["price"] < price]
+    return max(below, key=lambda p: p["price"]) if below else None
+
+
 def _build_verdict(
     stock_id: str,
     name: str,
@@ -778,29 +793,151 @@ def _build_verdict(
     rebound_check: dict,
     discipline: dict,
     stop_loss: dict,
-) -> str:
-    parts = [
-        f"{name}({stock_id})目前處於{snapshot['position'] or '—'}第{snapshot['leg_days']}天，"
-        f"波浪型態{wave['pattern']}（{wave['trend']}）。",
-        f"打底四階段目前達「{bottom_stage['stage']}」；搶反彈四問{rebound_check['passed']}/"
-        f"{rebound_check['total']}通過（{rebound_check['conclusion']}）。",
-        f"紀律檢查{discipline['passed']}/{discipline['total']}項通過。",
-    ]
-    if discipline["passed"] < discipline["total"]:
-        failed_rules = "、".join(it["rule"] for it in discipline["items"] if not it["pass"])
-        parts.append(f"未過項目：{failed_rules}，現階段不宜貿然追價，應等待訊號確認或拉回不破再進場。")
-    else:
-        parts.append("紀律面全數通過，若進場可依SOP紀律執行。")
-    parts.append(
-        f"若持有部位，建議以{stop_loss['recommended']}停損於{stop_loss['price']}"
-        f"（{_dist_label(stop_loss['distance_pct'])}）。"
-    )
+    regime: dict,
+    checklist: dict | None,
+    close: float,
+    ma10v: float | None,
+    ma20v: float | None,
+) -> tuple[str, dict]:
+    """產生操作結語。
+
+    回傳 (verdict_text, plan)：
+      verdict_text —— 純文字，供 Telegram 通知沿用
+      plan —— 結構化，供看板排版：
+        stance      現在的立場（不進場／可考慮進場／只談停利…）
+        headline    一句話講現在的處境（不重複上面已列的分數）
+        do          具體該做什麼，附手冊依據
+        levels      關鍵價位（要看的數字，一眼可見）
+        watch_for   要等的訊號，或這個判斷失效的條件
+    """
+    code = regime["code"]
+    hot = regime["hot"]
+    bias = regime["bias_ma20"]
+    highs = wave.get("recent_highs") or []
+    lows = wave.get("recent_lows") or []
+    up = _nearest_above(highs, close)
+    dn = _nearest_below(lows, close)
+
+    levels: list[dict] = []
+    sl_price = stop_loss.get("price")
+    sl_broken = (stop_loss.get("distance_pct") or 0) < 0   # 負值＝該方法的參考線已在現價上方，等於已失效
+    if sl_price and not sl_broken:
+        levels.append({
+            "label": f"若已持有，停損／停利（{stop_loss['recommended']}）",
+            "value": sl_price,
+            "note": _dist_label(stop_loss["distance_pct"]),
+        })
+
+    failed = [it for it in (checklist or {}).get("items", []) if not it["pass"]]
+    failed_names = "、".join(it.get("rule") or it.get("q") for it in failed)
+    disc_failed = "、".join(it["rule"] for it in discipline["items"] if not it["pass"])
+
+    # ── 過熱優先：手冊 7-5，此處談停利不談進場 ──
+    if hot:
+        stance = "只談停利，不談進場"
+        headline = f"{regime['label']}，但對月線乖離 {bias:+.1f}%，已過手冊 20% 的警戒線。"
+        do = "手冊 7-5：乖離過大時任何風吹草動都可能引發急殺回補，這裡該做的是分批停利與減碼，不是找買點。"
+        if ma20v:
+            levels.append({"label": "乖離收斂到 20% 的價位", "value": round(ma20v * 1.20, 2),
+                           "note": "跌回這價位以下，過熱才算解除"})
+        watch_for = "等乖離收斂、或拉回測試月線不破，再重新評估進場。在那之前只做減碼決策。"
+
+    elif code == "downtrend":
+        stance = "不進場"
+        headline = f"仍在下跌途中，{bottom_stage['stage']}（{wave['pattern']}）。"
+        do = ("手冊第六章列為不該進場的狀態：不接下跌刀，空手等待。"
+              + (f"已持有的人，{stop_loss['recommended']}的參考線 {sl_price} 已在現價上方、該方法失效，"
+                 "手冊 7-5 的作法是換用更緊的『前一日低點法』控制風險。" if sl_broken and sl_price else ""))
+        if dn:
+            levels.append({"label": "下方最近的轉折低", "value": dn["price"],
+                           "note": f"{dn['date'][5:]}，跌破代表跌勢延續"})
+        watch_for = "先等「近10日不再創新低」（止跌成立），再看有沒有爆量搭配長下影或多方吞噬。兩者都到才輪到搶反彈四問。"
+
+    elif code in ("basing", "confirmed"):
+        passed = rebound_check["passed"]
+        if passed == 4 and not disc_failed:
+            stance = "條件已到，可考慮進場"
+            headline = f"搶反彈四問全過，紀律亦無礙（{wave['pattern']}）。"
+            do = "手冊 5-4：訊號當天記下來，隔天開盤才是答案——開高才進，開低代表訊號沒被確認。"
+            watch_for = "進場後若收盤跌破月線，反彈失敗，依停損價出場。"
+        else:
+            stance = "不進場，等訊號"
+            headline = f"{regime['label']}，搶反彈四問 {passed}/4" + (f"（缺：{failed_names}）" if failed_names else "") + "。"
+            watch_for = "等未過的那一關成立再進場；跌破下方轉折低則放棄這檔。"
+            if any("過高" in (it.get("q") or "") for it in failed) and up:
+                do = f"缺的是「過高」這一關：要等收盤站上 {up['price']}（{up['date'][5:]} 轉折高）且量能放大，突破才算數。"
+                levels.append({"label": "突破才算數的價位", "value": up["price"],
+                               "note": f"{up['date'][5:]} 轉折高，需收盤價站上"})
+            elif any("急跌" in (it.get("q") or "") for it in failed):
+                do = "缺的是「急跌」：跌幅不夠深，代表這不是搶反彈的場景，硬套四問沒有意義。"
+                watch_for = "改看它會不會走成多頭結構——站上月線並做出底底高後，狀態會自動轉為反彈確立或多頭行進，屆時改用別張檢查表。"
+            else:
+                do = "四問未過完，手冊視為訊號打折扣，此時不宜進場。"
+            if dn and not (sl_price and abs(dn["price"] / sl_price - 1) < 0.03):
+                levels.append({"label": "打底失敗的價位", "value": dn["price"],
+                               "note": f"{dn['date'][5:]} 轉折低，跌破代表打底破功"})
+
+    elif code == "breakout":
+        cl_passed = (checklist or {}).get("passed", 0)
+        cl_total = (checklist or {}).get("total", 4)
+        if cl_passed == cl_total and not disc_failed:
+            stance = "可考慮追價，但只能輕部位"
+            headline = "創新高，且 7-3 四關全過。"
+            do = ("手冊 7-4：不要盤中衝高追、不要漲停排隊追。三種做法擇一——"
+                  "等拉回測前高不破再進、或等尾盤確認收在當日上半部、或先進計畫部位的 1/3。")
+            watch_for = "手冊 7-1：創新高的停損距離最遠、錯了是大賠，所以部位要輕。跌破突破點就是錯了。"
+        else:
+            stance = "不追價"
+            headline = f"創新高，但 7-3 四關只過 {cl_passed}/{cl_total}" + (f"（未過：{failed_names}）" if failed_names else "") + "。"
+            do = "手冊 7-3：四關沒過完就追，等於買在速度最快、停損最遠的位置。這裡不是進場點。"
+            watch_for = "等未過的那幾關補齊（通常是乖離收斂或量價重新配合），或等它拉回到均線附近轉為拉回買點。"
+
+    else:  # uptrend
+        cl_passed = (checklist or {}).get("passed", 0)
+        cl_total = (checklist or {}).get("total", 4)
+        if cl_passed == cl_total and not disc_failed:
+            stance = "拉回買點成立，可考慮進場"
+            headline = f"多頭結構完整（{wave['pattern']}），回測均線有守。"
+            do = "手冊 7-1：這是續漲拉回買點，賺的是幅度加速度，停損就在均線腳下。進場採 7-4 做法，別追盤中高點。"
+            watch_for = f"收盤跌破 {stop_loss['recommended']}（{stop_loss['price']}）代表拉回變成轉弱" + \
+                        (f"；跌破前波低 {dn['price']} 則多頭結構破壞。" if dn else "。")
+        else:
+            stance = "先不進場"
+            reasons = []
+            if failed_names:
+                reasons.append(f"7-1 未過：{failed_names}")
+            if disc_failed:
+                reasons.append(f"紀律未過：{disc_failed}")
+            headline = f"多頭行進中（{wave['pattern']}），但{'；'.join(reasons)}。"
+            broke_ma = any("跌破" in it["detail"] for it in failed)
+            if broke_ma:
+                do = "收盤已跌破短均線——手冊 7-5 把「收盤跌破 MA5／MA10」列為停利訊號，它不可能同時是買點。有部位的人該看停利，不是加碼。"
+            else:
+                do = "多頭結構還在，但拉回買點的條件沒到齊，等它真的回測到均線再說。"
+            watch_for = f"等收盤重新站回均線之上、且乖離回到 10% 以內，拉回買點才成立。"
+            if dn:
+                levels.append({"label": "多頭結構失效價", "value": dn["price"],
+                               "note": f"{dn['date'][5:]} 前波低，跌破就不是多頭了"})
+
+    plan = {
+        "stance": stance,
+        "headline": headline,
+        "do": do,
+        "levels": levels,
+        "watch_for": watch_for,
+    }
+
+    text_parts = [f"{name}({stock_id})：{headline}", do]
+    if levels:
+        text_parts.append("關鍵價位——" + "；".join(
+            f"{lv['label']} {lv['value']}（{lv['note']}）" for lv in levels))
+    text_parts.append("後續觀察：" + watch_for)
     if snapshot["warnings"]:
-        parts.append(
+        text_parts.append(
             "⚠️ " + "；".join(snapshot["warnings"])
             + "。手冊5-4：隔日開盤才是確認——開高則警訊被否決，開低則警訊成立，勿在當下追殺。"
         )
-    return "".join(parts)
+    return " ".join(text_parts), plan
 
 
 # ────────────────────────── 對外主函式 ──────────────────────────
@@ -857,7 +994,11 @@ def analyze(df: pd.DataFrame, stock_id: str, name: str, idx: int = -1) -> dict:
     else:
         checklist = None   # 空頭續跌：手冊第六章 ⚪ 不進場，沒有買點檢查表
 
-    verdict = _build_verdict(stock_id, name, snapshot, wave, bottom_stage, rebound_check, discipline, stop_loss)
+    ma10v = float(ma10.iloc[li]) if pd.notna(ma10.iloc[li]) else None
+    verdict, plan = _build_verdict(
+        stock_id, name, snapshot, wave, bottom_stage, rebound_check, discipline,
+        stop_loss, regime, checklist, c, ma10v, ma20v,
+    )
 
     return {
         "stock_id": stock_id,
@@ -874,5 +1015,6 @@ def analyze(df: pd.DataFrame, stock_id: str, name: str, idx: int = -1) -> dict:
         "discipline": discipline,
         "stop_loss": stop_loss,
         "verdict": verdict,
+        "plan": plan,
         "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議",
     }

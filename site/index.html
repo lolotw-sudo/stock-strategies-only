@@ -12,12 +12,15 @@
     --line: #252b35;
     --muted: #8a93a0;
     --text: #e6e9ee;
-    --buy: #22c55e;
+    /* 台股慣例：買進／看漲＝紅，賣出／看跌＝綠（與歐美股市相反，勿還原） */
+    --buy: #f43f5e;
     --watch: #eab308;
     --skip: #64748b;
-    --err: #ef4444;
-    --sell: #e11d48;
+    --err: #fb923c;   /* 警示語意（風險提示／假突破），刻意用橘色與「漲紅」區分 */
+    --sell: #22c55e;
     --accent: #3b82f6;
+    --up-c: #f43f5e;
+    --down-c: #22c55e;
   }
   * { box-sizing: border-box; }
   html, body {
@@ -69,7 +72,7 @@
   .stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
   .stat-value { font-size: 1.05rem; font-weight: 600; margin-top: 4px; }
   .bullish { color: var(--buy); }
-  .bearish { color: var(--err); }
+  .bearish { color: var(--down-c); }
   .note { font-size: 0.78rem; color: var(--muted); margin-top: 4px; line-height: 1.5; }
 
   .tabs {
@@ -116,11 +119,11 @@
     border: 1px solid transparent;
     white-space: nowrap;
   }
-  .badge-buy { background: rgba(34,197,94,.15); color: var(--buy); border-color: rgba(34,197,94,.35); }
+  .badge-buy { background: rgba(244,63,94,.15); color: var(--buy); border-color: rgba(244,63,94,.4); }
   .badge-watch { background: rgba(234,179,8,.15); color: var(--watch); border-color: rgba(234,179,8,.35); }
   .badge-skip { background: rgba(100,116,139,.18); color: var(--skip); border-color: rgba(100,116,139,.4); }
-  .badge-err { background: rgba(239,68,68,.15); color: var(--err); border-color: rgba(239,68,68,.35); }
-  .badge-sell { background: rgba(225,29,72,.2); color: var(--sell); border-color: var(--sell); font-weight: 700; }
+  .badge-err { background: rgba(251,146,60,.15); color: var(--err); border-color: rgba(251,146,60,.35); }
+  .badge-sell { background: rgba(34,197,94,.18); color: var(--sell); border-color: var(--sell); font-weight: 700; }
 
   .result-row {
     background: var(--panel2);
@@ -138,11 +141,16 @@
   }
   .result-sid { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: var(--muted); width: 54px; flex-shrink: 0; }
   .result-name { font-size: 0.92rem; font-weight: 500; }
-  .result-signals { font-size: 0.72rem; color: var(--muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .result-wave { font-size: 0.74rem; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .result-wave .t { font-weight: 600; }
+  .result-wave .p { color: var(--muted); }
+  .result-wave .rg { color: var(--muted); }
+  .result-wave .hot { color: var(--up-c); font-weight: 600; }
   .result-mid { flex: 1; min-width: 0; }
-  .result-score { text-align: right; flex-shrink: 0; }
-  .result-score .n { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.95rem; }
-  .result-score .w { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+  .result-price { text-align: right; flex-shrink: 0; }
+  .result-price .n { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .result-price .c { font-size: 0.7rem; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .result-reason { font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
   .caret { color: var(--muted); font-size: 0.7rem; flex-shrink: 0; transition: transform .15s; }
   .result-row.open .caret { transform: rotate(90deg); }
 
@@ -161,14 +169,18 @@
   .kline-section:last-child { margin-bottom: 0; }
 
   .top-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .hot-flag { color: var(--up-c); font-size: 0.78rem; font-weight: 600; }
+  .muted-title { color: var(--muted); font-weight: 500; }
   .price-line { font-size: 0.85rem; margin-top: 6px; }
   .price-line .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .up { color: var(--buy); }
-  .down { color: var(--err); }
+  /* 台股慣例：紅漲綠跌 */
+  .up { color: var(--up-c); }
+  .down { color: var(--down-c); }
+  .flat { color: var(--muted); }
 
   .domain-bar { display: flex; height: 16px; border-radius: 5px; overflow: hidden; border: 1px solid var(--line); margin-top: 8px; }
-  .domain-buy { background: rgba(34,197,94,.55); display: flex; align-items: center; justify-content: center; font-size: 9px; }
-  .domain-sell { background: rgba(239,68,68,.55); display: flex; align-items: center; justify-content: center; font-size: 9px; }
+  .domain-buy { background: rgba(244,63,94,.55); display: flex; align-items: center; justify-content: center; font-size: 9px; }
+  .domain-sell { background: rgba(34,197,94,.55); display: flex; align-items: center; justify-content: center; font-size: 9px; }
 
   .warn-line { font-size: 0.72rem; color: var(--err); margin-top: 8px; }
 
@@ -188,7 +200,7 @@
     background: var(--panel);
     color: var(--muted);
   }
-  .stage-cell.reached { background: rgba(34,197,94,.2); color: var(--buy); border-color: rgba(34,197,94,.4); }
+  .stage-cell.reached { background: rgba(59,130,246,.18); color: var(--accent); border-color: rgba(59,130,246,.45); }
   .stage-cell.skipped { background: rgba(37,43,53,.4); border-style: dashed; }
   .stage-note { font-size: 0.72rem; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
 
@@ -213,6 +225,37 @@
 
   .verdict-box { border-top: 1px solid var(--line); padding-top: 12px; }
   .verdict-text { font-size: 0.85rem; line-height: 1.65; }
+  .stance {
+    display: inline-block; font-size: 0.8rem; font-weight: 700; padding: 3px 12px;
+    border-radius: 999px; margin-bottom: 8px; border: 1px solid;
+  }
+  .stance-go { color: var(--buy); background: rgba(244,63,94,.12); border-color: rgba(244,63,94,.4); }
+  .stance-trim { color: var(--err); background: rgba(251,146,60,.12); border-color: rgba(251,146,60,.4); }
+  .stance-hold { color: var(--muted); background: rgba(138,147,160,.12); border-color: rgba(138,147,160,.35); }
+  .plan-block { font-size: 0.8rem; line-height: 1.6; margin-top: 9px; color: var(--text); }
+  .plan-k {
+    display: inline-block; font-size: 0.68rem; color: var(--muted); border: 1px solid var(--line);
+    border-radius: 4px; padding: 0 6px; margin-right: 7px; vertical-align: 1px;
+  }
+  .plan-levels {
+    margin-top: 10px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--panel2); overflow: hidden;
+  }
+  .lv-row {
+    display: grid; grid-template-columns: 1fr auto minmax(72px, auto); gap: 10px;
+    align-items: baseline; padding: 7px 11px; border-bottom: 1px solid var(--line);
+  }
+  .lv-row:last-child { border-bottom: none; }
+  .lv-label { font-size: 0.76rem; color: var(--muted); }
+  .lv-value {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.95rem;
+    font-weight: 600; font-variant-numeric: tabular-nums;
+  }
+  .lv-note { font-size: 0.7rem; color: var(--muted); text-align: right; }
+  @media (max-width: 480px) {
+    .lv-row { grid-template-columns: 1fr auto; }
+    .lv-note { grid-column: 1 / -1; text-align: left; margin-top: -2px; }
+  }
   .disclaimer-text { font-size: 0.7rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
 
   .state-box { text-align: center; padding: 40px 16px; color: var(--muted); font-size: 0.9rem; }
@@ -326,7 +369,7 @@
     var m = d.market || {};
     html += '<div class="card2">';
     html += '<div class="stat-label">大盤狀態</div>';
-    html += '<div class="stat-value ' + (m.bullish ? "bullish" : "bearish") + '">' + (m.bullish ? "🟢 多頭" : "🔴 空頭") + '</div>';
+    html += '<div class="stat-value ' + (m.bullish ? "bullish" : "bearish") + '">' + (m.bullish ? "▲ 多頭" : "▼ 空頭") + '</div>';
     if (m.note) html += '<div class="note">' + esc(m.note) + '</div>';
     html += '</div>';
 
@@ -385,9 +428,30 @@
 
   function renderResultRow(r) {
     var c = r.components || {};
-    var signals = (c.tech_signals || []).join(" · ") || "—";
-    var winrate = c.backtest_winrate != null ? Math.round(c.backtest_winrate * 100) + "%" : "—";
+    var a = (boardData.analysis || {})[r.stock_id] || {};
+    var wave = a.wave || {};
+    var price = a.price || {};
     var isOpen = expandedStockId === r.stock_id;
+
+    // 波形：趨勢＋型態（例：多頭・頭頭高、底底高），後接狀態與過熱旗標
+    var waveHtml = "";
+    if (wave.trend) {
+      var tCls = wave.trend.indexOf("多頭") === 0 ? "up"
+               : wave.trend.indexOf("空頭") === 0 ? "down" : "flat";
+      waveHtml += '<span class="t ' + tCls + '">' + esc(wave.trend) + '</span>';
+      if (wave.pattern) waveHtml += '<span class="p">・' + esc(wave.pattern) + '</span>';
+    }
+    if (c.regime) {
+      waveHtml += '<span class="rg">' + (waveHtml ? "　" : "") + '［' + esc(c.regime) + '］</span>';
+      if (c.regime_hot) waveHtml += '<span class="hot"> 🔥過熱</span>';
+    }
+    if (!waveHtml) waveHtml = '<span class="p">—</span>';
+
+    // 收盤價與漲跌幅（台股紅漲綠跌）
+    var close = price.close != null ? price.close : r.entry_price;
+    var chg = price.chg_pct;
+    var chgCls = chg > 0 ? "up" : chg < 0 ? "down" : "flat";
+    var chgTxt = chg == null ? "" : (chg > 0 ? "+" : "") + chg.toFixed(2) + "%";
 
     var row =
       '<div class="result-row' + (isOpen ? " open" : "") + '" data-stock="' + esc(r.stock_id) + '" data-name="' + esc(r.name) + '">' +
@@ -396,14 +460,18 @@
           '<span class="result-sid">' + esc(r.stock_id) + '</span>' +
           '<div class="result-mid">' +
             '<div class="result-name">' + esc(r.name) + '</div>' +
-            '<div class="result-signals">' + esc(signals) + '</div>' +
+            '<div class="result-wave">' + waveHtml + '</div>' +
           '</div>' +
-          '<div class="result-score">' +
-            '<div class="n">' + esc(fmt(r.signal_score)) + '</div>' +
-            '<div class="w">勝率 ' + esc(winrate) + '</div>' +
+          '<div class="result-price">' +
+            '<div class="n">' + esc(close != null ? Number(close).toFixed(2) : "—") + '</div>' +
+            '<div class="c ' + chgCls + '">' + esc(chgTxt) + '</div>' +
           '</div>' +
           '<span class="caret">▶</span>' +
         '</div>';
+
+    if (c.action_reason) {
+      row += '<div class="result-reason">' + esc(c.action_reason) + '</div>';
+    }
 
     if (r.risk_notes && r.risk_notes.length) {
       row += '<div class="risk-notes">⚠️ ' + esc(r.risk_notes.join("；")) + '</div>';
@@ -457,15 +525,39 @@
     }
     html += '</div>';
 
-    // 2. 搶反彈四問
-    html += '<div class="kline-section">';
-    html += '<div class="section-title">搶反彈四問（' + esc(rebound.passed) + '/' + esc(rebound.total) + '）— ' + esc(rebound.conclusion) + '</div>';
-    (rebound.items || []).forEach(function (it) {
-      html += checkRow(it.pass, it.q, it.detail);
-    });
-    html += '</div>';
+    // 2. 這檔股票現在的狀態，以及該狀態實際採用的檢查表
+    //    （多頭系走 7-1／7-3，打底系走 5-2-0 搶反彈四問——不能一律顯示四問，
+    //     否則會與列表上的燈號理由對不起來）
+    var regime = a.regime || {};
+    var checklist = a.checklist;
+    if (regime.label) {
+      html += '<div class="kline-section">';
+      html += '<div class="section-title">現在的狀態：' + esc(regime.label) +
+              (regime.hot ? ' <span class="hot-flag">🔥 乖離 ' + esc(regime.bias_ma20) + '% 過熱</span>' : '') + '</div>';
+      html += '<div class="stage-note">' + esc(regime.reason) + '</div>';
+      html += '</div>';
+    }
 
-    // 3. 空頭轉多頭四階段
+    if (checklist) {
+      html += '<div class="kline-section">';
+      html += '<div class="section-title">' + esc(checklist.name) + '（' +
+              esc(checklist.passed) + '/' + esc(checklist.total) + '）' +
+              (checklist.conclusion ? ' — ' + esc(checklist.conclusion) : '') + '</div>';
+      (checklist.items || []).forEach(function (it) {
+        html += checkRow(it.pass, it.q || it.rule, it.detail);
+      });
+      html += '</div>';
+    } else {
+      html += '<div class="kline-section">';
+      html += '<div class="section-title">買點檢查表</div>';
+      html += '<div class="stage-note">空頭續跌，手冊第六章列為不該進場的狀態，沒有對應的買點檢查表。</div>';
+      html += '</div>';
+    }
+
+    // 3. 空頭轉多頭四階段——僅適用於仍在打底／落底階段的股票。
+    //    多頭行進與創新高的股票早已走完這段，列出來只會讓人以為它還在打底。
+    var showBottomStage = ["basing", "confirmed", "downtrend"].indexOf(regime.code) !== -1;
+    if (showBottomStage) {
     html += '<div class="kline-section">';
     html += '<div class="section-title">空頭轉多頭四階段（現況：' + esc(bottomStage.stage) + '）</div>';
     if (bottomStage.stage_note) {
@@ -485,6 +577,7 @@
       html += checkRow(c.pass, c.name, c.detail);
     });
     html += '</div>';
+    }
 
     // 4. 波浪型態
     html += '<div class="kline-section">';
@@ -548,9 +641,30 @@
     html += '</tbody></table></div>';
     html += '</div>';
 
-    // verdict
+    // verdict：結論寫成「現在該做什麼／關鍵價位／要等什麼訊號」，價位要一眼看到
     html += '<div class="verdict-box">';
-    html += '<div class="verdict-text">' + esc(a.verdict) + '</div>';
+    var plan = a.plan;
+    if (plan) {
+      var stanceCls = /可考慮進場|成立/.test(plan.stance) ? "stance-go"
+                    : /停利|減碼/.test(plan.stance) ? "stance-trim" : "stance-hold";
+      html += '<div class="stance ' + stanceCls + '">' + esc(plan.stance) + '</div>';
+      html += '<div class="verdict-text">' + esc(plan.headline) + '</div>';
+      html += '<div class="plan-block"><span class="plan-k">該做</span>' + esc(plan.do) + '</div>';
+      if (plan.levels && plan.levels.length) {
+        html += '<div class="plan-levels">';
+        plan.levels.forEach(function (lv) {
+          html += '<div class="lv-row">' +
+                    '<span class="lv-label">' + esc(lv.label) + '</span>' +
+                    '<span class="lv-value">' + esc(lv.value) + '</span>' +
+                    '<span class="lv-note">' + esc(lv.note) + '</span>' +
+                  '</div>';
+        });
+        html += '</div>';
+      }
+      html += '<div class="plan-block"><span class="plan-k">後續觀察</span>' + esc(plan.watch_for) + '</div>';
+    } else {
+      html += '<div class="verdict-text">' + esc(a.verdict) + '</div>';
+    }
     html += '<div class="disclaimer-text">' + esc(a.disclaimer) + '</div>';
     html += '</div>';
 
