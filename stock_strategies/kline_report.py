@@ -655,6 +655,137 @@ def _discipline(snapshot: dict, bias_ma20: float, weekly: dict, wave: dict, rebo
     return {"passed": passed, "total": len(items), "items": items}
 
 
+# ────────────────── 5-2-5　強弱勢反彈／壓力區／回撤位 ──────────────────
+
+
+SWING_LOOKBACK = 60   # 約一季；用 WAVE_LOOKBACK(120) 常跨到上一個循環，關卡會遠到沒有參考價值
+
+
+def _swing_high_low(hist: pd.DataFrame, li: int) -> tuple | None:
+    """找出最近一段「先漲到頂、再跌下來」的波段：近 SWING_LOOKBACK 日內的最高價，
+    以及該高點『之後』的最低價。若最低點出現在最高點之前（例如一路創新高），
+    代表目前沒有可談的回檔波段，回傳 None。
+    """
+    start = max(0, li - SWING_LOOKBACK + 1)
+    win = hist.iloc[start: li + 1]
+    if len(win) < 20:
+        return None
+    hi_pos = int(win["high"].to_numpy().argmax())
+    after = win.iloc[hi_pos:]
+    if len(after) < 2:
+        return None
+    lo_pos_rel = int(after["low"].to_numpy().argmin())
+    hi_price = float(win["high"].iloc[hi_pos])
+    lo_price = float(after["low"].iloc[lo_pos_rel])
+    if hi_price <= lo_price:
+        return None
+    return (
+        hi_price, pd.Timestamp(win["date"].iloc[hi_pos]).strftime("%Y-%m-%d"),
+        lo_price, pd.Timestamp(after["date"].iloc[lo_pos_rel]).strftime("%Y-%m-%d"),
+    )
+
+
+def _rebound_strength(hist: pd.DataFrame, li: int, swing: tuple | None,
+                      ma10, ma20, highs: list) -> dict | None:
+    """5-2-5　強勢反彈 vs 弱勢反彈（四項判準，全部照手冊表格）。
+
+    只有在「從低點反彈上來」的情境下才有意義；沒有回檔波段時回傳 None。
+    手冊註記：弱勢反彈的本質是逃命波——不是給你進場的，是給你出場的。
+    """
+    if not swing:
+        return None
+    hi_price, _, lo_price, lo_date = swing
+    lo_idx = hist.index[hist["date"] == pd.Timestamp(lo_date)]
+    if len(lo_idx) == 0:
+        return None
+    lo_i = int(lo_idx[0])
+    days = li - lo_i
+    if days < 1:
+        return None
+
+    c = float(hist["close"].iloc[li])
+
+    # ① 量能：反彈段均量 vs 反彈前同長度區間均量
+    reb_vol = float(hist["volume"].iloc[lo_i: li + 1].mean())
+    prev_vol = float(hist["volume"].iloc[max(0, lo_i - days): lo_i].mean()) if lo_i > 0 else 0.0
+    vol_ok = prev_vol > 0 and reb_vol > prev_vol
+    vol_ratio = reb_vol / prev_vol if prev_vol > 0 else 0.0
+
+    # ② 反彈高度：能不能過前波高點／重要壓力
+    # 手冊說的「前波高點」是反彈前那一波的高點——取時間上最接近低點的，
+    # 不是區間內最貴的（那可能是好幾個月前的高點，比了沒有意義）
+    prior_highs = [h for h in highs if h[0] < lo_i]
+    ref_high = max(prior_highs, key=lambda h: h[0])[2] if prior_highs else None
+    height_ok = ref_high is not None and c > ref_high
+
+    # ③ 持續性：手冊說弱勢是「一兩天就結束」
+    dur_ok = days >= 3
+
+    # ④ 均線：站上並守住 MA10、MA20
+    m10 = float(ma10.iloc[li]) if pd.notna(ma10.iloc[li]) else None
+    m20 = float(ma20.iloc[li]) if pd.notna(ma20.iloc[li]) else None
+    ma_ok = m10 is not None and m20 is not None and c >= m10 and c >= m20
+
+    items = [
+        {"rule": "量能放大", "pass": vol_ok,
+         "detail": (f"反彈段均量為反彈前 {vol_ratio:.2f} 倍" if prev_vol > 0 else "量能資料不足")
+                   + ("" if vol_ok else "，量能萎縮是弱勢特徵")},
+        {"rule": "過得了前波高", "pass": height_ok,
+         "detail": (f"收盤 {c:.2f} 已站上反彈前高點 {ref_high:.2f}" if height_ok
+                    else (f"收盤 {c:.2f} 尚未過反彈前高點 {ref_high:.2f}" if ref_high
+                          else "找不到可比對的前波高點"))},
+        {"rule": "有持續性", "pass": dur_ok,
+         "detail": f"自 {lo_date[5:]} 低點反彈 {days} 個交易日"
+                   + ("" if dur_ok else "，一兩天就結束是弱勢特徵")},
+        {"rule": "站上並守住均線", "pass": ma_ok,
+         "detail": (f"收盤 {c:.2f}／MA10 {m10:.2f}／MA20 {m20:.2f}" if m10 and m20 else "均線資料不足")
+                   + ("" if ma_ok else "，碰到均線就被壓回是弱勢特徵")},
+    ]
+    passed = sum(1 for it in items if it["pass"])
+    if passed >= 3:
+        verdict, note = "強勢反彈", "四項判準多數成立，反彈有結構。"
+    elif passed >= 2:
+        verdict, note = "強弱參半", "訊號分歧，手冊建議保守看待。"
+    else:
+        verdict, note = "弱勢反彈", "手冊 5-2-5：弱勢反彈的本質是逃命波——不是給你進場的，是給你出場的。"
+    return {"verdict": verdict, "note": note, "passed": passed, "total": 4, "items": items}
+
+
+def _resistance_zones(highs: list, close: float, limit: int = 3) -> list:
+    """上方壓力關卡（手冊 7-5：前波高點是分批停利的參考位置）。由近而遠。"""
+    above = sorted((h for h in highs if h[2] > close), key=lambda h: h[2])
+    return [
+        {"date": pd.Timestamp(h[1]).strftime("%Y-%m-%d"), "price": round(h[2], 2),
+         "gap_pct": round((h[2] / close - 1) * 100, 1)}
+        for h in above[:limit]
+    ]
+
+
+FIB_RATIOS = (0.382, 0.5, 0.618)
+
+
+def _fib_levels(swing: tuple | None, close: float) -> dict | None:
+    """波段回撤位。
+
+    註記：Fibonacci 不在《K線訊號判讀手冊》裡，手冊 5-2-5 判斷反彈強弱用的是
+    「量能／能否過前波高／持續性／均線」四項。這裡只當作看圖時的輔助刻度，
+    不參與任何燈號或檢查表的判定。
+    """
+    if not swing:
+        return None
+    hi, hi_date, lo, lo_date = swing
+    rng = hi - lo
+    if rng <= 0:
+        return None
+    return {
+        "high": round(hi, 2), "high_date": hi_date,
+        "low": round(lo, 2), "low_date": lo_date,
+        "retrace_pct": round((close - lo) / rng * 100, 1),
+        "levels": [{"ratio": r, "price": round(lo + rng * r, 2)} for r in FIB_RATIOS],
+        "source_note": "Fibonacci 非手冊內容，僅作看圖輔助刻度，不參與燈號判定",
+    }
+
+
 # ────────────────────── 7-1／7-3　多頭系檢查表 ──────────────────────
 
 
@@ -985,6 +1116,16 @@ def analyze(df: pd.DataFrame, stock_id: str, name: str, idx: int = -1) -> dict:
     discipline = _discipline(snapshot, bias_ma20, weekly, wave, rebound_check)
 
     regime = _regime(wave, bottom_stage, bias_ma20)
+
+    swing = _swing_high_low(hist, li)
+    resistance = _resistance_zones(highs, c)
+    fib = _fib_levels(swing, c)
+    # 5-2-5 屬第五章之二「反彈專章」，只適用於從低點反彈上來的股票；
+    # 已走成多頭或創新高的股票談反彈強弱沒有意義，不計算。
+    rebound_strength = (
+        _rebound_strength(hist, li, swing, ma10, ma20, highs)
+        if regime["code"] in ("basing", "confirmed") else None
+    )
     if regime["code"] == "breakout":
         checklist = _breakout_check(hist, li, wave, snapshot, ma20, ma120, bias_ma20)
     elif regime["code"] == "uptrend":
@@ -1011,6 +1152,9 @@ def analyze(df: pd.DataFrame, stock_id: str, name: str, idx: int = -1) -> dict:
         "rebound_check": rebound_check,
         "regime": regime,
         "checklist": checklist,
+        "rebound_strength": rebound_strength,
+        "resistance": resistance,
+        "fib": fib,
         "sop": sop,
         "discipline": discipline,
         "stop_loss": stop_loss,

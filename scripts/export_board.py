@@ -38,7 +38,7 @@ from stock_strategies.night_session import (
     get_night_session,
     night_filter_note,
 )
-from stock_strategies.sheet import read_watchlist
+from stock_strategies.sheet import parse_holding, read_watchlist
 
 # Telegram 兩個變數對看板匯出非必要（main.py 才需要）
 REQUIRED_ENV = ["FINMIND_TOKEN", "GOOGLE_SHEET_ID", "GOOGLE_CREDS_JSON"]
@@ -46,6 +46,34 @@ REQUIRED_ENV = ["FINMIND_TOKEN", "GOOGLE_SHEET_ID", "GOOGLE_CREDS_JSON"]
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "site" / "data" / "latest.json"
 
 ORDER = {"SELL": 0, "BUY": 1, "WATCH": 2, "SKIP": 3, "ERROR": 4}
+
+
+OHLC_DAYS = 120   # 看板 K 線圖顯示的天數；再長對日線判讀沒有幫助，只是把 JSON 撐大
+
+
+def _ohlc_series(px) -> list:
+    """近 OHLC_DAYS 個交易日的日K，壓成陣列格式（date, o, h, l, c, volume）省檔案大小。"""
+    cols = ["date", "open", "high", "low", "close", "volume"]
+    tail = px[cols].tail(OHLC_DAYS)
+    return [
+        [row.date.strftime("%Y-%m-%d"), float(row.open), float(row.high),
+         float(row.low), float(row.close), int(row.volume)]
+        for row in tail.itertuples(index=False)
+    ]
+
+
+def _holding_pnl(holding: dict, close: float) -> dict:
+    """依最高單筆成本算損益。shares 沒填就只給報酬率，不給金額。"""
+    cost = holding["cost"]
+    shares = holding.get("shares")
+    out = dict(holding)
+    out["close"] = close
+    out["return_pct"] = round((close / cost - 1) * 100, 2)
+    out["above_cost"] = close >= cost
+    if shares:
+        out["market_value"] = round(close * shares, 2)
+        out["pnl"] = round((close - cost) * shares, 2)
+    return out
 
 
 def main():
@@ -118,7 +146,12 @@ def main():
             if px.empty:
                 analysis[sid] = {"error": "找不到價格資料"}
             else:
-                analysis[sid] = analyze_kline(px, sid, name)
+                a = analyze_kline(px, sid, name)
+                a["ohlc"] = _ohlc_series(px)
+                holding = parse_holding(row)
+                if holding and "error" not in a:
+                    a["holding"] = _holding_pnl(holding, a["price"]["close"])
+                analysis[sid] = a
         except Exception as e:
             analysis[sid] = {"error": str(e)[:200]}
 

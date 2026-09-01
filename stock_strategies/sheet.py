@@ -47,6 +47,32 @@ def parse_watchlist_rows(values: list[list[str]]) -> list[dict]:
     return rows
 
 
+def parse_holding(row: dict) -> dict | None:
+    """把 Watchlist 的 cost／shares 欄轉成數字。
+
+    cost 是「最高單筆成本」（非平均成本）。cost 空白代表尚在觀望、沒有部位，回傳 None。
+    使用者可能把股數填成千分位（例如 42,400），也可能只填成本不填股數，兩者都要容錯。
+    """
+    def _num(v):
+        text = str(v or "").replace(",", "").strip()
+        if not text:
+            return None
+        try:
+            return float(text)
+        except ValueError:
+            return None
+
+    cost = _num(row.get("cost"))
+    if cost is None or cost <= 0:
+        return None
+    shares = _num(row.get("shares"))
+    return {
+        "cost": cost,
+        "shares": int(shares) if shares and shares > 0 else None,
+        "cost_basis": "最高單筆成本（非平均成本）",
+    }
+
+
 def read_watchlist() -> list[dict]:
     """從 Google Sheet Watchlist 分頁讀股票清單（stock_id 保持原始字串，前導零不遺失）"""
     sh = get_gsheet()
