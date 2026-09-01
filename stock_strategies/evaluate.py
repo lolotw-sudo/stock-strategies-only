@@ -24,16 +24,27 @@ def _consecutive_days_below_ma20(px: pd.DataFrame) -> int:
     return n
 
 
+def _discipline_state(disc: dict, exclude: tuple = ()) -> tuple[int, int, list]:
+    """回傳 (通過數, 應檢數, 未過項目)。exclude 用來排除已被該狀態專屬檢查表取代的紀律。"""
+    items = [it for it in disc["items"] if it["rule"] not in exclude]
+    failed = [it for it in items if not it["pass"]]
+    return len(items) - len(failed), len(items), failed
+
+
 def _decide_kline_sop_action(
     px: pd.DataFrame, latest: pd.Series, sop_report: dict, risk_notes: list
 ) -> tuple[str, str]:
-    """依《K線訊號判讀手冊》檢查表判定 action（不依賴加權分數）。
+    """依《K線訊號判讀手冊》先判狀態、再套對應檢查表決定 action（不依賴加權分數）。
 
     優先序：
       ① SELL：今日收盤跌破 MA20，且昨日收盤仍在 MA20（含）以上（最高優先，蓋過其他）
-      ② BUY：搶反彈四問全過 + 紀律全過 + 收盤站上 MA20
-      ③ WATCH：四問全過但紀律未全過／四問過3；或四問全過+紀律全過但尚未站上MA20
-      ④ SKIP：其餘（四問通過 ≤2）
+      ② 🔥過熱（乖離MA20 >20%）：不給 BUY，改 WATCH 並附 7-5 停利提示
+      ③ 依 regime 分流：
+         空頭續跌  → SKIP（手冊第六章 ⚪ 不進場）
+         打底中／反彈確立 → 5-2-0 搶反彈四問（原邏輯）
+         多頭行進  → 7-1 續漲拉回買點
+         創新高    → 7-3 創新高四關
+      任何狀態的 BUY 都要求「檢查表全過 + 紀律全過 + 收盤站上 MA20」。
     """
     today_close = float(latest["close"])
     ma20_today = latest.get("ma20")
@@ -57,29 +68,56 @@ def _decide_kline_sop_action(
         n_days = _consecutive_days_below_ma20(px)
         risk_notes.append(f"已在月線下方 {n_days} 日")
 
-    rc = sop_report["rebound_check"]
+    regime = sop_report["regime"]
     disc = sop_report["discipline"]
     above_ma20_now = has_ma20 and today_close >= ma20_val
+    label = regime["label"]
 
-    if rc["passed"] == 4 and disc["passed"] == disc["total"] and above_ma20_now:
-        reason = f"搶反彈四問{rc['passed']}/4且紀律{disc['passed']}/{disc['total']}全過，站上月線"
-        return "BUY", reason
+    # ② 過熱旗標蓋掉買點（手冊 7-5：這裡談的是停利，不是進場）
+    if regime["hot"]:
+        risk_notes.append(
+            f"對MA20乖離 {regime['bias_ma20']:+.1f}% 已過熱（>20%），"
+            "手冊 7-5：此處該談停利與減碼，不是進場"
+        )
+        return "WATCH", f"{label}但乖離{regime['bias_ma20']:+.1f}%過熱，只看停利不進場"
 
-    if rc["passed"] == 4:
-        if disc["passed"] < disc["total"]:
-            for it in disc["items"]:
-                if not it["pass"]:
-                    risk_notes.append(f"紀律未過：{it['rule']}——{it['detail']}")
-            return "WATCH", f"搶反彈四問4/4，但紀律{disc['passed']}/{disc['total']}未全過"
-        # 四問全過、紀律全過，但尚未站上月線 —— 差臨門一腳，保守列 WATCH 不列 BUY
-        note = f"未站上月線 MA20（{ma20_val:.2f}），暫緩列為BUY" if has_ma20 else "月線資料不足，暫緩列為BUY"
+    # ③ 空頭續跌：手冊第六章 ⚪ 不該進場的狀態
+    if regime["code"] == "downtrend":
+        return "SKIP", f"{label}（{regime['reason']}），手冊：此時不進場"
+
+    checklist = sop_report.get("checklist")
+    if not checklist:
+        return "SKIP", f"{label}，無對應買點檢查表"
+
+    # 創新高狀態下，「高檔不追多」由 7-3 的①天數②乖離取代（手冊 7-3 專講創新高怎麼追），
+    # 否則以「距60日高點≤5%」為準的高檔判定會讓創新高永遠無法成立。
+    exclude = ("高檔不追多",) if regime["code"] == "breakout" else ()
+    d_passed, d_total, d_failed = _discipline_state(disc, exclude)
+
+    cl_name = checklist["name"]
+    cl_passed, cl_total = checklist["passed"], checklist["total"]
+    full = cl_passed == cl_total
+
+    if full and d_passed == d_total and above_ma20_now:
+        return "BUY", f"{label}：{cl_name}{cl_passed}/{cl_total}、紀律{d_passed}/{d_total}全過，站上月線"
+
+    if full:
+        if d_passed < d_total:
+            for it in d_failed:
+                risk_notes.append(f"紀律未過：{it['rule']}——{it['detail']}")
+            return "WATCH", f"{label}：{cl_name}全過，但紀律{d_passed}/{d_total}未全過"
+        note = (f"未站上月線 MA20（{ma20_val:.2f}），暫緩列為BUY" if has_ma20
+                else "月線資料不足，暫緩列為BUY")
         risk_notes.append(note)
-        return "WATCH", "搶反彈四問4/4且紀律全過，但尚未站上月線"
+        return "WATCH", f"{label}：{cl_name}全過且紀律全過，但尚未站上月線"
 
-    if rc["passed"] == 3:
-        return "WATCH", f"搶反彈四問{rc['passed']}/4通過"
+    if cl_passed == cl_total - 1:
+        for it in checklist["items"]:
+            if not it["pass"]:
+                risk_notes.append(f"{cl_name}未過：{it.get('rule') or it.get('q')}——{it['detail']}")
+        return "WATCH", f"{label}：{cl_name}{cl_passed}/{cl_total}通過"
 
-    return "SKIP", f"搶反彈四問僅{rc['passed']}/4通過，不建議進場"
+    return "SKIP", f"{label}：{cl_name}僅{cl_passed}/{cl_total}通過，不建議進場"
 
 
 def evaluate(stock_id: str, name: str, strategy: dict | None = None) -> Optional[dict]:
@@ -225,6 +263,9 @@ def evaluate(stock_id: str, name: str, strategy: dict | None = None) -> Optional
                 "kline_verdict": kl["verdict"],
                 "kline_warnings": kl["warnings"],
                 **({"action_reason": action_reason} if action_mode == "kline_sop" else {}),
+                **({"regime": sop_report["regime"]["label"],
+                    "regime_hot": sop_report["regime"]["hot"]}
+                   if action_mode == "kline_sop" and sop_report and "error" not in sop_report else {}),
             },
             "trend": {
                 "chg_5d": round(chg_5d, 2),

@@ -53,6 +53,20 @@ HIGH_LEG_DAYS_MIN = 7      # 高檔且走了≥7天才觸發「高檔不追多�
 # ── 停損五法 ──
 FIXED_STOP_PCT = 0.05
 
+# ── 7-1　續漲拉回買點 ──
+PULLBACK_NEAR_MA_PCT = 0.03    # 收盤距 MA5／MA10 在 3% 內，視為「回測均線」
+PULLBACK_BIAS_MAX = 0.10       # 乖離 MA20 ≤10% 才算手冊說的「回到均線附近」
+
+# ── 7-3　創新高四關 ──
+BREAKOUT_LEG_DAYS_MAX = 6      # 手冊：第 7 天以後進入加速段，變盤機率大幅升高
+BREAKOUT_BIAS_MA20_MAX = 0.20  # 對月線乖離 >+20% → 短線任何風吹草動都可能急殺
+BREAKOUT_BIAS_MA120_MAX = 0.50 # 對半年線乖離 >+50% → 極端區
+BREAKOUT_VOL_MULT = 1.0        # 突破日價漲量增：量 ≥ 前5日均量
+
+# ── 狀態分流（regime）──
+BIAS_HOT_PCT = 0.20            # 乖離 MA20 >20% → 掛🔥過熱旗標，蓋掉該狀態的買點
+BULL_TRENDS = {"多頭", "多頭轉弱"}
+
 
 # ────────────────────────── 波浪型態 ──────────────────────────
 
@@ -638,6 +652,120 @@ def _discipline(snapshot: dict, bias_ma20: float, weekly: dict, wave: dict, rebo
     return {"passed": passed, "total": len(items), "items": items}
 
 
+# ────────────────────── 7-1／7-3　多頭系檢查表 ──────────────────────
+
+
+def _pullback_check(hist, li, wave, ma5, ma10, bias_ma20) -> dict:
+    """7-1　續漲拉回買點：多頭中段回測均線才是買點，不是追在高處。"""
+    c = float(hist["close"].iloc[li])
+    lo = float(hist["low"].iloc[li])
+    m5 = float(ma5.iloc[li]) if pd.notna(ma5.iloc[li]) else None
+    m10 = float(ma10.iloc[li]) if pd.notna(ma10.iloc[li]) else None
+
+    aligned = m5 is not None and m10 is not None and m5 > m10
+    # 回測 ≠ 跌破：收盤必須仍站在該均線之上（手冊 7-5 把「收盤跌破 MA5／MA10」列為停利訊號，
+    # 不可能同時是買點），且要嘛已貼近均線、要嘛當日低點曾觸及均線後被拉回。
+    near = []
+    for label, m in (("MA5", m5), ("MA10", m10)):
+        if m is None:
+            continue
+        if c >= m and (c / m - 1 <= PULLBACK_NEAR_MA_PCT or lo <= m):
+            near.append(f"{label} {m:.2f}")
+
+    items = [
+        {"rule": "均線多排", "pass": aligned,
+         "detail": f"MA5 {m5:.2f} {'>' if aligned else '≤'} MA10 {m10:.2f}" if m5 and m10 else "均線資料不足"},
+        {"rule": "回測均線支撐", "pass": bool(near),
+         "detail": f"收盤 {c:.2f} 回測並守住 {'／'.join(near)}" if near
+                   else (f"收盤 {c:.2f} 已跌破 MA5 {m5:.2f}／MA10 {m10:.2f}，是停利訊號不是買點"
+                         if m5 and m10 and c < min(m5, m10)
+                         else f"收盤 {c:.2f} 未回測到 MA5／MA10（門檻 {PULLBACK_NEAR_MA_PCT*100:.0f}%）")},
+        {"rule": "乖離回到均線附近", "pass": bias_ma20 <= PULLBACK_BIAS_MAX,
+         "detail": f"對MA20乖離 {bias_ma20*100:+.1f}%" +
+                   ("" if bias_ma20 <= PULLBACK_BIAS_MAX else f"，超過 {PULLBACK_BIAS_MAX*100:.0f}% 就不是拉回是追高")},
+        {"rule": "趨勢未破壞", "pass": not wave["broke_below_last_low"],
+         "detail": "尚未跌破前波低" if not wave["broke_below_last_low"] else "已跌破前波低，多頭轉弱"},
+    ]
+    passed = sum(1 for it in items if it["pass"])
+    return {"name": "7-1 續漲拉回買點", "passed": passed, "total": len(items), "items": items}
+
+
+def _breakout_check(hist, li, wave, snapshot, ma20, ma120, bias_ma20) -> dict:
+    """7-3　創新高追價前先過四關。"""
+    c = float(hist["close"].iloc[li])
+    v = float(hist["volume"].iloc[li])
+    leg_days = snapshot["leg_days"]
+
+    m120 = float(ma120.iloc[li]) if pd.notna(ma120.iloc[li]) else None
+    bias_120 = (c / m120 - 1) if m120 else 0.0
+    bias_ok = bias_ma20 <= BREAKOUT_BIAS_MA20_MAX and bias_120 <= BREAKOUT_BIAS_MA120_MAX
+
+    no_false = not any("假突破" in w for w in snapshot["warnings"])
+
+    prior5 = hist["volume"].iloc[max(0, li - 5): li]
+    m5v = float(prior5.mean()) if len(prior5) > 0 else 0.0
+    vol_ok = m5v > 0 and v >= BREAKOUT_VOL_MULT * m5v
+    if m5v > 0:
+        vol_detail = f"今量為前5日均量 {v / m5v:.2f}x" + (
+            "（價漲量增）" if vol_ok else "，價漲量縮、追價意願低"
+        )
+    else:
+        vol_detail = "量能資料不足"
+
+    items = [
+        {"rule": "①這是第幾天", "pass": leg_days <= BREAKOUT_LEG_DAYS_MAX,
+         "detail": f"距波段低點第 {leg_days} 天" +
+                   ("（1～3 天續攻合理）" if leg_days <= 3 else
+                    "" if leg_days <= BREAKOUT_LEG_DAYS_MAX else "，已進加速段，變盤機率升高")},
+        {"rule": "②乖離多少", "pass": bias_ok,
+         "detail": f"對MA20 {bias_ma20*100:+.1f}%" +
+                   (f"／對半年線 {bias_120*100:+.1f}%" if m120 else "／半年線資料不足") +
+                   ("" if bias_ok else "，已達警戒，不宜追高")},
+        {"rule": "③收盤確認突破", "pass": wave["broke_above_last_high"] and no_false,
+         # 兩個高點基準不同：wave 比的是已確認的「前波轉折高」，假突破警訊比的是「近20日最高」，
+         # 因此「站上轉折高」與「假突破」可以同時成立——文案要讓人一看就懂，不能只是並列。
+         "detail": (("收盤已站上前波轉折高" if no_false
+                     else "收盤雖站上前波轉折高，但" + "、".join(snapshot["warnings"]))
+                    if wave["broke_above_last_high"]
+                    else "收盤尚未突破前波轉折高" +
+                         ("" if no_false else "；" + "、".join(snapshot["warnings"])))},
+        {"rule": "④量價配合", "pass": vol_ok, "detail": vol_detail},
+    ]
+    passed = sum(1 for it in items if it["pass"])
+    return {"name": "7-3 創新高四關", "passed": passed, "total": len(items), "items": items}
+
+
+# ────────────────────────── 狀態分流 ──────────────────────────
+
+
+def _regime(wave, bottom_stage, bias_ma20) -> dict:
+    """判定這檔股票現在的處境，決定要套哪一張檢查表。
+
+    狀態互斥、由上往下先中先算；過熱是可疊加的旗標，不是狀態。
+    """
+    t = wave["trend"]
+    if t == "多頭" and wave["broke_above_last_high"]:
+        code, label = "breakout", "創新高"
+    elif t in BULL_TRENDS:
+        code, label = "uptrend", "多頭行進"
+    elif t == "打底突破中" or bottom_stage["stage_index"] >= 3:
+        code, label = "confirmed", "反彈確立"
+    elif bottom_stage["stage_index"] >= 1:
+        code, label = "basing", "打底中"
+    else:
+        code, label = "downtrend", "空頭續跌"
+
+    hot = bias_ma20 > BIAS_HOT_PCT
+    return {
+        "code": code,
+        "label": label,
+        "hot": hot,
+        "bias_ma20": round(bias_ma20 * 100, 1),
+        "reason": f"波浪型態{wave['trend']}、打底階段{bottom_stage['stage']}" +
+                  (f"、對MA20乖離{bias_ma20*100:+.1f}%已過熱" if hot else ""),
+    }
+
+
 # ────────────────────────── 總結 ──────────────────────────
 
 
@@ -705,6 +833,7 @@ def analyze(df: pd.DataFrame, stock_id: str, name: str, idx: int = -1) -> dict:
     ma10 = hist["close"].rolling(10).mean()
     ma20 = hist["close"].rolling(20).mean()
     ma60 = hist["close"].rolling(60).mean()
+    ma120 = hist["close"].rolling(120).mean()   # 半年線，7-3 第②關用
 
     highs, lows = _find_pivots(hist, li)
     wave = _wave_analysis(highs, lows, c)
@@ -718,6 +847,16 @@ def analyze(df: pd.DataFrame, stock_id: str, name: str, idx: int = -1) -> dict:
     bias_ma20 = (c / ma20v - 1) if ma20v else 0.0
     discipline = _discipline(snapshot, bias_ma20, weekly, wave, rebound_check)
 
+    regime = _regime(wave, bottom_stage, bias_ma20)
+    if regime["code"] == "breakout":
+        checklist = _breakout_check(hist, li, wave, snapshot, ma20, ma120, bias_ma20)
+    elif regime["code"] == "uptrend":
+        checklist = _pullback_check(hist, li, wave, ma5, ma10, bias_ma20)
+    elif regime["code"] in ("confirmed", "basing"):
+        checklist = dict(rebound_check, name="5-2-0 搶反彈四問")
+    else:
+        checklist = None   # 空頭續跌：手冊第六章 ⚪ 不進場，沒有買點檢查表
+
     verdict = _build_verdict(stock_id, name, snapshot, wave, bottom_stage, rebound_check, discipline, stop_loss)
 
     return {
@@ -729,6 +868,8 @@ def analyze(df: pd.DataFrame, stock_id: str, name: str, idx: int = -1) -> dict:
         "wave": wave,
         "bottom_stage": bottom_stage,
         "rebound_check": rebound_check,
+        "regime": regime,
+        "checklist": checklist,
         "sop": sop,
         "discipline": discipline,
         "stop_loss": stop_loss,

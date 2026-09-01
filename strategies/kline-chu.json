@@ -1,38 +1,32 @@
 {
   "id": "kline-chu",
-  "name": "朱家泓K線策略 v1（收盤價領域+K線訊號）",
-  "description": "純技術分析策略（手冊第一階段）：以搶反彈四問（急跌→爆量→止跌→過高）判定燈號、跌破月線發出賣出訊號；不強制基本面過門檻，技術面加重收盤價買賣方領域＋單/雙/三K訊號＋位置×天數鐵律（詳見 K線訊號判讀手冊）。",
+  "name": "朱家泓K線策略（狀態分流版）",
+  "description": "純技術分析策略，依《K線訊號判讀手冊》v2.1：先判斷個股處境（創新高／多頭行進／反彈確立／打底中／空頭續跌五態，另有乖離>20%的過熱旗標），再套對應檢查表決定燈號——多頭系走 7-1 續漲拉回買點與 7-3 創新高四關，打底系走 5-2-0 搶反彈四問，空頭續跌一律不進場；跌破月線發出賣出訊號。不強制基本面過門檻。",
   "source": "manual",
   "created_at": "2026-08-15T00:00:00Z",
-  "updated_at": "2026-08-15T00:00:00Z",
+  "updated_at": "2026-09-01T00:00:00Z",
   "params": {
     "eps_threshold": 5.0,
     "roe_threshold": 15.0,
     "fundamental_pass_required": false,
-
     "backtest_years": 3,
     "hold_days": 20,
     "min_tech_score_for_signal": 60,
-
-    "target_return": 0.10,
+    "target_return": 0.1,
     "stop_loss": 0.08,
-
     "weight_fundamental": 0.1,
     "weight_technical": 0.6,
     "weight_backtest": 0.3,
     "min_total_score_for_buy": 65,
     "min_tech_score_for_buy": 50,
-
     "use_ma_alignment": true,
     "use_bollinger_bounce": true,
     "use_kd_golden_cross": true,
     "use_macd_bullish": true,
     "use_volume_patterns": true,
     "use_kline_signals": true,
-
     "market_filter_enabled": true,
     "market_filter_ma_period": 20,
-
     "action_mode": "kline_sop"
   }
 }
