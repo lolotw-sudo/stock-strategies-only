@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-01T17:25:01.171849+08:00",
-  "generated_at_display": "2026-09-01 17:25（台北時間）",
+  "generated_at": "2026-09-01T17:56:45.981382+08:00",
+  "generated_at_display": "2026-09-01 17:56（台北時間）",
   "market": {
     "bullish": true,
     "close": 46948.72,
@@ -308,7 +308,7 @@
             "基本面未過門檻"
           ],
           "action": "WATCH",
-          "signal_score": 62.0,
+          "signal_score": 59.5,
           "components": {
             "fundamental_pass": false,
             "eps_min": 26.9,
@@ -320,8 +320,8 @@
               "長紅K",
               "母子線"
             ],
-            "backtest_winrate": 0.554,
-            "backtest_samples": 222,
+            "backtest_winrate": 0.471,
+            "backtest_samples": 51,
             "volume_patterns": [
               "縮量柱"
             ],
@@ -585,59 +585,6 @@
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
-          "stock_id": "2317",
-          "name": "鴻海",
-          "date": "2026-09-01",
-          "strategy_id": "kline-chu",
-          "risk_notes": [
-            "基本面未過門檻"
-          ],
-          "action": "SKIP",
-          "signal_score": 70.2,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": 10.25,
-            "roe_min": 8.65,
-            "tech_score": 83,
-            "tech_signals": [
-              "均線多頭",
-              "KD黃金交叉",
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.547,
-            "backtest_samples": 212,
-            "volume_patterns": [],
-            "volume_details": {},
-            "volume_bonus": 0,
-            "volume_verdict": "量能平淡，無特殊訊號",
-            "kline_domain": {
-              "buyer_pct": 100.0,
-              "seller_pct": 0.0,
-              "type": "強勢控盤"
-            },
-            "kline_position": "行進中",
-            "kline_verdict": "收盤價領域強勢控盤（買方100% / 賣方0%），無明顯K線訊號，位置：行進中第5天。",
-            "kline_warnings": [],
-            "action_reason": "打底中：5-2-0 搶反彈四問僅2/4通過，不建議進場",
-            "regime": "打底中",
-            "regime_hot": false
-          },
-          "trend": {
-            "chg_5d": 5.35,
-            "chg_20d": 2.4,
-            "vol_ratio": 0.76,
-            "pct_from_high": -18.5,
-            "above_ma20": true,
-            "above_ma60": true
-          },
-          "entry_price": 256.0,
-          "stop_loss_price": 235.52,
-          "target_price": 281.6,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
           "stock_id": "0050",
           "name": "元大台灣50",
           "date": "2026-09-01",
@@ -647,7 +594,7 @@
             "已突破布林上軌，追高風險"
           ],
           "action": "SKIP",
-          "signal_score": 65.6,
+          "signal_score": 67.9,
           "components": {
             "fundamental_pass": false,
             "eps_min": null,
@@ -657,8 +604,8 @@
               "均線多頭",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.694,
-            "backtest_samples": 206,
+            "backtest_winrate": 0.769,
+            "backtest_samples": 78,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -691,6 +638,59 @@
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
+          "stock_id": "2317",
+          "name": "鴻海",
+          "date": "2026-09-01",
+          "strategy_id": "kline-chu",
+          "risk_notes": [
+            "基本面未過門檻"
+          ],
+          "action": "SKIP",
+          "signal_score": 67.5,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": 10.25,
+            "roe_min": 8.65,
+            "tech_score": 83,
+            "tech_signals": [
+              "均線多頭",
+              "KD黃金交叉",
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.455,
+            "backtest_samples": 44,
+            "volume_patterns": [],
+            "volume_details": {},
+            "volume_bonus": 0,
+            "volume_verdict": "量能平淡，無特殊訊號",
+            "kline_domain": {
+              "buyer_pct": 100.0,
+              "seller_pct": 0.0,
+              "type": "強勢控盤"
+            },
+            "kline_position": "行進中",
+            "kline_verdict": "收盤價領域強勢控盤（買方100% / 賣方0%），無明顯K線訊號，位置：行進中第5天。",
+            "kline_warnings": [],
+            "action_reason": "打底中：5-2-0 搶反彈四問僅2/4通過，不建議進場",
+            "regime": "打底中",
+            "regime_hot": false
+          },
+          "trend": {
+            "chg_5d": 5.35,
+            "chg_20d": 2.4,
+            "vol_ratio": 0.76,
+            "pct_from_high": -18.5,
+            "above_ma20": true,
+            "above_ma60": true
+          },
+          "entry_price": 256.0,
+          "stop_loss_price": 235.52,
+          "target_price": 281.6,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
           "stock_id": "00631L",
           "name": "元大50正2",
           "date": "2026-09-01",
@@ -700,7 +700,7 @@
             "已突破布林上軌，追高風險"
           ],
           "action": "SKIP",
-          "signal_score": 60.6,
+          "signal_score": 56.8,
           "components": {
             "fundamental_pass": false,
             "eps_min": null,
@@ -710,8 +710,8 @@
               "MACD多頭",
               "長紅K"
             ],
-            "backtest_winrate": 0.628,
-            "backtest_samples": 223,
+            "backtest_winrate": 0.5,
+            "backtest_samples": 0,
             "volume_patterns": [
               "梯量柱"
             ],
@@ -736,7 +736,7 @@
             "chg_5d": 7.44,
             "chg_20d": 15.89,
             "vol_ratio": 1.05,
-            "pct_from_high": -93.1,
+            "pct_from_high": -10.8,
             "above_ma20": true,
             "above_ma60": true
           },
@@ -920,8 +920,8 @@
         "total": 16,
         "sell": 0,
         "buy": 4,
-        "watch": 8,
-        "skip": 4,
+        "watch": 7,
+        "skip": 5,
         "error": 0
       },
       "results": [
@@ -1126,6 +1126,56 @@
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
+          "stock_id": "0050",
+          "name": "元大台灣50",
+          "date": "2026-09-01",
+          "strategy_id": "default",
+          "risk_notes": [
+            "基本面未過門檻",
+            "已突破布林上軌，追高風險"
+          ],
+          "action": "WATCH",
+          "signal_score": 60.8,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": null,
+            "roe_min": null,
+            "tech_score": 60,
+            "tech_signals": [
+              "均線多頭",
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.769,
+            "backtest_samples": 78,
+            "volume_patterns": [],
+            "volume_details": {},
+            "volume_bonus": 0,
+            "volume_verdict": "量能平淡，無特殊訊號",
+            "kline_domain": {
+              "buyer_pct": 0.0,
+              "seller_pct": 0.0,
+              "type": ""
+            },
+            "kline_position": "",
+            "kline_verdict": "",
+            "kline_warnings": []
+          },
+          "trend": {
+            "chg_5d": 3.88,
+            "chg_20d": 7.75,
+            "vol_ratio": 1.1,
+            "pct_from_high": -3.4,
+            "above_ma20": true,
+            "above_ma60": true
+          },
+          "entry_price": 108.45,
+          "stop_loss_price": 99.77,
+          "target_price": 119.3,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
           "stock_id": "2059",
           "name": "川湖",
           "date": "2026-09-01",
@@ -1173,106 +1223,6 @@
           "entry_price": 14150.0,
           "stop_loss_price": 13018.0,
           "target_price": 15565.0,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "0050",
-          "name": "元大台灣50",
-          "date": "2026-09-01",
-          "strategy_id": "default",
-          "risk_notes": [
-            "基本面未過門檻",
-            "已突破布林上軌，追高風險"
-          ],
-          "action": "WATCH",
-          "signal_score": 57.8,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": null,
-            "roe_min": null,
-            "tech_score": 60,
-            "tech_signals": [
-              "均線多頭",
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.694,
-            "backtest_samples": 206,
-            "volume_patterns": [],
-            "volume_details": {},
-            "volume_bonus": 0,
-            "volume_verdict": "量能平淡，無特殊訊號",
-            "kline_domain": {
-              "buyer_pct": 0.0,
-              "seller_pct": 0.0,
-              "type": ""
-            },
-            "kline_position": "",
-            "kline_verdict": "",
-            "kline_warnings": []
-          },
-          "trend": {
-            "chg_5d": 3.88,
-            "chg_20d": 7.75,
-            "vol_ratio": 1.1,
-            "pct_from_high": -3.4,
-            "above_ma20": true,
-            "above_ma60": true
-          },
-          "entry_price": 108.45,
-          "stop_loss_price": 99.77,
-          "target_price": 119.3,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "2317",
-          "name": "鴻海",
-          "date": "2026-09-01",
-          "strategy_id": "default",
-          "risk_notes": [
-            "基本面未過門檻"
-          ],
-          "action": "WATCH",
-          "signal_score": 56.4,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": 10.25,
-            "roe_min": 8.65,
-            "tech_score": 75,
-            "tech_signals": [
-              "均線多頭",
-              "KD黃金交叉",
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.547,
-            "backtest_samples": 212,
-            "volume_patterns": [],
-            "volume_details": {},
-            "volume_bonus": 0,
-            "volume_verdict": "量能平淡，無特殊訊號",
-            "kline_domain": {
-              "buyer_pct": 0.0,
-              "seller_pct": 0.0,
-              "type": ""
-            },
-            "kline_position": "",
-            "kline_verdict": "",
-            "kline_warnings": []
-          },
-          "trend": {
-            "chg_5d": 5.35,
-            "chg_20d": 2.4,
-            "vol_ratio": 0.76,
-            "pct_from_high": -18.5,
-            "above_ma20": true,
-            "above_ma60": true
-          },
-          "entry_price": 256.0,
-          "stop_loss_price": 235.52,
-          "target_price": 281.6,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -1328,34 +1278,32 @@
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
-          "stock_id": "2327",
-          "name": "國巨",
+          "stock_id": "2317",
+          "name": "鴻海",
           "date": "2026-09-01",
           "strategy_id": "default",
           "risk_notes": [
+            "歷史勝率 46% 低於五成",
             "基本面未過門檻"
           ],
           "action": "WATCH",
-          "signal_score": 53.7,
+          "signal_score": 52.7,
           "components": {
             "fundamental_pass": false,
-            "eps_min": 26.9,
-            "roe_min": 12.15,
-            "tech_score": 65,
+            "eps_min": 10.25,
+            "roe_min": 8.65,
+            "tech_score": 75,
             "tech_signals": [
+              "均線多頭",
               "KD黃金交叉",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.554,
-            "backtest_samples": 222,
-            "volume_patterns": [
-              "縮量柱"
-            ],
-            "volume_details": {
-              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕"
-            },
-            "volume_bonus": 5,
-            "volume_verdict": "🟡 量縮洗盤，主力未退場",
+            "backtest_winrate": 0.455,
+            "backtest_samples": 44,
+            "volume_patterns": [],
+            "volume_details": {},
+            "volume_bonus": 0,
+            "volume_verdict": "量能平淡，無特殊訊號",
             "kline_domain": {
               "buyer_pct": 0.0,
               "seller_pct": 0.0,
@@ -1366,69 +1314,16 @@
             "kline_warnings": []
           },
           "trend": {
-            "chg_5d": 4.41,
-            "chg_20d": 0.35,
-            "vol_ratio": 1.12,
-            "pct_from_high": -53.4,
-            "above_ma20": false,
-            "above_ma60": false
-          },
-          "entry_price": 568.0,
-          "stop_loss_price": 522.56,
-          "target_price": 624.8,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
-          "stock_id": "00631L",
-          "name": "元大50正2",
-          "date": "2026-09-01",
-          "strategy_id": "default",
-          "risk_notes": [
-            "基本面未過門檻",
-            "已突破布林上軌，追高風險"
-          ],
-          "action": "WATCH",
-          "signal_score": 53.6,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": null,
-            "roe_min": null,
-            "tech_score": 55,
-            "tech_signals": [
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.628,
-            "backtest_samples": 223,
-            "volume_patterns": [
-              "梯量柱"
-            ],
-            "volume_details": {
-              "梯量柱": "連續 3 日量能遞增，價格同步上攻"
-            },
-            "volume_bonus": 8,
-            "volume_verdict": "📈 量能階梯推升，走勢健康",
-            "kline_domain": {
-              "buyer_pct": 0.0,
-              "seller_pct": 0.0,
-              "type": ""
-            },
-            "kline_position": "",
-            "kline_verdict": "",
-            "kline_warnings": []
-          },
-          "trend": {
-            "chg_5d": 7.44,
-            "chg_20d": 15.89,
-            "vol_ratio": 1.05,
-            "pct_from_high": -93.1,
+            "chg_5d": 5.35,
+            "chg_20d": 2.4,
+            "vol_ratio": 0.76,
+            "pct_from_high": -18.5,
             "above_ma20": true,
             "above_ma60": true
           },
-          "entry_price": 37.26,
-          "stop_loss_price": 34.28,
-          "target_price": 40.99,
+          "entry_price": 256.0,
+          "stop_loss_price": 235.52,
+          "target_price": 281.6,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -1487,6 +1382,60 @@
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
+          "stock_id": "2327",
+          "name": "國巨",
+          "date": "2026-09-01",
+          "strategy_id": "default",
+          "risk_notes": [
+            "歷史勝率 47% 低於五成",
+            "基本面未過門檻"
+          ],
+          "action": "WATCH",
+          "signal_score": 50.3,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": 26.9,
+            "roe_min": 12.15,
+            "tech_score": 65,
+            "tech_signals": [
+              "KD黃金交叉",
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.471,
+            "backtest_samples": 51,
+            "volume_patterns": [
+              "縮量柱"
+            ],
+            "volume_details": {
+              "縮量柱": "連續 3 日量能遞減，回調但賣壓輕"
+            },
+            "volume_bonus": 5,
+            "volume_verdict": "🟡 量縮洗盤，主力未退場",
+            "kline_domain": {
+              "buyer_pct": 0.0,
+              "seller_pct": 0.0,
+              "type": ""
+            },
+            "kline_position": "",
+            "kline_verdict": "",
+            "kline_warnings": []
+          },
+          "trend": {
+            "chg_5d": 4.41,
+            "chg_20d": 0.35,
+            "vol_ratio": 1.12,
+            "pct_from_high": -53.4,
+            "above_ma20": false,
+            "above_ma60": false
+          },
+          "entry_price": 568.0,
+          "stop_loss_price": 522.56,
+          "target_price": 624.8,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
           "stock_id": "6770",
           "name": "力積電",
           "date": "2026-09-01",
@@ -1533,6 +1482,60 @@
           "entry_price": 70.8,
           "stop_loss_price": 65.14,
           "target_price": 77.88,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
+          "stock_id": "00631L",
+          "name": "元大50正2",
+          "date": "2026-09-01",
+          "strategy_id": "default",
+          "risk_notes": [
+            "回測樣本僅 0 次，統計弱",
+            "基本面未過門檻",
+            "已突破布林上軌，追高風險"
+          ],
+          "action": "SKIP",
+          "signal_score": 48.5,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": null,
+            "roe_min": null,
+            "tech_score": 55,
+            "tech_signals": [
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.5,
+            "backtest_samples": 0,
+            "volume_patterns": [
+              "梯量柱"
+            ],
+            "volume_details": {
+              "梯量柱": "連續 3 日量能遞增，價格同步上攻"
+            },
+            "volume_bonus": 8,
+            "volume_verdict": "📈 量能階梯推升，走勢健康",
+            "kline_domain": {
+              "buyer_pct": 0.0,
+              "seller_pct": 0.0,
+              "type": ""
+            },
+            "kline_position": "",
+            "kline_verdict": "",
+            "kline_warnings": []
+          },
+          "trend": {
+            "chg_5d": 7.44,
+            "chg_20d": 15.89,
+            "vol_ratio": 1.05,
+            "pct_from_high": -10.8,
+            "above_ma20": true,
+            "above_ma60": true
+          },
+          "entry_price": 37.26,
+          "stop_loss_price": 34.28,
+          "target_price": 40.99,
           "risk_reward_ratio": 1.25,
           "position_size_pct": 20.0,
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
@@ -21475,118 +21478,6 @@
       },
       "disclaimer": "本分析為手冊框架的機械化判讀，不構成投資建議",
       "ohlc": [
-        [
-          "2026-03-05",
-          487.75,
-          495.45,
-          470.25,
-          478.8,
-          13403465
-        ],
-        [
-          "2026-03-06",
-          471.85,
-          484.45,
-          468.0,
-          478.05,
-          5592724
-        ],
-        [
-          "2026-03-09",
-          430.0,
-          432.0,
-          416.45,
-          430.2,
-          23505862
-        ],
-        [
-          "2026-03-10",
-          464.85,
-          464.9,
-          440.15,
-          449.85,
-          11579328
-        ],
-        [
-          "2026-03-11",
-          465.0,
-          489.45,
-          465.0,
-          485.6,
-          10398727
-        ],
-        [
-          "2026-03-12",
-          474.8,
-          483.15,
-          466.45,
-          470.0,
-          7963724
-        ],
-        [
-          "2026-03-13",
-          456.5,
-          470.8,
-          454.35,
-          464.65,
-          7567457
-        ],
-        [
-          "2026-03-16",
-          474.9,
-          475.9,
-          459.15,
-          463.6,
-          6154321
-        ],
-        [
-          "2026-03-17",
-          474.8,
-          483.6,
-          474.8,
-          479.7,
-          5897817
-        ],
-        [
-          "2026-03-18",
-          494.3,
-          497.2,
-          488.0,
-          496.05,
-          6630713
-        ],
-        [
-          "2026-03-19",
-          479.95,
-          483.6,
-          472.1,
-          472.5,
-          9851170
-        ],
-        [
-          "2026-03-20",
-          476.75,
-          478.4,
-          464.7,
-          469.35,
-          6111815
-        ],
-        [
-          "2026-03-23",
-          445.5,
-          449.5,
-          437.65,
-          442.8,
-          14058892
-        ],
-        [
-          "2026-03-24",
-          459.15,
-          460.95,
-          435.5,
-          443.15,
-          9701092
-        ],
         [
           "2026-03-31",
           19.67,
