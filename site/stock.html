@@ -133,6 +133,17 @@
   .chk .r { font-size: 0.82rem; font-weight: 500; }
   .chk .dt { grid-column: 2; font-size: 0.72rem; color: var(--muted); line-height: 1.55; }
 
+  /* 第十章：擺動點序列 */
+  .seq { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; font-family: ui-monospace, monospace;
+         font-size: 0.78rem; margin: 2px 0 9px; }
+  .seq .sep { color: var(--skip); }
+  .seq .tentative { color: var(--muted); }
+  .seq .lbl { font-family: inherit; font-size: 0.7rem; color: var(--muted); width: 4.2em; flex: none; }
+  .verdict { border: 1px solid var(--line); border-radius: 9px; background: var(--panel2);
+             padding: 11px 13px; margin-top: 11px; font-size: 0.86rem; font-weight: 600; line-height: 1.5; }
+  .verdict.no { color: var(--muted); }
+  .verdict.go { color: var(--buy); border-color: rgba(244,63,94,.4); background: rgba(244,63,94,.1); }
+
   /* 壓力區 */
   .zones { display: flex; flex-direction: column; gap: 7px; }
   .zone {
@@ -270,6 +281,7 @@
     }
 
     // ── 依情境分流：有部位看減碼，沒部位看進場 ──
+    html += renderCh10(a);
     html += holding ? renderExitLadder(a, holding) : renderEntry(a);
 
     // ── 上方壓力（兩種情境都有用：有部位是停利參考，沒部位是壓力關卡）──
@@ -301,7 +313,9 @@
   function sideHtml(a, plan, holding) {
     var s = "";
     if (plan) {
-      var sc = /可考慮進場|成立/.test(plan.stance) ? "stance-go"
+      // 「訊號成立但不進場」含「成立」二字——不進場的判定必須先攔，否則會被染成買進紅
+      var sc = /不進場|不追價|無進場訊號/.test(plan.stance) ? "stance-hold"
+             : /可考慮進場|可考慮追價/.test(plan.stance) ? "stance-go"
              : /停利|減碼/.test(plan.stance) ? "stance-trim" : "stance-hold";
       s += '<div class="card">';
       s += '<div class="stance ' + sc + '">' + esc(plan.stance) + "</div>";
@@ -385,6 +399,61 @@
     s += '<div class="cost-note"><b>型態法（7-5 第五法，無固定價位）</b>：目前波浪型態為「' + esc(pat) + '」——' +
          (patBroken ? "頭頭低已確立，依型態法這裡就是出場訊號。" : "頭頭低尚未確立，型態法未觸發。") + "</div>";
     s += '<div class="cost-note">手冊 7-5：五種方法選一種、只用一種。賺錢時換到寬的、賠錢時換到緊的，是最典型的自我欺騙。</div>';
+    return s + "</div>";
+  }
+
+  // 第十章 10-5 輸出格式規範：結構／訊號／濾網／停損／結論，缺一視為判讀未完成。
+  // 手冊明訂「本章與前面各章衝突時，以本章為準」，所以它排在舊檢查表之前。
+  function renderCh10(a) {
+    var ch = a.chapter10;
+    if (!ch) return "";
+    var st = ch.structure, sig = ch.signal, stop = ch.stop;
+
+    function seqLine(label, pts) {
+      var s = '<div class="seq"><span class="lbl">' + label + "</span>";
+      pts.forEach(function (p, i) {
+        if (i) s += '<span class="sep">→</span>';
+        s += '<span' + (p.tentative ? ' class="tentative"' : "") + ">" +
+             esc(p.date.slice(5)) + " " + esc(p.price) + (p.tentative ? "（今日暫定）" : "") + "</span>";
+      });
+      return s + "</div>";
+    }
+
+    var s = '<div class="card"><h2>第十章判讀　<span class="sub">參數規格章，與前面各章衝突時以本章為準</span></h2>';
+
+    // 【結構】
+    s += '<div class="chk"><div class="mk">' + (st.can_long ? "✅" : "❌") + '</div>' +
+         '<div class="r">結構定性：' + esc(st.qualified) + "</div>" +
+         '<div class="dt">' + esc(st.detail) + "</div></div>";
+    if (st.highs && st.highs.length) s += seqLine("擺動高", st.highs);
+    if (st.lows && st.lows.length) s += seqLine("擺動低", st.lows);
+    s += '<div class="chk"><div class="mk">' + (st.major.pass ? "✅" : "❌") + '</div>' +
+         '<div class="r">大級別覆核</div><div class="dt">' + esc(st.major.detail) + "</div></div>";
+
+    // 【訊號】
+    s += '<div class="chk"><div class="mk">' + (sig.long ? "✅" : "❌") + '</div>' +
+         '<div class="r">做多訊號（收盤同時突破 MA5 與前一日最高點）</div>' +
+         '<div class="dt">' + esc(sig.detail) + "</div></div>";
+
+    // 【濾網】
+    s += '<div class="chk"><div class="mk">' + (ch.passed === ch.total ? "✅" : "❌") + '</div>' +
+         '<div class="r">前提濾網 ' + ch.passed + "/" + ch.total + "　（四項須全數通過，缺一即不進場）</div></div>";
+    (ch.filters || []).forEach(function (f) {
+      s += '<div class="chk"><div class="mk">' + (f.pass ? "✅" : "❌") + '</div>' +
+           '<div class="r">' + esc(f.name) + (f.value != null ? "　" + esc(f.value) : "") + "</div>" +
+           '<div class="dt">' + esc(f.detail) + "</div></div>";
+    });
+
+    // 【停損】10-3①：進場當下唯一方法是訊號K最低點
+    s += '<div class="chk"><div class="mk">' + (!stop.applicable ? "—" : stop.void ? "❌" : "·") + '</div>' +
+         '<div class="r">初始停損' +
+         (stop.applicable ? " " + esc(stop.price) + "　風險 " + esc(stop.risk_pct) + "%" : "（不適用）") + "</div>" +
+         '<div class="dt">' + esc(stop.detail) + "</div></div>";
+
+    // 【結論】
+    var go = ch.conclusion === "可考慮進場";
+    s += '<div class="verdict ' + (go ? "go" : "no") + '">' + esc(ch.conclusion) + "</div>";
+    s += '<div class="cost-note">' + esc(ch.basis) + "。10-3②：移動停利要等浮動獲利 ≥1R 才啟用，進場當下不得改用前波低點法或型態法。</div>";
     return s + "</div>";
   }
 

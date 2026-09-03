@@ -929,6 +929,7 @@ def _build_verdict(
     close: float,
     ma10v: float | None,
     ma20v: float | None,
+    chapter10: dict,
 ) -> tuple[str, dict]:
     """產生操作結語。
 
@@ -941,6 +942,31 @@ def _build_verdict(
         levels      關鍵價位（要看的數字，一眼可見）
         watch_for   要等的訊號，或這個判斷失效的條件
     """
+    # ── 第十章優先：訊號不成立或濾網未過完，一律不得輸出進場結論（10-5 措辭禁令）──
+    ch = chapter10
+    if ch["conclusion"] != "可考慮進場":
+        blocked = "、".join(f["name"] for f in ch["filters"] if not f["pass"])
+        plan = {
+            "stance": ch["conclusion"],
+            "headline": f"結構定性「{ch['structure']['qualified']}」，"
+                        f"訊號{'成立' if ch['signal']['long'] else '不成立'}，"
+                        f"濾網 {ch['passed']}/{ch['total']}"
+                        + (f"（未過：{blocked}）" if blocked else "") + "。",
+            "do": "手冊第十章：濾網四項須全數通過，缺一即不進場。"
+                  + (f"初始停損只能用訊號K最低點 {ch['stop']['price']:g}（風險 {ch['stop']['risk_pct']:.1f}%），"
+                     "不得在進場當下改用前波低點法或型態法。" if ch["signal"]["long"] else ""),
+            "levels": ([{"label": "初始停損（訊號K最低點）", "value": ch["stop"]["price"],
+                         "note": f"風險 {ch['stop']['risk_pct']:.1f}%"}] if ch["signal"]["long"] else [])
+                     + ([{"label": f"第一道壓力（{ch['resistance']['label']}）",
+                          "value": ch["resistance"]["price"],
+                          "note": f"距現價 +{(ch['resistance']['price'] / close - 1) * 100:.1f}%"}]
+                        if ch["resistance"] else []),
+            "watch_for": (f"等{ch['wait']} 再重新評估。" if ch["wait"]
+                          else "等做多訊號成立（收盤同時突破 MA5 與前一日最高點）。"),
+        }
+        text = (f"{name}({stock_id})：{plan['headline']} {plan['do']} 後續觀察：{plan['watch_for']}")
+        return text, plan
+
     code = regime["code"]
     hot = regime["hot"]
     bias = regime["bias_ma20"]
@@ -1071,6 +1097,270 @@ def _build_verdict(
     return " ".join(text_parts), plan
 
 
+# ═══════════════ 第十章　參數規格章（與前面各章衝突時，以本章為準）═══════════════
+#
+# 建立原因：2026/09/01 台達電(2308)出現「人工判讀」與「本程式判讀」結論相反——
+# 程式說「拉回買點成立，可考慮進場」，隔日 9/02 收黑 −7.24%。追查後確認差異
+# 不在手冊內容，而在三處參數空白：①擺動高低點怎麼取樣 ②何時用哪一種停損
+# ③濾網沒有可計算的門檻。本節把這三處收斂成唯一解。
+
+CH10_WINDOW = 60              # 10-1　擺動點取樣窗口，不得少於 60 個交易日
+CH10_PIVOT_K = 3              # 10-1　高（低）於「前3日與後3日」才算擺動點
+CH10_MIN_GAP = 3              # 10-1　相鄰擺動點間隔須 ≥3 日，否則高點取較高者、低點取較低者
+CH10_RECENT_N = 3             # 10-2　取最近三個擺動高／低
+CH10_MAJOR_N = 4              # 10-2　大級別覆核看最近 4 個已收完月份的高點
+CH10_STOP_MAX_PCT = 0.05      # 10-3③ 停損距離上限，超過即訊號作廢
+CH10_RR_GOOD = 2.0            # 10-4　濾網二：風報比 ≥2.0 良好
+CH10_RR_MIN = 1.5             # 10-4　濾網二：<1.5 不進場
+CH10_VOL_MULT = 1.0           # 10-4　濾網三：訊號K量 ≥ 前5日均量 ×1.0
+CH10_DRYUP_DAYS = 3           # 10-4　濾網三：連續三日價漲量縮即不通過
+CH10_BIAS_MAX = 0.08          # 10-4　濾網四：對 MA20 乖離 >+8% 不進場
+CH10_LEG_MAX = 5              # 10-4　濾網四：連續上漲 ≥5 日不進場，等回檔
+
+
+def _ch10_thin(pivots: list, keep_higher: bool) -> list:
+    """10-1　相鄰兩個擺動點間隔 <3 個交易日時只留一個：高點取較高者，低點取較低者。"""
+    out: list = []
+    for p in pivots:
+        if out and p[0] - out[-1][0] < CH10_MIN_GAP:
+            if (p[2] > out[-1][2]) if keep_higher else (p[2] < out[-1][2]):
+                out[-1] = p
+        else:
+            out.append(p)
+    return out
+
+
+def _ch10_pivots(hist: pd.DataFrame, li: int) -> tuple[list, list]:
+    """10-1　擺動高低點取樣：60 日窗口、左右各 3 日。
+
+    窗口過短會把前一個真高點切出視野外，使「頭頭低」被誤判為「頭頭高」，
+    把空頭反彈誤判成多頭回檔——這是最危險的錯判。
+    """
+    highs, lows = [], []
+    start = max(CH10_PIVOT_K, li - CH10_WINDOW + 1)
+    for j in range(start, li - CH10_PIVOT_K + 1):
+        lo, hi = j - CH10_PIVOT_K, j + CH10_PIVOT_K + 1
+        if float(hist["high"].iloc[j]) == float(hist["high"].iloc[lo:hi].max()):
+            highs.append((j, hist["date"].iloc[j], float(hist["high"].iloc[j])))
+        if float(hist["low"].iloc[j]) == float(hist["low"].iloc[lo:hi].min()):
+            lows.append((j, hist["date"].iloc[j], float(hist["low"].iloc[j])))
+    return _ch10_thin(highs, True), _ch10_thin(lows, False)
+
+
+def _ch10_major_review(hist: pd.DataFrame, li: int) -> dict:
+    """10-2　大級別覆核：月線高點連續墊低時，日線的多頭只是大空頭中的反彈波。"""
+    h = hist.iloc[: li + 1][["date", "high"]].copy()
+    per = pd.to_datetime(h["date"]).dt.to_period("M")
+    closed = per != per.iloc[-1]           # 當月未收完，不納入
+    monthly = h[closed].groupby(per[closed])["high"].max().tail(CH10_MAJOR_N)
+    seq = [{"month": str(k), "high": round(float(v), 2)} for k, v in monthly.items()]
+    if len(seq) < 3:
+        return {"pass": True, "seq": seq, "detail": "已收完的月份不足 3 個，未做大級別覆核"}
+    declining = all(seq[i]["high"] < seq[i - 1]["high"] for i in range(1, len(seq)))
+    arrow = " → ".join(f"{s['high']:g}" for s in seq)
+    return {
+        "pass": not declining,
+        "seq": seq,
+        "detail": f"月線高點 {arrow}" + (
+            "，一路墊低——即使日線出現買點，本質仍是反彈，做多買點降一級處理"
+            if declining else "，未連續墊低"),
+    }
+
+
+def _ch10_structure(hist: pd.DataFrame, li: int, close: float) -> dict:
+    """10-2　結構定性判定表。
+
+    用詞紀律：只有落在「多頭」格才可說多頭結構完整；禁止只憑底底高就宣告多頭。
+    「頭頭高／低」以今日收盤是否站上最近一個已確認擺動高判定——這正是 10-2
+    所稱「頭頭低尚未突破」的機械化寫法。
+    """
+    highs, lows = _ch10_pivots(hist, li)
+    last_h = highs[-1] if highs else None
+    last_l = lows[-1] if lows else None
+    prev_l = lows[-2] if len(lows) >= 2 else None
+
+    if last_h is None or prev_l is None:
+        return {"qualified": "資料不足", "can_long": False, "highs": [], "lows": [],
+                "major": _ch10_major_review(hist, li),
+                "detail": f"近 {CH10_WINDOW} 日內確認的擺動高 {len(highs)} 個、擺動低 {len(lows)} 個，不足以定性",
+                "confirmed_highs": highs, "confirmed_lows": lows}
+
+    higher_high = close > last_h[2]
+    higher_low = False if close < last_l[2] else last_l[2] > prev_l[2]
+
+    if higher_high and higher_low:
+        qualified, detail = "多頭", "頭頭高、底底高"
+    elif not higher_high and not higher_low:
+        qualified, detail = "空頭", "頭頭低、底底低（改參考 5-2-7 放空，不可執行做多買點）"
+    elif higher_low:
+        qualified, detail = "收斂／未表態", "底底高成立，但頭頭低尚未突破，結構未表態"
+    else:
+        qualified, detail = "擴張／混亂", "頭頭高、底底低"
+
+    seq = [_fmt_pivot(p) for p in highs[-CH10_RECENT_N:]]
+    seq.append({"date": pd.Timestamp(hist["date"].iloc[li]).strftime("%Y-%m-%d"),
+                "price": close, "tentative": True})
+    major = _ch10_major_review(hist, li)
+    return {
+        "qualified": qualified,
+        "can_long": qualified == "多頭" and major["pass"],
+        "highs": seq,
+        "lows": [_fmt_pivot(p) for p in lows[-CH10_RECENT_N:]],
+        "major": major,
+        "detail": detail + f"（今日收盤 {close:g} vs 最近確認擺動高 {last_h[2]:g}）",
+        "confirmed_highs": highs, "confirmed_lows": lows,
+    }
+
+
+def _ch10_signal(hist: pd.DataFrame, li: int, ma5v: float | None, close: float) -> dict:
+    """10-5　訊號定義：做多＝收盤突破MA5 且 收盤突破前一日最高點。"""
+    ph = float(hist["high"].iloc[li - 1])
+    pl = float(hist["low"].iloc[li - 1])
+    long_ok = ma5v is not None and close > ma5v and close > ph
+    short_ok = ma5v is not None and close < ma5v and close < pl
+    if ma5v is None:
+        detail = "MA5 資料不足"
+    elif long_ok:
+        detail = f"收 {close:g} > MA5 {ma5v:.0f}，且 > 前日高 {ph:g}"
+    else:
+        miss = []
+        if close <= ma5v:
+            miss.append(f"未站上 MA5 {ma5v:.0f}")
+        if close <= ph:
+            miss.append(f"未過前日高 {ph:g}")
+        detail = f"收 {close:g}：" + "、".join(miss)
+    return {"long": bool(long_ok), "short": bool(short_ok), "detail": detail}
+
+
+def _ch10_first_resistance(close: float, ma60v: float | None,
+                           confirmed_highs: list, fib: dict | None) -> dict | None:
+    """10-4　第一道壓力：季線／前一個擺動高／Fibonacci 回撤滿足點／整數關卡，
+    取「高於進場價且距離最近」者。"""
+    cands: list[tuple[float, str]] = []
+    if ma60v and ma60v > close:
+        cands.append((round(ma60v, 2), "季線"))
+    above_h = [p for p in confirmed_highs if p[2] > close]
+    if above_h:
+        p = min(above_h, key=lambda x: x[2])
+        cands.append((p[2], f"{pd.Timestamp(p[1]).strftime('%m/%d')} 擺動高"))
+    for lv in (fib or {}).get("levels", []):
+        if lv["price"] > close:
+            cands.append((lv["price"], f"{lv['ratio']:.3f} 回撤位"))
+    step = 100 if close >= 1000 else 10 if close >= 100 else 5
+    cands.append((float(int(close // step) * step + step), "整數關卡"))
+    if not cands:
+        return None
+    price, label = min(cands, key=lambda x: x[0])
+    return {"price": price, "label": label}
+
+
+def _ch10_filters(hist: pd.DataFrame, li: int, close: float, structure: dict,
+                  resistance: dict | None, stop_price: float, bias_ma20: float) -> list:
+    """10-4　前提濾網四項，須全數通過，缺一即不進場。"""
+    # 一　結構
+    maj = structure["major"]
+    f1 = {"name": "結構", "pass": structure["can_long"],
+          "detail": f"定性：{structure['qualified']}——{structure['detail']}；"
+                    f"大級別覆核{'通過' if maj['pass'] else '未通過'}（{maj['detail']}）"}
+
+    # 二　風報比
+    risk = close - stop_price
+    if resistance and risk > 0:
+        rr = (resistance["price"] - close) / risk
+        verdict = "良好" if rr >= CH10_RR_GOOD else "勉強可，部位減半" if rr >= CH10_RR_MIN else "不進場"
+        f2 = {"name": "風報比", "pass": rr >= CH10_RR_MIN, "value": round(rr, 2),
+              "detail": f"第一道壓力{resistance['label']} {resistance['price']:g}；"
+                        f"({resistance['price']:g}−{close:g})÷({close:g}−{stop_price:g})＝{rr:.2f} → {verdict}"}
+    else:
+        f2 = {"name": "風報比", "pass": False, "value": None,
+              "detail": ("上方找不到可辨識的壓力（季線／前波高／回撤位／整數關卡皆不在現價之上），無法計算風報比"
+                         if not resistance else
+                         f"當日最低點等於收盤 {close:g}，停損距離為零，風報比無定義")}
+
+    # 三　量能
+    v = float(hist["volume"].iloc[li])
+    prior5 = hist["volume"].iloc[max(0, li - 5): li]
+    m5v = float(prior5.mean()) if len(prior5) else 0.0
+    vol_ok = m5v > 0 and v >= CH10_VOL_MULT * m5v
+    dry = all(
+        float(hist["close"].iloc[li - k]) > float(hist["close"].iloc[li - k - 1])
+        and float(hist["volume"].iloc[li - k]) < float(hist["volume"].iloc[li - k - 1])
+        for k in range(CH10_DRYUP_DAYS)
+    ) if li >= CH10_DRYUP_DAYS else False
+    f3 = {"name": "量能", "pass": bool(vol_ok and not dry),
+          "detail": (f"訊號K量為前5日均量 {v / m5v:.2f}x" if m5v else "量能資料不足")
+                    + ("" if vol_ok else "，未達 1.0x")
+                    + ("；且連續三日價漲量縮" if dry else "")}
+
+    # 四　乖離與漲勢天數
+    up_days = 0
+    while li - up_days >= 1 and float(hist["close"].iloc[li - up_days]) > float(hist["close"].iloc[li - up_days - 1]):
+        up_days += 1
+    bias_ok = bias_ma20 <= CH10_BIAS_MAX
+    days_ok = up_days < CH10_LEG_MAX
+    f4 = {"name": "乖離", "pass": bool(bias_ok and days_ok), "up_days": up_days,
+          "detail": f"對 MA20 乖離 {bias_ma20 * 100:+.1f}%"
+                    + ("" if bias_ok else f"，超過 {CH10_BIAS_MAX * 100:.0f}% 門檻")
+                    + f"；連續上漲第 {up_days} 日"
+                    + ("" if days_ok else f"，已達 {CH10_LEG_MAX} 日，等回檔")}
+    return [f1, f2, f3, f4]
+
+
+def _chapter10(hist: pd.DataFrame, li: int, close: float, ma5v: float | None,
+               ma60v: float | None, bias_ma20: float, fib: dict | None) -> dict:
+    """10-5　輸出格式規範：結構／訊號／濾網／停損／結論，缺項視為判讀未完成。"""
+    structure = _ch10_structure(hist, li, close)
+    signal = _ch10_signal(hist, li, ma5v, close)
+
+    # 10-3①　初始停損唯一方法＝訊號K最低點；禁止在進場當下使用前波低點法／型態法
+    stop_price = float(hist["low"].iloc[li])
+    risk_pct = round((close - stop_price) / close * 100, 2) if close else 0.0
+    stop_void = risk_pct > CH10_STOP_MAX_PCT * 100
+    stop = {"price": round(stop_price, 2), "risk_pct": risk_pct, "void": bool(stop_void),
+            "applicable": bool(signal["long"]),
+            "detail": (f"訊號K最低點 {stop_price:g}，風險 {risk_pct:.1f}%"
+                       + (f"——超過 {CH10_STOP_MAX_PCT * 100:.0f}% 上限，訊號作廢不進場，等下一根"
+                          if stop_void else "（收盤跌破即出場，不看盤中）"))
+                      if signal["long"] else
+                      f"今日非訊號K，沒有初始停損可設（若成立會落在當日最低點 {stop_price:g}）"}
+
+    # confirmed_* 是內部用的原始 pivot（含 Timestamp，不可序列化），取完壓力就移除
+    resistance = _ch10_first_resistance(close, ma60v, structure.pop("confirmed_highs"), fib)
+    structure.pop("confirmed_lows", None)
+    filters = _ch10_filters(hist, li, close, structure, resistance, stop_price, bias_ma20)
+    passed = sum(1 for f in filters if f["pass"])
+
+    # 10-5　結論：措辭禁令——濾網未全過時不得輸出「可考慮進場」
+    if not signal["long"]:
+        conclusion, wait = "無進場訊號", None
+    elif stop_void:
+        conclusion, wait = "訊號成立但不進場，等下一根", "訊號K實體過長，停損放不下"
+    elif passed == len(filters):
+        conclusion, wait = "可考慮進場", None
+    else:
+        blocked = [f["name"] for f in filters if not f["pass"]]
+        if resistance and ({"結構", "風報比"} & set(blocked)):
+            wait = f"收盤站上{resistance['label']} {resistance['price']:g}"
+        elif "量能" in blocked:
+            wait = "量能放大到 5 日均量之上"
+        else:
+            wait = "回檔收斂乖離與漲勢天數"
+        conclusion = f"訊號成立但不進場，等{wait}"
+
+    return {
+        "structure": structure,
+        "signal": signal,
+        "filters": filters,
+        "passed": passed,
+        "total": len(filters),
+        "stop": stop,
+        "resistance": resistance,
+        "conclusion": conclusion,
+        "wait": wait,
+        "basis": "手冊第十章（參數規格章）；本章與前面各章衝突時以本章為準",
+    }
+
+
 # ────────────────────────── 對外主函式 ──────────────────────────
 
 
@@ -1136,9 +1426,14 @@ def analyze(df: pd.DataFrame, stock_id: str, name: str, idx: int = -1) -> dict:
         checklist = None   # 空頭續跌：手冊第六章 ⚪ 不進場，沒有買點檢查表
 
     ma10v = float(ma10.iloc[li]) if pd.notna(ma10.iloc[li]) else None
+    ma60v = float(ma60.iloc[li]) if pd.notna(ma60.iloc[li]) else None
+    ma5v = float(ma5.iloc[li]) if pd.notna(ma5.iloc[li]) else None
+    # 第十章是參數規格章，與前面各章衝突時以它為準——因此它產出的結論凌駕
+    # 第六／七章的檢查表結論，_build_verdict 只在它放行時才沿用原本的文案。
+    chapter10 = _chapter10(hist, li, c, ma5v, ma60v, bias_ma20, fib)
     verdict, plan = _build_verdict(
         stock_id, name, snapshot, wave, bottom_stage, rebound_check, discipline,
-        stop_loss, regime, checklist, c, ma10v, ma20v,
+        stop_loss, regime, checklist, c, ma10v, ma20v, chapter10,
     )
 
     return {
@@ -1151,6 +1446,7 @@ def analyze(df: pd.DataFrame, stock_id: str, name: str, idx: int = -1) -> dict:
         "bottom_stage": bottom_stage,
         "rebound_check": rebound_check,
         "regime": regime,
+        "chapter10": chapter10,
         "checklist": checklist,
         "rebound_strength": rebound_strength,
         "resistance": resistance,

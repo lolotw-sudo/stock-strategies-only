@@ -82,6 +82,9 @@ def get_price_history(stock_id: str, years: int = 3) -> pd.DataFrame:
     for col in ["open", "high", "low", "close", "volume"]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
+    # FinMind 偶爾對同一天回傳兩筆（量不同）。重複的列會讓 MA 與擺動點取樣整個位移——
+    # 2308 的季線就因此從 1879 變成 1864，第十章的風報比與壓力判定會全錯。
+    df = df.drop_duplicates(subset="date", keep="last")
     return drop_pre_split(df.sort_values("date").reset_index(drop=True))
 
 
