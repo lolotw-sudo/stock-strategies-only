@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-11T19:36:17.328195+08:00",
-  "generated_at_display": "2026-09-11 19:36（台北時間）",
+  "generated_at": "2026-09-14T10:21:35.496223+08:00",
+  "generated_at_display": "2026-09-14 10:21（台北時間）",
   "market": {
     "bullish": true,
     "close": 46184.85,
-    "ma20": 46025.292499999996,
-    "note": "▲ 加權 46185 站上 20 日線 (+0.3%)，BUY 訊號照常發出"
+    "ma20": 46079.865000000005,
+    "note": "▲ 加權 46185 站上 20 日線 (+0.2%)，BUY 訊號照常發出"
   },
-  "night_note": "🔴 昨晚夜盤 -1.70%（大跌・逆風），BUY 全數降為 WATCH（情緒保守）",
+  "night_note": "🟢 昨晚夜盤 +0.87%（小漲・順風），順風環境、BUY 照常",
   "watchlist_count": 14,
   "strategies": [
     {
@@ -26,7 +26,7 @@
         {
           "stock_id": "2330",
           "name": "台積電",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "跌破月線 MA20（2411.00），持有者出場訊號"
@@ -36,7 +36,7 @@
           "components": {
             "fundamental_pass": true,
             "eps_min": 32.34,
-            "roe_min": 23.97,
+            "roe_min": 26.0,
             "tech_score": 42,
             "tech_signals": [
               "布林下軌反彈",
@@ -78,7 +78,7 @@
         {
           "stock_id": "2327",
           "name": "國巨",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "跌破月線 MA20（561.15），持有者出場訊號",
@@ -131,7 +131,7 @@
         {
           "stock_id": "2317",
           "name": "鴻海",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "跌破月線 MA20（249.90），持有者出場訊號",
@@ -142,7 +142,7 @@
           "components": {
             "fundamental_pass": false,
             "eps_min": 10.25,
-            "roe_min": 8.07,
+            "roe_min": 8.65,
             "tech_score": 16,
             "tech_signals": [
               "布林下軌反彈",
@@ -184,13 +184,13 @@
         {
           "stock_id": "5274",
           "name": "信驊",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "5-2-0 搶反彈四問未過：④有沒有過高——收盤17885.00尚未突破近20日內任一轉折高"
           ],
           "action": "WATCH",
-          "signal_score": 53.4,
+          "signal_score": 53.5,
           "components": {
             "fundamental_pass": true,
             "eps_min": 26.66,
@@ -201,8 +201,8 @@
               "MACD多頭",
               "流星"
             ],
-            "backtest_winrate": 0.528,
-            "backtest_samples": 197,
+            "backtest_winrate": 0.531,
+            "backtest_samples": 196,
             "volume_patterns": [
               "縮量柱"
             ],
@@ -241,7 +241,7 @@
         {
           "stock_id": "0050",
           "name": "元大台灣50",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "基本面未過門檻"
@@ -297,7 +297,7 @@
         {
           "stock_id": "00631L",
           "name": "元大50正2",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "基本面未過門檻",
@@ -355,60 +355,9 @@
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
-          "stock_id": "2454",
-          "name": "聯發科",
-          "date": "2026-09-11",
-          "strategy_id": "kline-chu",
-          "risk_notes": [],
-          "action": "SKIP",
-          "signal_score": 53.4,
-          "components": {
-            "fundamental_pass": true,
-            "eps_min": 48.51,
-            "roe_min": 22.05,
-            "tech_score": 50,
-            "tech_signals": [
-              "均線多頭",
-              "MACD多頭",
-              "母子線"
-            ],
-            "backtest_winrate": 0.447,
-            "backtest_samples": 188,
-            "volume_patterns": [],
-            "volume_details": {},
-            "volume_bonus": 0,
-            "volume_verdict": "量能平淡，無特殊訊號",
-            "kline_domain": {
-              "buyer_pct": 41.7,
-              "seller_pct": 58.3,
-              "type": "拉鋸"
-            },
-            "kline_position": "高檔",
-            "kline_verdict": "收盤價領域拉鋸（買方42% / 賣方58%），訊號：母子線，位置：高檔第13天。",
-            "kline_warnings": [],
-            "action_reason": "打底中：5-2-0 搶反彈四問僅2/4通過，不建議進場",
-            "regime": "打底中",
-            "regime_hot": false
-          },
-          "trend": {
-            "chg_5d": 3.85,
-            "chg_20d": 8.91,
-            "vol_ratio": 1.01,
-            "pct_from_high": -7.7,
-            "above_ma20": true,
-            "above_ma60": true
-          },
-          "entry_price": 4585.0,
-          "stop_loss_price": 4218.2,
-          "target_price": 5043.5,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
           "stock_id": "2603",
           "name": "長榮",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 5 日",
@@ -419,7 +368,7 @@
           "components": {
             "fundamental_pass": false,
             "eps_min": 16.7,
-            "roe_min": 8.92,
+            "roe_min": 9.38,
             "tech_score": 56,
             "tech_signals": [
               "KD黃金交叉",
@@ -463,9 +412,60 @@
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
+          "stock_id": "2454",
+          "name": "聯發科",
+          "date": "2026-09-14",
+          "strategy_id": "kline-chu",
+          "risk_notes": [],
+          "action": "SKIP",
+          "signal_score": 53.3,
+          "components": {
+            "fundamental_pass": true,
+            "eps_min": 48.51,
+            "roe_min": 22.05,
+            "tech_score": 50,
+            "tech_signals": [
+              "均線多頭",
+              "MACD多頭",
+              "母子線"
+            ],
+            "backtest_winrate": 0.444,
+            "backtest_samples": 187,
+            "volume_patterns": [],
+            "volume_details": {},
+            "volume_bonus": 0,
+            "volume_verdict": "量能平淡，無特殊訊號",
+            "kline_domain": {
+              "buyer_pct": 41.7,
+              "seller_pct": 58.3,
+              "type": "拉鋸"
+            },
+            "kline_position": "高檔",
+            "kline_verdict": "收盤價領域拉鋸（買方42% / 賣方58%），訊號：母子線，位置：高檔第13天。",
+            "kline_warnings": [],
+            "action_reason": "打底中：5-2-0 搶反彈四問僅2/4通過，不建議進場",
+            "regime": "打底中",
+            "regime_hot": false
+          },
+          "trend": {
+            "chg_5d": 3.85,
+            "chg_20d": 8.91,
+            "vol_ratio": 1.01,
+            "pct_from_high": -7.7,
+            "above_ma20": true,
+            "above_ma60": true
+          },
+          "entry_price": 4585.0,
+          "stop_loss_price": 4218.2,
+          "target_price": 5043.5,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
           "stock_id": "7765",
           "name": "中華資安",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 11 日",
@@ -518,21 +518,21 @@
         {
           "stock_id": "2308",
           "name": "台達電",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 3 日"
           ],
           "action": "SKIP",
-          "signal_score": 36.8,
+          "signal_score": 36.9,
           "components": {
             "fundamental_pass": true,
             "eps_min": 12.86,
-            "roe_min": 19.19,
+            "roe_min": 21.56,
             "tech_score": 14,
             "tech_signals": [],
-            "backtest_winrate": 0.614,
-            "backtest_samples": 220,
+            "backtest_winrate": 0.616,
+            "backtest_samples": 219,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -567,14 +567,14 @@
         {
           "stock_id": "2498",
           "name": "宏達電",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 4 日",
             "基本面未過門檻"
           ],
           "action": "SKIP",
-          "signal_score": 35.0,
+          "signal_score": 35.1,
           "components": {
             "fundamental_pass": false,
             "eps_min": -4.11,
@@ -583,8 +583,8 @@
             "tech_signals": [
               "布林下軌反彈"
             ],
-            "backtest_winrate": 0.454,
-            "backtest_samples": 207,
+            "backtest_winrate": 0.456,
+            "backtest_samples": 206,
             "volume_patterns": [
               "低量柱",
               "平量柱"
@@ -625,7 +625,7 @@
         {
           "stock_id": "2408",
           "name": "南亞科",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 2 日",
@@ -636,14 +636,14 @@
           "components": {
             "fundamental_pass": false,
             "eps_min": -2.4,
-            "roe_min": -4.46,
+            "roe_min": -4.31,
             "tech_score": 24,
             "tech_signals": [
               "布林下軌反彈",
               "三烏鴉"
             ],
-            "backtest_winrate": 0.366,
-            "backtest_samples": 227,
+            "backtest_winrate": 0.367,
+            "backtest_samples": 226,
             "volume_patterns": [
               "低量柱",
               "平量柱"
@@ -684,21 +684,21 @@
         {
           "stock_id": "2059",
           "name": "川湖",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 4 日"
           ],
           "action": "SKIP",
-          "signal_score": 28.9,
+          "signal_score": 29.0,
           "components": {
             "fundamental_pass": true,
             "eps_min": 28.38,
             "roe_min": 16.45,
             "tech_score": 6,
             "tech_signals": [],
-            "backtest_winrate": 0.511,
-            "backtest_samples": 219,
+            "backtest_winrate": 0.514,
+            "backtest_samples": 218,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -733,7 +733,7 @@
         {
           "stock_id": "6669",
           "name": "緯穎",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "價格資料不足"
@@ -749,8 +749,8 @@
       "summary": {
         "total": 14,
         "sell": 0,
-        "buy": 0,
-        "watch": 7,
+        "buy": 2,
+        "watch": 5,
         "skip": 7,
         "error": 0
       },
@@ -758,17 +758,15 @@
         {
           "stock_id": "2330",
           "name": "台積電",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
-          "risk_notes": [
-            "昨晚夜盤大跌 -1.7%，自動降為 WATCH"
-          ],
-          "action": "WATCH",
+          "risk_notes": [],
+          "action": "BUY",
           "signal_score": 76.1,
           "components": {
             "fundamental_pass": true,
             "eps_min": 32.34,
-            "roe_min": 23.97,
+            "roe_min": 26.0,
             "tech_score": 50,
             "tech_signals": [
               "布林下軌反彈",
@@ -807,13 +805,11 @@
         {
           "stock_id": "5274",
           "name": "信驊",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
-          "risk_notes": [
-            "昨晚夜盤大跌 -1.7%，自動降為 WATCH"
-          ],
-          "action": "WATCH",
-          "signal_score": 67.6,
+          "risk_notes": [],
+          "action": "BUY",
+          "signal_score": 67.7,
           "components": {
             "fundamental_pass": true,
             "eps_min": 26.66,
@@ -823,8 +819,8 @@
               "均線多頭",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.528,
-            "backtest_samples": 197,
+            "backtest_winrate": 0.531,
+            "backtest_samples": 196,
             "volume_patterns": [
               "縮量柱"
             ],
@@ -860,7 +856,7 @@
         {
           "stock_id": "00631L",
           "name": "元大50正2",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
             "回測樣本僅 2 次，統計弱",
@@ -917,13 +913,13 @@
         {
           "stock_id": "2454",
           "name": "聯發科",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
-            "歷史勝率 45% 低於五成"
+            "歷史勝率 44% 低於五成"
           ],
           "action": "WATCH",
-          "signal_score": 62.9,
+          "signal_score": 62.8,
           "components": {
             "fundamental_pass": true,
             "eps_min": 48.51,
@@ -933,8 +929,8 @@
               "均線多頭",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.447,
-            "backtest_samples": 188,
+            "backtest_winrate": 0.444,
+            "backtest_samples": 187,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -966,7 +962,7 @@
         {
           "stock_id": "0050",
           "name": "元大台灣50",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
@@ -1019,7 +1015,7 @@
         {
           "stock_id": "2308",
           "name": "台達電",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [],
           "action": "WATCH",
@@ -1027,11 +1023,11 @@
           "components": {
             "fundamental_pass": true,
             "eps_min": 12.86,
-            "roe_min": 19.19,
+            "roe_min": 21.56,
             "tech_score": 10,
             "tech_signals": [],
-            "backtest_winrate": 0.614,
-            "backtest_samples": 220,
+            "backtest_winrate": 0.616,
+            "backtest_samples": 219,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -1063,19 +1059,19 @@
         {
           "stock_id": "2059",
           "name": "川湖",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [],
           "action": "WATCH",
-          "signal_score": 53.4,
+          "signal_score": 53.6,
           "components": {
             "fundamental_pass": true,
             "eps_min": 28.38,
             "roe_min": 16.45,
             "tech_score": 10,
             "tech_signals": [],
-            "backtest_winrate": 0.511,
-            "backtest_samples": 219,
+            "backtest_winrate": 0.514,
+            "backtest_samples": 218,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -1107,7 +1103,7 @@
         {
           "stock_id": "7765",
           "name": "中華資安",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
@@ -1156,7 +1152,7 @@
         {
           "stock_id": "2603",
           "name": "長榮",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
@@ -1166,7 +1162,7 @@
           "components": {
             "fundamental_pass": false,
             "eps_min": 16.7,
-            "roe_min": 8.92,
+            "roe_min": 9.38,
             "tech_score": 43,
             "tech_signals": [
               "KD黃金交叉"
@@ -1208,7 +1204,7 @@
         {
           "stock_id": "2327",
           "name": "國巨",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 44% 低於五成",
@@ -1257,10 +1253,10 @@
         {
           "stock_id": "2498",
           "name": "宏達電",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
-            "歷史勝率 45% 低於五成",
+            "歷史勝率 46% 低於五成",
             "基本面未過門檻"
           ],
           "action": "SKIP",
@@ -1273,8 +1269,8 @@
             "tech_signals": [
               "布林下軌反彈"
             ],
-            "backtest_winrate": 0.454,
-            "backtest_samples": 207,
+            "backtest_winrate": 0.456,
+            "backtest_samples": 206,
             "volume_patterns": [
               "低量柱",
               "平量柱"
@@ -1312,7 +1308,7 @@
         {
           "stock_id": "2317",
           "name": "鴻海",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 44% 低於五成",
@@ -1323,7 +1319,7 @@
           "components": {
             "fundamental_pass": false,
             "eps_min": 10.25,
-            "roe_min": 8.07,
+            "roe_min": 8.65,
             "tech_score": 25,
             "tech_signals": [
               "布林下軌反彈"
@@ -1361,24 +1357,24 @@
         {
           "stock_id": "2408",
           "name": "南亞科",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 37% 低於五成",
             "基本面未過門檻"
           ],
           "action": "SKIP",
-          "signal_score": 36.5,
+          "signal_score": 36.6,
           "components": {
             "fundamental_pass": false,
             "eps_min": -2.4,
-            "roe_min": -4.46,
+            "roe_min": -4.31,
             "tech_score": 33,
             "tech_signals": [
               "布林下軌反彈"
             ],
-            "backtest_winrate": 0.366,
-            "backtest_samples": 227,
+            "backtest_winrate": 0.367,
+            "backtest_samples": 226,
             "volume_patterns": [
               "低量柱",
               "平量柱"
@@ -1416,7 +1412,7 @@
         {
           "stock_id": "6669",
           "name": "緯穎",
-          "date": "2026-09-11",
+          "date": "2026-09-14",
           "strategy_id": "default",
           "risk_notes": [
             "價格資料不足"
@@ -1755,8 +1751,8 @@
         {
           "step": 5,
           "name": "量能",
-          "verdict": "1.04x（第17天）",
-          "detail": "今量21131357／20日均量20302876"
+          "verdict": "1.08x（第17天）",
+          "detail": "今量21131357／20日均量19650251"
         },
         {
           "step": 6,
@@ -2745,7 +2741,7 @@
           2440.0,
           2390.0,
           2440.0,
-          31855287
+          18802776
         ],
         [
           "2026-09-02",
@@ -2821,6 +2817,64 @@
         "above_cost": false,
         "market_value": 72300.0,
         "pnl": -900.0
+      },
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -8251,
+            "d5": 8878,
+            "d20": 9264
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": -181,
+            "d5": 5,
+            "d20": -5156
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -400,
+            "d5": -134,
+            "d20": 2212
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -8832,
+            "d5": 8749,
+            "d20": 6321
+          }
+        ],
+        "retail": {
+          "margin_balance": 28901,
+          "chg_5d": 520,
+          "chg_5d_pct": 1.83,
+          "chg_20d_pct": 3.0,
+          "short_margin_ratio": 0.0
+        },
+        "foreign_holding": {
+          "now": 69.27,
+          "chg_20": 0.1
+        },
+        "read": {
+          "code": "accumulating",
+          "label": "法人默默進貨",
+          "headline": "股價橫盤沒表態，法人已經在買超，融資則沒有動靜；籌碼安靜地往法人手上移動。",
+          "price_5d_pct": 0.0,
+          "main_5d_lots": 8883,
+          "main_5d_ratio": 7.752,
+          "retail_5d_pct": 1.83
+        },
+        "notes": []
       }
     },
     "2317": {
@@ -2928,7 +2982,7 @@
           {
             "q": "②有沒有爆量",
             "pass": false,
-            "detail": "近20日最大量能倍數1.54x（08/27，較前5日均量），未達門檻(a)2x／(b)2x（較前一日）"
+            "detail": "近20日最大量能倍數1.58x（09/04，較前5日均量），未達門檻(a)2x／(b)2x（較前一日）"
           },
           {
             "q": "③有沒有止跌",
@@ -3069,7 +3123,7 @@
           {
             "q": "②有沒有爆量",
             "pass": false,
-            "detail": "近20日最大量能倍數1.54x（08/27，較前5日均量），未達門檻(a)2x／(b)2x（較前一日）"
+            "detail": "近20日最大量能倍數1.58x（09/04，較前5日均量），未達門檻(a)2x／(b)2x（較前一日）"
           },
           {
             "q": "③有沒有止跌",
@@ -3180,7 +3234,7 @@
           "step": 5,
           "name": "量能",
           "verdict": "0.72x（第13天）",
-          "detail": "今量24164352／20日均量33594036"
+          "detail": "今量24164352／20日均量33382751"
         },
         {
           "step": 6,
@@ -4169,7 +4223,7 @@
           256.0,
           251.0,
           256.0,
-          34131729
+          29906027
         ],
         [
           "2026-09-02",
@@ -4245,6 +4299,64 @@
         "above_cost": true,
         "market_value": 248000.0,
         "pnl": 3000.0
+      },
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -3751,
+            "d5": -19912,
+            "d20": -35054
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 410,
+            "d5": 1401,
+            "d20": -1751
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -45,
+            "d5": -4547,
+            "d20": -2904
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -3386,
+            "d5": -23057,
+            "d20": -39710
+          }
+        ],
+        "retail": {
+          "margin_balance": 53699,
+          "chg_5d": -396,
+          "chg_5d_pct": -0.73,
+          "chg_20d_pct": 5.19,
+          "short_margin_ratio": 1.0
+        },
+        "foreign_holding": {
+          "now": 40.35,
+          "chg_20": -0.34
+        },
+        "read": {
+          "code": "selling",
+          "label": "法人調節，融資沒動",
+          "headline": "法人邊跌邊賣，融資餘額卻沒跟著減少；賣壓還沒宣洩完。",
+          "price_5d_pct": -3.12,
+          "main_5d_lots": -18511,
+          "main_5d_ratio": -11.569,
+          "retail_5d_pct": -0.73
+        },
+        "notes": []
       }
     },
     "2454": {
@@ -4352,7 +4464,7 @@
           {
             "q": "②有沒有爆量",
             "pass": true,
-            "detail": "09/02爆量：倍量柱(較前一日)4.78x（門檻(a)前5日均量2x／(b)前一日2x，任一即通過）"
+            "detail": "09/02爆量：倍量柱(較前一日)5.98x（門檻(a)前5日均量2x／(b)前一日2x，任一即通過）"
           },
           {
             "q": "③有沒有止跌",
@@ -4493,7 +4605,7 @@
           {
             "q": "②有沒有爆量",
             "pass": true,
-            "detail": "09/02爆量：倍量柱(較前一日)4.78x（門檻(a)前5日均量2x／(b)前一日2x，任一即通過）"
+            "detail": "09/02爆量：倍量柱(較前一日)5.98x（門檻(a)前5日均量2x／(b)前一日2x，任一即通過）"
           },
           {
             "q": "③有沒有止跌",
@@ -4517,7 +4629,7 @@
           {
             "rule": "量能放大",
             "pass": false,
-            "detail": "反彈段均量為反彈前 0.74 倍，量能萎縮是弱勢特徵"
+            "detail": "反彈段均量為反彈前 0.75 倍，量能萎縮是弱勢特徵"
           },
           {
             "rule": "過得了前波高",
@@ -4603,8 +4715,8 @@
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.88x（第13天）",
-          "detail": "今量7591878／20日均量8614101"
+          "verdict": "0.89x（第13天）",
+          "detail": "今量7591878／20日均量8564490"
         },
         {
           "step": 6,
@@ -5593,7 +5705,7 @@
           4315.0,
           4315.0,
           4315.0,
-          4931652
+          3939436
         ],
         [
           "2026-09-02",
@@ -5659,7 +5771,65 @@
           4585.0,
           7591878
         ]
-      ]
+      ],
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -742,
+            "d5": 3401,
+            "d20": 5537
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 108,
+            "d5": 1448,
+            "d20": -3643
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -22,
+            "d5": 179,
+            "d20": 205
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -656,
+            "d5": 5029,
+            "d20": 2099
+          }
+        ],
+        "retail": {
+          "margin_balance": 10332,
+          "chg_5d": -188,
+          "chg_5d_pct": -1.79,
+          "chg_20d_pct": 6.07,
+          "short_margin_ratio": 0.58
+        },
+        "foreign_holding": {
+          "now": 55.97,
+          "chg_20": 0.29
+        },
+        "read": {
+          "code": "healthy",
+          "label": "法人推升為主",
+          "headline": "股價漲由法人買超帶動，融資沒有明顯跟進；買盤結構偏健康。",
+          "price_5d_pct": 3.85,
+          "main_5d_lots": 4849,
+          "main_5d_ratio": 11.187,
+          "retail_5d_pct": -1.79
+        },
+        "notes": []
+      }
     },
     "2408": {
       "stock_id": "2408",
@@ -5964,7 +6134,7 @@
           "step": 5,
           "name": "量能",
           "verdict": "0.51x（第5天）",
-          "detail": "今量38482147／20日均量75420844"
+          "detail": "今量38482147／20日均量75397644"
         },
         {
           "step": 6,
@@ -6953,7 +7123,7 @@
           551.0,
           516.0,
           518.0,
-          82818290
+          82354290
         ],
         [
           "2026-09-02",
@@ -7019,7 +7189,65 @@
           493.0,
           38482147
         ]
-      ]
+      ],
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -13103,
+            "d5": 27961,
+            "d20": 17198
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": -114,
+            "d5": -183,
+            "d20": -3663
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -202,
+            "d5": 735,
+            "d20": -4078
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -13419,
+            "d5": 28512,
+            "d20": 9456
+          }
+        ],
+        "retail": {
+          "margin_balance": 66764,
+          "chg_5d": -3296,
+          "chg_5d_pct": -4.7,
+          "chg_20d_pct": -20.23,
+          "short_margin_ratio": 2.97
+        },
+        "foreign_holding": {
+          "now": 16.02,
+          "chg_20": 0.5
+        },
+        "read": {
+          "code": "washout",
+          "label": "盤整中法人吃貨",
+          "headline": "股價橫盤，法人默默買超、融資默默退場——盤整區的籌碼正往法人手上集中。",
+          "price_5d_pct": -0.6,
+          "main_5d_lots": 27778,
+          "main_5d_ratio": 11.225,
+          "retail_5d_pct": -4.7
+        },
+        "notes": []
+      }
     },
     "2308": {
       "stock_id": "2308",
@@ -7347,8 +7575,8 @@
         {
           "step": 5,
           "name": "量能",
-          "verdict": "1.49x（第0天）",
-          "detail": "今量15924565／20日均量10689002"
+          "verdict": "1.50x（第0天）",
+          "detail": "今量15924565／20日均量10633812"
         },
         {
           "step": 6,
@@ -8337,7 +8565,7 @@
           1865.0,
           1810.0,
           1865.0,
-          8434152
+          7330358
         ],
         [
           "2026-09-02",
@@ -8413,6 +8641,64 @@
         "above_cost": false,
         "market_value": 162000.0,
         "pnl": -15500.0
+      },
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -3573,
+            "d5": -11935,
+            "d20": -17441
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": -535,
+            "d5": -3156,
+            "d20": -8934
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": 304,
+            "d5": -640,
+            "d20": -48
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -3804,
+            "d5": -15731,
+            "d20": -26423
+          }
+        ],
+        "retail": {
+          "margin_balance": 9984,
+          "chg_5d": 878,
+          "chg_5d_pct": 9.64,
+          "chg_20d_pct": 26.06,
+          "short_margin_ratio": 0.23
+        },
+        "foreign_holding": {
+          "now": 61.47,
+          "chg_20": -0.64
+        },
+        "read": {
+          "code": "knife",
+          "label": "法人賣、散戶接",
+          "headline": "法人邊跌邊賣，融資卻同步增加——散戶在接下跌刀，這是風險最高的籌碼組合。",
+          "price_5d_pct": -11.23,
+          "main_5d_lots": -15091,
+          "main_5d_ratio": -25.746,
+          "retail_5d_pct": 9.64
+        },
+        "notes": []
       }
     },
     "2327": {
@@ -8717,8 +9003,8 @@
         {
           "step": 5,
           "name": "量能",
-          "verdict": "0.81x（第6天）",
-          "detail": "今量35558765／20日均量44048090"
+          "verdict": "0.82x（第6天）",
+          "detail": "今量35558765／20日均量43406755"
         },
         {
           "step": 6,
@@ -9707,7 +9993,7 @@
           576.0,
           550.0,
           568.0,
-          57762664
+          44935956
         ],
         [
           "2026-09-02",
@@ -9773,7 +10059,65 @@
           544.0,
           35558765
         ]
-      ]
+      ],
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -5586,
+            "d5": -5641,
+            "d20": -26947
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 565,
+            "d5": -672,
+            "d20": -27587
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -538,
+            "d5": 721,
+            "d20": 302
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -5560,
+            "d5": -5592,
+            "d20": -54231
+          }
+        ],
+        "retail": {
+          "margin_balance": 43924,
+          "chg_5d": 619,
+          "chg_5d_pct": 1.43,
+          "chg_20d_pct": 16.01,
+          "short_margin_ratio": 0.96
+        },
+        "foreign_holding": {
+          "now": 44.81,
+          "chg_20": -1.26
+        },
+        "read": {
+          "code": "selling",
+          "label": "法人調節，融資沒動",
+          "headline": "法人邊跌邊賣，融資餘額卻沒跟著減少；賣壓還沒宣洩完。",
+          "price_5d_pct": -3.2,
+          "main_5d_lots": -6313,
+          "main_5d_ratio": -2.97,
+          "retail_5d_pct": 1.43
+        },
+        "notes": []
+      }
     },
     "0050": {
       "stock_id": "0050",
@@ -11195,6 +11539,64 @@
         "above_cost": true,
         "market_value": 107700.0,
         "pnl": 4700.0
+      },
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -42145,
+            "d5": 22805,
+            "d20": -5056
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 1668,
+            "d5": 4405,
+            "d20": 12442
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -26510,
+            "d5": -40419,
+            "d20": -3584
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -66988,
+            "d5": -13209,
+            "d20": 3801
+          }
+        ],
+        "retail": {
+          "margin_balance": 17991,
+          "chg_5d": -194,
+          "chg_5d_pct": -1.07,
+          "chg_20d_pct": -6.24,
+          "short_margin_ratio": 3.1
+        },
+        "foreign_holding": {
+          "now": 4.2,
+          "chg_20": -1.48
+        },
+        "read": {
+          "code": "accumulating",
+          "label": "法人默默進貨",
+          "headline": "股價橫盤沒表態，法人已經在買超，融資則沒有動靜；籌碼安靜地往法人手上移動。",
+          "price_5d_pct": -0.19,
+          "main_5d_lots": 27210,
+          "main_5d_ratio": 7.202,
+          "retail_5d_pct": -1.07
+        },
+        "notes": []
       }
     },
     "7765": {
@@ -12568,6 +12970,64 @@
         "above_cost": false,
         "market_value": 218500.0,
         "pnl": -1500.0
+      },
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -15,
+            "d5": -120,
+            "d20": -176
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 0,
+            "d5": 0,
+            "d20": 0
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -1,
+            "d5": -2,
+            "d20": -1
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -16,
+            "d5": -122,
+            "d20": -177
+          }
+        ],
+        "retail": {
+          "margin_balance": 489,
+          "chg_5d": 25,
+          "chg_5d_pct": 5.39,
+          "chg_20d_pct": 7.24,
+          "short_margin_ratio": 0.0
+        },
+        "foreign_holding": {
+          "now": 0.37,
+          "chg_20": -0.33
+        },
+        "read": {
+          "code": "distribution",
+          "label": "盤整中法人倒貨",
+          "headline": "股價橫盤，法人賣超而融資增加——盤整區的籌碼正往散戶手上流。",
+          "price_5d_pct": -1.35,
+          "main_5d_lots": -120,
+          "main_5d_ratio": -25.387,
+          "retail_5d_pct": 5.39
+        },
+        "notes": []
       }
     },
     "2498": {
@@ -13952,7 +14412,65 @@
           39.95,
           1980958
         ]
-      ]
+      ],
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -61,
+            "d5": -1747,
+            "d20": -5973
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 0,
+            "d5": 0,
+            "d20": -40
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -24,
+            "d5": -492,
+            "d20": 88
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -85,
+            "d5": -2239,
+            "d20": -5925
+          }
+        ],
+        "retail": {
+          "margin_balance": 29090,
+          "chg_5d": 288,
+          "chg_5d_pct": 1.0,
+          "chg_20d_pct": 2.65,
+          "short_margin_ratio": 0.72
+        },
+        "foreign_holding": {
+          "now": 8.67,
+          "chg_20": -0.54
+        },
+        "read": {
+          "code": "selling",
+          "label": "法人調節，融資沒動",
+          "headline": "法人邊跌邊賣，融資餘額卻沒跟著減少；賣壓還沒宣洩完。",
+          "price_5d_pct": -3.97,
+          "main_5d_lots": -1747,
+          "main_5d_ratio": -12.51,
+          "retail_5d_pct": 1.0
+        },
+        "notes": []
+      }
     },
     "6669": {
       "error": "資料不足",
@@ -14021,7 +14539,65 @@
           2310.0,
           1896940
         ]
-      ]
+      ],
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -501,
+            "d5": -1986,
+            "d20": -9126
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 63,
+            "d5": -3315,
+            "d20": -3071
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": 18,
+            "d5": -162,
+            "d20": -637
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -420,
+            "d5": -5462,
+            "d20": -12834
+          }
+        ],
+        "retail": {
+          "margin_balance": 2974,
+          "chg_5d": 676,
+          "chg_5d_pct": 29.42,
+          "chg_20d_pct": 119.16,
+          "short_margin_ratio": 62.88
+        },
+        "foreign_holding": {
+          "now": 23.59,
+          "chg_20": -4.33
+        },
+        "read": {
+          "code": "knife",
+          "label": "法人賣、散戶接",
+          "headline": "法人邊跌邊賣，融資卻同步增加——散戶在接下跌刀，這是風險最高的籌碼組合。",
+          "price_5d_pct": -9.94,
+          "main_5d_lots": -5301,
+          "main_5d_ratio": -26.045,
+          "retail_5d_pct": 29.42
+        },
+        "notes": []
+      }
     },
     "2059": {
       "stock_id": "2059",
@@ -14324,7 +14900,7 @@
           "step": 5,
           "name": "量能",
           "verdict": "0.68x（第0天）",
-          "detail": "今量399167／20日均量585489"
+          "detail": "今量399167／20日均量584789"
         },
         {
           "step": 6,
@@ -15313,7 +15889,7 @@
           14740.0,
           14005.0,
           14150.0,
-          341901
+          327901
         ],
         [
           "2026-09-02",
@@ -15379,7 +15955,65 @@
           12080.0,
           399167
         ]
-      ]
+      ],
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": 60,
+            "d5": 112,
+            "d20": 154
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": -35,
+            "d5": -283,
+            "d20": -16
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -9,
+            "d5": 6,
+            "d20": 99
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": 17,
+            "d5": -165,
+            "d20": 238
+          }
+        ],
+        "retail": {
+          "margin_balance": 667,
+          "chg_5d": -53,
+          "chg_5d_pct": -7.36,
+          "chg_20d_pct": 14.02,
+          "short_margin_ratio": 0.15
+        },
+        "foreign_holding": {
+          "now": 23.74,
+          "chg_20": 0.07
+        },
+        "read": {
+          "code": "exodus",
+          "label": "多空同步退場",
+          "headline": "股價跌、法人賣、融資也退，沒有人想留在場內；籌碼真空，跌完之後常需要一段時間才有新買盤。",
+          "price_5d_pct": -12.84,
+          "main_5d_lots": -171,
+          "main_5d_ratio": -6.233,
+          "retail_5d_pct": -7.36
+        },
+        "notes": []
+      }
     },
     "00631L": {
       "stock_id": "00631L",
@@ -16755,6 +17389,64 @@
         "above_cost": true,
         "market_value": 143920.0,
         "pnl": 15920.0
+      },
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -49151,
+            "d5": -40763,
+            "d20": -52249
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 0,
+            "d5": 0,
+            "d20": 0
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -80733,
+            "d5": 106576,
+            "d20": 388288
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -129884,
+            "d5": 65813,
+            "d20": 336039
+          }
+        ],
+        "retail": {
+          "margin_balance": 195154,
+          "chg_5d": 1111,
+          "chg_5d_pct": 0.57,
+          "chg_20d_pct": -12.82,
+          "short_margin_ratio": 9.44
+        },
+        "foreign_holding": {
+          "now": 0.36,
+          "chg_20": -1.37
+        },
+        "read": {
+          "code": "selling",
+          "label": "法人默默減碼",
+          "headline": "股價橫盤沒表態，法人已經在賣超；表面平靜但籌碼在流出。",
+          "price_5d_pct": -1.8,
+          "main_5d_lots": -40763,
+          "main_5d_ratio": -4.483,
+          "retail_5d_pct": 0.57
+        },
+        "notes": []
       }
     },
     "5274": {
@@ -18169,7 +18861,65 @@
           17885.0,
           230213
         ]
-      ]
+      ],
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": -44,
+            "d5": 151,
+            "d20": 269
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 0,
+            "d5": -18,
+            "d20": 63
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": -1,
+            "d5": -9,
+            "d20": 20
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": -44,
+            "d5": 124,
+            "d20": 352
+          }
+        ],
+        "retail": {
+          "margin_balance": 169,
+          "chg_5d": -58,
+          "chg_5d_pct": -25.55,
+          "chg_20d_pct": 34.13,
+          "short_margin_ratio": 0.0
+        },
+        "foreign_holding": {
+          "now": 53.22,
+          "chg_20": 0.79
+        },
+        "read": {
+          "code": "healthy",
+          "label": "法人推升，散戶沒跟上",
+          "headline": "股價漲、法人買超、融資反而減少——上漲由法人買盤推動而不是散戶追價，這是最乾淨的上漲籌碼。",
+          "price_5d_pct": 2.38,
+          "main_5d_lots": 133,
+          "main_5d_ratio": 6.899,
+          "retail_5d_pct": -25.55
+        },
+        "notes": []
+      }
     },
     "2603": {
       "stock_id": "2603",
@@ -19583,7 +20333,65 @@
           234.5,
           8626038
         ]
-      ]
+      ],
+      "chips": {
+        "price_date": "2026-09-11",
+        "unavailable": "券商分點進出（哪家券商在買）需 FinMind 贊助會員權限，免費金鑰抓不到",
+        "date": "2026-09-11",
+        "stale": false,
+        "lag_days": 0,
+        "flows": [
+          {
+            "key": "foreign",
+            "label": "外資",
+            "d1": 2566,
+            "d5": 2098,
+            "d20": 93791
+          },
+          {
+            "key": "trust",
+            "label": "投信",
+            "d1": 1207,
+            "d5": 3294,
+            "d20": 1212
+          },
+          {
+            "key": "dealer",
+            "label": "自營商",
+            "d1": 301,
+            "d5": 141,
+            "d20": -1066
+          },
+          {
+            "key": "total",
+            "label": "三大法人合計",
+            "d1": 4074,
+            "d5": 5534,
+            "d20": 93937
+          }
+        ],
+        "retail": {
+          "margin_balance": 10640,
+          "chg_5d": -1579,
+          "chg_5d_pct": -12.92,
+          "chg_20d_pct": -24.82,
+          "short_margin_ratio": 3.07
+        },
+        "foreign_holding": {
+          "now": 26.45,
+          "chg_20": 3.81
+        },
+        "read": {
+          "code": "washout",
+          "label": "盤整中法人吃貨",
+          "headline": "股價橫盤，法人默默買超、融資默默退場——盤整區的籌碼正往法人手上集中。",
+          "price_5d_pct": 0.64,
+          "main_5d_lots": 5392,
+          "main_5d_ratio": 15.008,
+          "retail_5d_pct": -12.92
+        },
+        "notes": []
+      }
     }
   }
 }
