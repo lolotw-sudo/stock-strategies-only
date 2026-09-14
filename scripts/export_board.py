@@ -2,6 +2,7 @@
 
 讀 watchlist → 對每個策略評分（套大盤/夜盤濾鏡）→ 對每檔股票另外跑一次
 朱家泓K線深度分析（與策略無關，全域只存一份，由各策略結果用 stock_id 參照）
+→ 另外跑一次籌碼面判讀（三大法人／融資，非手冊內容、不參與燈號）
 → 寫出 site/data/latest.json。
 
 執行: uv run python scripts/export_board.py
@@ -27,6 +28,7 @@ try:
 except ImportError:
     pass
 
+from stock_strategies.chips_report import analyze_chips
 from stock_strategies.data import get_price_history
 from stock_strategies.evaluate import evaluate
 from stock_strategies.json_safe import json_safe
@@ -151,6 +153,11 @@ def main():
                 holding = parse_holding(row)
                 if holding and "error" not in a:
                     a["holding"] = _holding_pnl(holding, a["price"]["close"])
+                # 籌碼面（非手冊內容、不參與燈號）：失敗只讓這一段缺席，不能拖垮整檔分析
+                try:
+                    a["chips"] = analyze_chips(sid, px)
+                except Exception as e:
+                    a["chips"] = {"error": str(e)[:120]}
                 analysis[sid] = a
         except Exception as e:
             analysis[sid] = {"error": str(e)[:200]}

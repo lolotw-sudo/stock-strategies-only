@@ -159,6 +159,20 @@
   .caret { color: var(--muted); font-size: 0.7rem; flex-shrink: 0; transition: transform .15s; }
   .result-row.open .caret { transform: rotate(90deg); }
 
+  /* 籌碼流向摘要（非手冊內容，一行帶過） */
+  .chip-line {
+    font-size: 0.72rem; margin-top: 6px; display: flex; flex-wrap: wrap;
+    align-items: center; gap: 6px; color: var(--muted);
+  }
+  .chip-tag {
+    font-size: 0.68rem; font-weight: 600; padding: 1px 8px; border-radius: 999px; border: 1px solid;
+  }
+  .chip-good { color: var(--up-c); background: rgba(244,63,94,.12); border-color: rgba(244,63,94,.4); }
+  .chip-warn { color: var(--err); background: rgba(251,146,60,.12); border-color: rgba(251,146,60,.4); }
+  .chip-bad { color: var(--down-c); background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.4); }
+  .chip-neutral { color: var(--muted); background: rgba(138,147,160,.12); border-color: rgba(138,147,160,.35); }
+  .chip-line .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric: tabular-nums; }
+
   .risk-notes { font-size: 0.72rem; color: var(--err); margin-top: 6px; }
 
   .kline-wrap { margin-top: 8px; }
@@ -431,6 +445,34 @@
     bindEvents();
   }
 
+  // 籌碼流向一行摘要（非手冊內容、不參與燈號，完整內容在個股頁）
+  var CHIP_TONE = {
+    washout: "chip-good", healthy: "chip-good", accumulating: "chip-good",
+    distribution: "chip-warn", knife: "chip-warn", chase: "chip-warn",
+    exodus: "chip-bad", selling: "chip-bad", weak_rally: "chip-bad", quiet: "chip-bad",
+  };
+
+  function chipLine(a) {
+    var ch = a.chips;
+    if (!ch || ch.error || !ch.read) return "";
+    var rd = ch.read;
+    if (rd.code === "neutral") return "";     // 沒方向就不佔版面
+    var main = rd.main_5d_lots;
+    var s = '<div class="chip-line">';
+    s += '<span class="chip-tag ' + (CHIP_TONE[rd.code] || "chip-neutral") + '">' + esc(rd.label) + '</span>';
+    if (main != null) {
+      s += '<span>主力5日 <span class="mono ' + (main > 0 ? "up" : main < 0 ? "down" : "flat") + '">' +
+           (main > 0 ? "+" : "") + Number(main).toLocaleString("en-US") + ' 張</span></span>';
+    }
+    if (rd.retail_5d_pct != null) {
+      s += '<span>融資 <span class="mono">' + (rd.retail_5d_pct > 0 ? "+" : "") +
+           Number(rd.retail_5d_pct).toFixed(1) + '%</span></span>';
+    }
+    if (ch.stale) s += '<span style="color:var(--err)">籌碼落後 ' + esc(ch.lag_days) + ' 日</span>';
+    s += '</div>';
+    return s;
+  }
+
   function renderResultRow(r) {
     var c = r.components || {};
     var a = (boardData.analysis || {})[r.stock_id] || {};
@@ -482,6 +524,8 @@
     if (r.risk_notes && r.risk_notes.length) {
       row += '<div class="risk-notes">⚠️ ' + esc(r.risk_notes.join("；")) + '</div>';
     }
+
+    row += chipLine(a);
 
     if (isOpen) {
       row += '<div class="kline-wrap">' + renderKlineReport(r.stock_id, r.name) + '</div>';

@@ -96,6 +96,42 @@
   .lv-value { font-family: ui-monospace, monospace; font-size: 1rem; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
   .lv-note { grid-column: 1 / -1; font-size: 0.7rem; color: var(--skip); margin-top: -2px; }
 
+  /* 籌碼流向（非手冊內容） */
+  .chip-note {
+    font-size: 0.68rem; color: var(--skip); border: 1px dashed var(--line);
+    border-radius: 6px; padding: 5px 9px; margin-bottom: 11px; line-height: 1.5;
+  }
+  .chip-read {
+    display: inline-block; font-size: 0.85rem; font-weight: 700; padding: 4px 13px;
+    border-radius: 999px; border: 1px solid; margin-bottom: 9px;
+  }
+  .chip-good { color: var(--buy); background: rgba(244,63,94,.12); border-color: rgba(244,63,94,.4); }
+  .chip-warn { color: var(--err); background: rgba(251,146,60,.12); border-color: rgba(251,146,60,.4); }
+  .chip-bad { color: var(--sell); background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.4); }
+  .chip-neutral { color: var(--muted); background: rgba(138,147,160,.12); border-color: rgba(138,147,160,.35); }
+  .chip-sum {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px;
+  }
+  .chip-sum .c {
+    flex: 1 1 30%; min-width: 96px; background: var(--panel2); border: 1px solid var(--line);
+    border-radius: 9px; padding: 8px 10px;
+  }
+  .chip-sum .l { font-size: 0.67rem; color: var(--muted); }
+  .chip-sum .v {
+    font-family: ui-monospace, monospace; font-size: 1.02rem; font-weight: 600;
+    font-variant-numeric: tabular-nums; margin-top: 2px;
+  }
+  table.chip-t { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.8rem; }
+  table.chip-t th, table.chip-t td { padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  table.chip-t th { font-size: 0.67rem; color: var(--muted); font-weight: 600; text-align: right; }
+  table.chip-t th:first-child { text-align: left; }
+  table.chip-t td { text-align: right; font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  table.chip-t td:first-child { text-align: left; font-family: inherit; color: var(--muted); }
+  table.chip-t tr.total td { font-weight: 700; border-top: 1px solid var(--line); }
+  table.chip-t tr.total td:first-child { color: var(--text); }
+  .chip-extra { font-size: 0.75rem; color: var(--muted); margin-top: 11px; line-height: 1.7; }
+  .chip-stale { color: var(--err); }
+
   /* 圖表 */
   #chart { width: 100%; height: 260px; }
   #vol { width: 100%; height: 74px; margin-top: 2px; }
@@ -296,6 +332,9 @@
       html += "</div></div>";
     }
 
+    // ── 籌碼流向（參考資訊，排在手冊判讀之後）──
+    html += renderChips(a);
+
     // ── 判讀細節（折疊，一次倒出來會淹沒重點）──
     html += renderDetails(a);
     html += '</div></div>';   // .main / .layout
@@ -471,6 +510,83 @@
            '<div class="dt">' + esc(it.detail) + "</div></div>";
     });
     return s + "</div>";
+  }
+
+  // 籌碼流向：非手冊內容，只呈現事實與一句判讀，不參與燈號
+  var CHIP_TONE = {
+    washout: "chip-good", healthy: "chip-good", accumulating: "chip-good",
+    distribution: "chip-warn", knife: "chip-warn", chase: "chip-warn",
+    exodus: "chip-bad", selling: "chip-bad", weak_rally: "chip-bad", quiet: "chip-bad",
+  };
+
+  function lots(v) {
+    if (v == null) return "—";
+    return (v > 0 ? "+" : "") + Number(v).toLocaleString("en-US");
+  }
+
+  function renderChips(a) {
+    var ch = a.chips;
+    if (!ch) return "";
+    if (ch.error) {
+      return '<div class="card"><h2>籌碼流向</h2><div class="chip-note">籌碼資料取得失敗：' +
+             esc(ch.error) + "</div></div>";
+    }
+    var rd = ch.read || {};
+    var s = '<div class="card"><h2>籌碼流向　<span class="sub">誰在買、誰在賣</span></h2>';
+    s += '<div class="chip-note">⚠️ 這一段不是《K線訊號判讀手冊》的內容，不參與上方燈號判定，只作為參考。</div>';
+
+    s += '<div class="chip-read ' + (CHIP_TONE[rd.code] || "chip-neutral") + '">' + esc(rd.label) + "</div>";
+    s += '<div class="headline">' + esc(rd.headline) + "</div>";
+
+    // 近 5 日三個方向：股價／主力（外資+投信）／融資
+    s += '<div class="chip-sum">';
+    s += '<div class="c"><div class="l">近5日股價</div><div class="v ' + cls(rd.price_5d_pct) +
+         '">' + (rd.price_5d_pct == null ? "—" : pct(rd.price_5d_pct)) + "</div></div>";
+    s += '<div class="c"><div class="l">近5日主力（外資+投信）</div><div class="v ' + cls(rd.main_5d_lots) +
+         '">' + lots(rd.main_5d_lots) + " 張</div></div>";
+    s += '<div class="c"><div class="l">近5日融資（散戶）</div><div class="v">' +
+         (rd.retail_5d_pct == null ? "—" : pct(rd.retail_5d_pct)) + "</div></div>";
+    s += "</div>";
+
+    // 三大法人明細
+    if (ch.flows && ch.flows.length) {
+      s += '<table class="chip-t"><thead><tr><th>買賣超（張）</th><th>當日</th><th>近5日</th><th>近20日</th></tr></thead><tbody>';
+      ch.flows.forEach(function (f) {
+        var isTotal = f.key === "total";
+        s += '<tr' + (isTotal ? ' class="total"' : "") + '><td>' + esc(f.label) + "</td>" +
+             '<td class="' + cls(f.d1) + '">' + lots(f.d1) + "</td>" +
+             '<td class="' + cls(f.d5) + '">' + lots(f.d5) + "</td>" +
+             '<td class="' + cls(f.d20) + '">' + lots(f.d20) + "</td></tr>";
+      });
+      s += "</tbody></table>";
+    }
+
+    // 散戶端與外資持股（融資刻意不上紅綠：融資增加對散戶不是好事，上色會讀反）
+    var ex = [];
+    var rt = ch.retail;
+    if (rt) {
+      var line = "融資餘額 " + Number(rt.margin_balance).toLocaleString("en-US") + " 張（散戶資金的代理指標）：近5日 " +
+                 (rt.chg_5d_pct == null ? "—" : pct(rt.chg_5d_pct)) +
+                 (rt.chg_20d_pct == null ? "" : "、近20日 " + pct(rt.chg_20d_pct)) +
+                 "。融資增加＝散戶加碼，減少＝散戶退場。";
+      ex.push(line);
+      if (rt.short_margin_ratio != null) ex.push("券資比 " + num(rt.short_margin_ratio) + "%（融券／融資，偏高代表空方壓力也在累積）");
+    }
+    var fh = ch.foreign_holding;
+    if (fh) {
+      ex.push("外資持股比率 " + num(fh.now) + "%" +
+              (fh.chg_20 == null ? "" : "（近20筆申報 " + pct(fh.chg_20).replace("%", "") + " 個百分點）"));
+    }
+    if (ch.date) {
+      ex.push("籌碼資料日 " + esc(ch.date) +
+              (ch.stale ? '　<span class="chip-stale">⚠️ 落後股價 ' + esc(ch.lag_days) + " 個交易日，判讀可能失真</span>" : ""));
+    }
+    (ch.notes || []).forEach(function (n) { ex.push("缺料：" + esc(n)); });
+    if (ch.unavailable) ex.push("抓不到：" + esc(ch.unavailable));
+    if (ex.length) s += '<div class="chip-extra">' + ex.join("<br>") + "</div>";
+
+    s += "</div>";
+    return s;
   }
 
   function renderDetails(a) {
