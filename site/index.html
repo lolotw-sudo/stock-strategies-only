@@ -139,7 +139,7 @@
     align-items: center;
     gap: 10px;
   }
-  .result-sid { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: var(--muted); width: 54px; flex-shrink: 0; }
+  .result-sid { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: var(--muted); width: 3.375rem; flex-shrink: 0; }
   .result-name { font-size: 0.92rem; font-weight: 500; }
   .result-wave { font-size: 0.74rem; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .result-wave .t { font-weight: 600; }
@@ -198,14 +198,14 @@
   .flat { color: var(--muted); }
 
   .domain-bar { display: flex; height: 16px; border-radius: 5px; overflow: hidden; border: 1px solid var(--line); margin-top: 8px; }
-  .domain-buy { background: rgba(244,63,94,.55); display: flex; align-items: center; justify-content: center; font-size: 9px; }
-  .domain-sell { background: rgba(34,197,94,.55); display: flex; align-items: center; justify-content: center; font-size: 9px; }
+  .domain-buy { background: rgba(244,63,94,.55); display: flex; align-items: center; justify-content: center; font-size: 0.5625rem; }
+  .domain-sell { background: rgba(34,197,94,.55); display: flex; align-items: center; justify-content: center; font-size: 0.5625rem; }
 
   .warn-line { font-size: 0.72rem; color: var(--err); margin-top: 8px; }
 
   .check-item { display: flex; align-items: flex-start; gap: 6px; font-size: 0.75rem; margin-bottom: 4px; line-height: 1.5; }
   .check-icon { flex-shrink: 0; }
-  .check-label { color: var(--muted); flex-shrink: 0; min-width: 76px; }
+  .check-label { color: var(--muted); flex-shrink: 0; min-width: 4.75rem; }
   .check-detail { flex: 1; }
 
   .stage-bar { display: flex; gap: 4px; margin-bottom: 8px; }
@@ -230,7 +230,7 @@
   .wave-grid .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
   .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.72rem; min-width: 460px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.72rem; min-width: 28.75rem; }
   th { text-align: left; color: var(--muted); font-weight: 500; padding: 5px 6px; border-bottom: 1px solid var(--line); white-space: nowrap; }
   td { padding: 6px 6px; border-bottom: 1px solid rgba(37,43,53,.5); vertical-align: top; }
   td.center { text-align: center; color: var(--muted); }
@@ -291,6 +291,16 @@
   }
 
   .empty-hint { font-size: 0.78rem; color: var(--muted); text-align: center; padding: 20px 0; }
+  /* 老花友善：手機上 rem 基準 16px → 21px，整體字級放大約兩級。
+     全站字級都是 rem，所以只要改這裡；寫死的 px 已一併改為等值 rem。 */
+  @media (max-width: 640px) {
+    html { font-size: 21px; }
+    /* 字放大後一列塞不下，會把股名與波形擠成 0 寬。改成兩行：
+       上排燈號／代號／價格／詳細，下排股名與波形（整行寬，老花看得清）。 */
+    .result-top { flex-wrap: wrap; }
+    .result-mid { flex: 1 1 100%; order: 3; margin-top: 2px; }
+    .result-price { margin-left: auto; }
+  }
 </style>
 </head>
 <body>

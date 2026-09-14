@@ -226,6 +226,21 @@
     .head .px .n { font-size: 1.85rem; }
     .pos-grid { grid-template-columns: repeat(3, 1fr); }
   }
+  /* 老花友善：手機上 rem 基準 16px → 21px，整體字級放大約兩級。 */
+  @media (max-width: 640px) {
+    html { font-size: 21px; }
+    /* 字放大後三格並排會把標籤折成階梯狀，改成一格一列：標籤靠左、數字靠右 */
+    .chip-sum { display: block; }
+    .chip-sum .c {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 10px; margin-bottom: 6px;
+    }
+    .chip-sum .l { font-size: 0.72rem; }
+    .chip-sum .v { margin-top: 0; white-space: nowrap; }
+    /* 「三大法人合計」放大後會折成兩行，第一欄不給折 */
+    table.chip-t td:first-child, table.chip-t th:first-child { white-space: nowrap; }
+    table.chip-t th, table.chip-t td { padding: 6px 4px; }
+  }
 </style>
 </head>
 <body>
@@ -689,7 +704,7 @@
       return { time: r[0], open: r[1], high: r[2], low: r[3], close: r[4], volume: r[5] };
     });
     var common = {
-      layout: { background: { color: "transparent" }, textColor: "#8a93a0", fontSize: 10 },
+      layout: { background: { color: "transparent" }, textColor: "#8a93a0", fontSize: window.innerWidth <= 640 ? 13 : 10 },
       grid: { vertLines: { color: "rgba(140,150,170,.07)" }, horzLines: { color: "rgba(140,150,170,.07)" } },
       rightPriceScale: { borderVisible: false },
       timeScale: { borderVisible: false },
