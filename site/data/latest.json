@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-08T21:49:11.626999+08:00",
-  "generated_at_display": "2026-10-08 21:49（台北時間）",
+  "generated_at": "2026-10-09T21:33:34.595883+08:00",
+  "generated_at_display": "2026-10-09 21:33（台北時間）",
   "market": {
     "bullish": true,
     "close": 49313.44,
     "ma20": 47687.849,
     "note": "▲ 加權 49313 站上 20 日線 (+3.4%)，BUY 訊號照常發出"
   },
-  "night_note": "🟠 昨晚夜盤 -0.75%（小跌・逆風），BUY 保留但標逆風、留意開盤承壓",
+  "night_note": "🟠 昨晚夜盤 -1.32%（小跌・逆風），BUY 保留但標逆風、留意開盤承壓",
   "watchlist_count": 14,
   "strategies": [
     {
@@ -26,7 +26,7 @@
         {
           "stock_id": "2317",
           "name": "鴻海",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "跌破月線 MA20（251.12），持有者出場訊號",
@@ -79,14 +79,14 @@
         {
           "stock_id": "2308",
           "name": "台達電",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "紀律未過：高檔不追多——位置高檔第16天，已達7天門檻，不宜追高",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
-          "signal_score": 63.3,
+          "signal_score": 63.2,
           "components": {
             "fundamental_pass": true,
             "eps_min": 12.86,
@@ -96,8 +96,8 @@
               "均線多頭",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.596,
-            "backtest_samples": 225,
+            "backtest_winrate": 0.594,
+            "backtest_samples": 224,
             "volume_patterns": [
               "縮量柱",
               "低量柱"
@@ -138,12 +138,12 @@
         {
           "stock_id": "00631L",
           "name": "元大50正2",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "7-3 創新高四關未過：①這是第幾天——距波段低點第 16 天，已進加速段，變盤機率升高",
             "基本面未過門檻",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 59.2,
@@ -192,12 +192,12 @@
         {
           "stock_id": "2327",
           "name": "國巨",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "5-2-0 搶反彈四問未過：①有沒有急跌——近20日最大回檔11.1%（585.0→520.0），門檻15%",
             "基本面未過門檻",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 54.2,
@@ -247,12 +247,12 @@
         {
           "stock_id": "0050",
           "name": "元大台灣50",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "7-3 創新高四關未過：①這是第幾天——距波段低點第 16 天，已進加速段，變盤機率升高",
             "基本面未過門檻",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 53.2,
@@ -301,15 +301,15 @@
         {
           "stock_id": "2498",
           "name": "宏達電",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "5-2-0 搶反彈四問未過：①有沒有急跌——近20日最大回檔10.8%（46.9→41.8），門檻15%",
             "基本面未過門檻",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
-          "signal_score": 48.0,
+          "signal_score": 47.9,
           "components": {
             "fundamental_pass": false,
             "eps_min": -4.11,
@@ -319,8 +319,8 @@
               "均線多頭",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.467,
-            "backtest_samples": 212,
+            "backtest_winrate": 0.464,
+            "backtest_samples": 211,
             "volume_patterns": [
               "低量柱"
             ],
@@ -359,7 +359,7 @@
         {
           "stock_id": "2408",
           "name": "南亞科",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "基本面未過門檻"
@@ -416,7 +416,7 @@
         {
           "stock_id": "7765",
           "name": "中華資安",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "基本面未過門檻"
@@ -473,7 +473,7 @@
         {
           "stock_id": "2330",
           "name": "台積電",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [],
           "action": "SKIP",
@@ -488,8 +488,8 @@
               "MACD多頭",
               "十字線"
             ],
-            "backtest_winrate": 0.784,
-            "backtest_samples": 218,
+            "backtest_winrate": 0.783,
+            "backtest_samples": 217,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -524,7 +524,7 @@
         {
           "stock_id": "5274",
           "name": "信驊",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 3 日"
@@ -580,7 +580,7 @@
         {
           "stock_id": "2603",
           "name": "長榮",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 4 日",
@@ -634,7 +634,7 @@
         {
           "stock_id": "2059",
           "name": "川湖",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 2 日",
@@ -692,13 +692,13 @@
         {
           "stock_id": "2454",
           "name": "聯發科",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 2 日"
           ],
           "action": "SKIP",
-          "signal_score": 23.5,
+          "signal_score": 23.4,
           "components": {
             "fundamental_pass": true,
             "eps_min": 48.51,
@@ -707,8 +707,8 @@
             "tech_signals": [
               "三烏鴉"
             ],
-            "backtest_winrate": 0.45,
-            "backtest_samples": 189,
+            "backtest_winrate": 0.447,
+            "backtest_samples": 188,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -743,7 +743,7 @@
         {
           "stock_id": "6669",
           "name": "緯穎",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "價格資料不足"
@@ -768,13 +768,13 @@
         {
           "stock_id": "2330",
           "name": "台積電",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "BUY",
-          "signal_score": 76.4,
+          "signal_score": 76.3,
           "components": {
             "fundamental_pass": true,
             "eps_min": 32.34,
@@ -784,8 +784,8 @@
               "均線多頭",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.784,
-            "backtest_samples": 218,
+            "backtest_winrate": 0.783,
+            "backtest_samples": 217,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -817,10 +817,10 @@
         {
           "stock_id": "2308",
           "name": "台達電",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "BUY",
           "signal_score": 72.7,
@@ -833,8 +833,8 @@
               "均線多頭",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.596,
-            "backtest_samples": 225,
+            "backtest_winrate": 0.594,
+            "backtest_samples": 224,
             "volume_patterns": [
               "縮量柱",
               "低量柱"
@@ -872,11 +872,11 @@
         {
           "stock_id": "00631L",
           "name": "元大50正2",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 67.0,
@@ -922,10 +922,10 @@
         {
           "stock_id": "5274",
           "name": "信驊",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 61.7,
@@ -974,11 +974,11 @@
         {
           "stock_id": "0050",
           "name": "元大台灣50",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 59.0,
@@ -1024,12 +1024,12 @@
         {
           "stock_id": "2408",
           "name": "南亞科",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 37% 低於五成",
             "基本面未過門檻",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 51.6,
@@ -1080,11 +1080,11 @@
         {
           "stock_id": "7765",
           "name": "中華資安",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 51.6,
@@ -1134,22 +1134,22 @@
         {
           "stock_id": "2454",
           "name": "聯發科",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 45% 低於五成",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
-          "signal_score": 51.0,
+          "signal_score": 50.9,
           "components": {
             "fundamental_pass": true,
             "eps_min": 48.51,
             "roe_min": 22.05,
             "tech_score": 10,
             "tech_signals": [],
-            "backtest_winrate": 0.45,
-            "backtest_samples": 189,
+            "backtest_winrate": 0.447,
+            "backtest_samples": 188,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -1181,11 +1181,11 @@
         {
           "stock_id": "2059",
           "name": "川湖",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "偵測到放量滯漲，高檔爆量疑似出貨",
-            "昨晚夜盤逆風 -0.8%，留意開盤承壓"
+            "昨晚夜盤逆風 -1.3%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 50.3,
@@ -1232,63 +1232,9 @@
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
-          "stock_id": "2498",
-          "name": "宏達電",
-          "date": "2026-10-08",
-          "strategy_id": "default",
-          "risk_notes": [
-            "歷史勝率 47% 低於五成",
-            "基本面未過門檻"
-          ],
-          "action": "SKIP",
-          "signal_score": 48.1,
-          "components": {
-            "fundamental_pass": false,
-            "eps_min": -4.11,
-            "roe_min": -12.67,
-            "tech_score": 58,
-            "tech_signals": [
-              "均線多頭",
-              "MACD多頭"
-            ],
-            "backtest_winrate": 0.467,
-            "backtest_samples": 212,
-            "volume_patterns": [
-              "低量柱"
-            ],
-            "volume_details": {
-              "低量柱": "今日量僅 20 日均量 46%，拋壓耗盡"
-            },
-            "volume_bonus": 8,
-            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
-            "kline_domain": {
-              "buyer_pct": 0.0,
-              "seller_pct": 0.0,
-              "type": ""
-            },
-            "kline_position": "",
-            "kline_verdict": "",
-            "kline_warnings": []
-          },
-          "trend": {
-            "chg_5d": -3.89,
-            "chg_20d": 4.48,
-            "vol_ratio": 0.72,
-            "pct_from_high": -36.4,
-            "above_ma20": true,
-            "above_ma60": true
-          },
-          "entry_price": 42.0,
-          "stop_loss_price": 38.64,
-          "target_price": 46.2,
-          "risk_reward_ratio": 1.25,
-          "position_size_pct": 20.0,
-          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
-        },
-        {
           "stock_id": "2327",
           "name": "國巨",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 44% 低於五成",
@@ -1336,9 +1282,63 @@
           "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
         },
         {
+          "stock_id": "2498",
+          "name": "宏達電",
+          "date": "2026-10-09",
+          "strategy_id": "default",
+          "risk_notes": [
+            "歷史勝率 46% 低於五成",
+            "基本面未過門檻"
+          ],
+          "action": "SKIP",
+          "signal_score": 48.0,
+          "components": {
+            "fundamental_pass": false,
+            "eps_min": -4.11,
+            "roe_min": -12.67,
+            "tech_score": 58,
+            "tech_signals": [
+              "均線多頭",
+              "MACD多頭"
+            ],
+            "backtest_winrate": 0.464,
+            "backtest_samples": 211,
+            "volume_patterns": [
+              "低量柱"
+            ],
+            "volume_details": {
+              "低量柱": "今日量僅 20 日均量 46%，拋壓耗盡"
+            },
+            "volume_bonus": 8,
+            "volume_verdict": "🟡 底部極限縮量，拋壓耗盡，等待訊號",
+            "kline_domain": {
+              "buyer_pct": 0.0,
+              "seller_pct": 0.0,
+              "type": ""
+            },
+            "kline_position": "",
+            "kline_verdict": "",
+            "kline_warnings": []
+          },
+          "trend": {
+            "chg_5d": -3.89,
+            "chg_20d": 4.48,
+            "vol_ratio": 0.72,
+            "pct_from_high": -36.4,
+            "above_ma20": true,
+            "above_ma60": true
+          },
+          "entry_price": 42.0,
+          "stop_loss_price": 38.64,
+          "target_price": 46.2,
+          "risk_reward_ratio": 1.25,
+          "position_size_pct": 20.0,
+          "entry_rule": "明日以開盤價進場，停損 -8% / 停利 +10%（下方參考價為今日收盤）"
+        },
+        {
           "stock_id": "2603",
           "name": "長榮",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
@@ -1386,7 +1386,7 @@
         {
           "stock_id": "2317",
           "name": "鴻海",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 42% 低於五成",
@@ -1435,7 +1435,7 @@
         {
           "stock_id": "6669",
           "name": "緯穎",
-          "date": "2026-10-08",
+          "date": "2026-10-09",
           "strategy_id": "default",
           "risk_notes": [
             "價格資料不足"
