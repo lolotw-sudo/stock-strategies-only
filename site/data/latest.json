@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-22T20:11:32.245984+08:00",
-  "generated_at_display": "2026-10-22 20:11（台北時間）",
+  "generated_at": "2026-10-23T19:53:47.299934+08:00",
+  "generated_at_display": "2026-10-23 19:53（台北時間）",
   "market": {
     "bullish": false,
     "close": 46041.43,
     "ma20": 48071.611,
     "note": "▼ 加權 46041 跌破 20 日線 (-4.2%)，BUY 全數降為 WATCH"
   },
-  "night_note": "🟢 昨晚夜盤 +1.00%（小漲・順風），順風環境、BUY 照常",
+  "night_note": "🟠 昨晚夜盤 -1.25%（小跌・逆風），BUY 保留但標逆風、留意開盤承壓",
   "watchlist_count": 14,
   "strategies": [
     {
@@ -26,7 +26,7 @@
         {
           "stock_id": "2317",
           "name": "鴻海",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "跌破月線 MA20（248.22），持有者出場訊號",
@@ -79,14 +79,15 @@
         {
           "stock_id": "2603",
           "name": "長榮",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "紀律未過：高檔不追多——位置高檔第9天，已達7天門檻，不宜追高",
-            "基本面未過門檻"
+            "基本面未過門檻",
+            "昨晚夜盤逆風 -1.2%，留意開盤承壓"
           ],
           "action": "WATCH",
-          "signal_score": 49.5,
+          "signal_score": 49.4,
           "components": {
             "fundamental_pass": false,
             "eps_min": 16.7,
@@ -96,8 +97,8 @@
               "均線多頭",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.515,
-            "backtest_samples": 204,
+            "backtest_winrate": 0.512,
+            "backtest_samples": 203,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -132,11 +133,12 @@
         {
           "stock_id": "7765",
           "name": "中華資安",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "7-1 續漲拉回買點未過：均線多排——MA5 232.40 ≤ MA10 233.65",
-            "基本面未過門檻"
+            "基本面未過門檻",
+            "昨晚夜盤逆風 -1.2%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 43.5,
@@ -188,7 +190,7 @@
         {
           "stock_id": "00631L",
           "name": "元大50正2",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 6 日",
@@ -241,7 +243,7 @@
         {
           "stock_id": "2330",
           "name": "台積電",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 6 日"
@@ -256,8 +258,8 @@
             "tech_signals": [
               "布林下軌反彈"
             ],
-            "backtest_winrate": 0.787,
-            "backtest_samples": 211,
+            "backtest_winrate": 0.786,
+            "backtest_samples": 210,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -292,13 +294,13 @@
         {
           "stock_id": "2059",
           "name": "川湖",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 11 日"
           ],
           "action": "SKIP",
-          "signal_score": 41.2,
+          "signal_score": 41.3,
           "components": {
             "fundamental_pass": true,
             "eps_min": 28.38,
@@ -308,8 +310,8 @@
               "KD黃金交叉",
               "長黑K"
             ],
-            "backtest_winrate": 0.5,
-            "backtest_samples": 216,
+            "backtest_winrate": 0.502,
+            "backtest_samples": 215,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -344,7 +346,7 @@
         {
           "stock_id": "0050",
           "name": "元大台灣50",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 6 日",
@@ -396,13 +398,13 @@
         {
           "stock_id": "2308",
           "name": "台達電",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 8 日"
           ],
           "action": "SKIP",
-          "signal_score": 37.5,
+          "signal_score": 37.7,
           "components": {
             "fundamental_pass": true,
             "eps_min": 12.86,
@@ -412,8 +414,8 @@
               "布林下軌反彈",
               "長黑K"
             ],
-            "backtest_winrate": 0.578,
-            "backtest_samples": 218,
+            "backtest_winrate": 0.583,
+            "backtest_samples": 216,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -448,7 +450,7 @@
         {
           "stock_id": "2498",
           "name": "宏達電",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 8 日",
@@ -465,8 +467,8 @@
               "布林下軌反彈",
               "空方吞噬"
             ],
-            "backtest_winrate": 0.448,
-            "backtest_samples": 203,
+            "backtest_winrate": 0.446,
+            "backtest_samples": 202,
             "volume_patterns": [
               "低量柱"
             ],
@@ -505,7 +507,7 @@
         {
           "stock_id": "2327",
           "name": "國巨",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 6 日",
@@ -558,7 +560,7 @@
         {
           "stock_id": "5274",
           "name": "信驊",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 12 日"
@@ -610,14 +612,14 @@
         {
           "stock_id": "2408",
           "name": "南亞科",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 8 日",
             "基本面未過門檻"
           ],
           "action": "SKIP",
-          "signal_score": 24.9,
+          "signal_score": 24.8,
           "components": {
             "fundamental_pass": false,
             "eps_min": -2.4,
@@ -627,8 +629,8 @@
               "布林下軌反彈",
               "長黑K"
             ],
-            "backtest_winrate": 0.356,
-            "backtest_samples": 222,
+            "backtest_winrate": 0.353,
+            "backtest_samples": 221,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -663,7 +665,7 @@
         {
           "stock_id": "2454",
           "name": "聯發科",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "已在月線下方 11 日"
@@ -715,7 +717,7 @@
         {
           "stock_id": "6669",
           "name": "緯穎",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "kline-chu",
           "risk_notes": [
             "價格資料不足"
@@ -740,11 +742,13 @@
         {
           "stock_id": "2330",
           "name": "台積電",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
-          "risk_notes": [],
+          "risk_notes": [
+            "昨晚夜盤逆風 -1.2%，留意開盤承壓"
+          ],
           "action": "WATCH",
-          "signal_score": 69.0,
+          "signal_score": 68.9,
           "components": {
             "fundamental_pass": true,
             "eps_min": 32.34,
@@ -753,8 +757,8 @@
             "tech_signals": [
               "布林下軌反彈"
             ],
-            "backtest_winrate": 0.787,
-            "backtest_samples": 211,
+            "backtest_winrate": 0.786,
+            "backtest_samples": 210,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -786,11 +790,13 @@
         {
           "stock_id": "2308",
           "name": "台達電",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
-          "risk_notes": [],
+          "risk_notes": [
+            "昨晚夜盤逆風 -1.2%，留意開盤承壓"
+          ],
           "action": "WATCH",
-          "signal_score": 60.6,
+          "signal_score": 60.8,
           "components": {
             "fundamental_pass": true,
             "eps_min": 12.86,
@@ -799,8 +805,8 @@
             "tech_signals": [
               "布林下軌反彈"
             ],
-            "backtest_winrate": 0.578,
-            "backtest_samples": 218,
+            "backtest_winrate": 0.583,
+            "backtest_samples": 216,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -832,11 +838,13 @@
         {
           "stock_id": "2059",
           "name": "川湖",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
-          "risk_notes": [],
+          "risk_notes": [
+            "昨晚夜盤逆風 -1.2%，留意開盤承壓"
+          ],
           "action": "WATCH",
-          "signal_score": 60.5,
+          "signal_score": 60.6,
           "components": {
             "fundamental_pass": true,
             "eps_min": 28.38,
@@ -845,8 +853,8 @@
             "tech_signals": [
               "KD黃金交叉"
             ],
-            "backtest_winrate": 0.5,
-            "backtest_samples": 216,
+            "backtest_winrate": 0.502,
+            "backtest_samples": 215,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -878,10 +886,11 @@
         {
           "stock_id": "00631L",
           "name": "元大50正2",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
-            "基本面未過門檻"
+            "基本面未過門檻",
+            "昨晚夜盤逆風 -1.2%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 59.5,
@@ -926,9 +935,11 @@
         {
           "stock_id": "5274",
           "name": "信驊",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
-          "risk_notes": [],
+          "risk_notes": [
+            "昨晚夜盤逆風 -1.2%，留意開盤承壓"
+          ],
           "action": "WATCH",
           "signal_score": 53.3,
           "components": {
@@ -970,10 +981,11 @@
         {
           "stock_id": "0050",
           "name": "元大台灣50",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
-            "基本面未過門檻"
+            "基本面未過門檻",
+            "昨晚夜盤逆風 -1.2%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 51.7,
@@ -1018,10 +1030,11 @@
         {
           "stock_id": "2454",
           "name": "聯發科",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
-            "歷史勝率 45% 低於五成"
+            "歷史勝率 45% 低於五成",
+            "昨晚夜盤逆風 -1.2%，留意開盤承壓"
           ],
           "action": "WATCH",
           "signal_score": 51.0,
@@ -1064,13 +1077,13 @@
         {
           "stock_id": "2603",
           "name": "長榮",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
           ],
           "action": "SKIP",
-          "signal_score": 47.6,
+          "signal_score": 47.5,
           "components": {
             "fundamental_pass": false,
             "eps_min": 16.7,
@@ -1080,8 +1093,8 @@
               "均線多頭",
               "MACD多頭"
             ],
-            "backtest_winrate": 0.515,
-            "backtest_samples": 204,
+            "backtest_winrate": 0.512,
+            "backtest_samples": 203,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -1113,7 +1126,7 @@
         {
           "stock_id": "7765",
           "name": "中華資安",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
             "基本面未過門檻"
@@ -1165,14 +1178,14 @@
         {
           "stock_id": "2498",
           "name": "宏達電",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 45% 低於五成",
             "基本面未過門檻"
           ],
           "action": "SKIP",
-          "signal_score": 39.8,
+          "signal_score": 39.7,
           "components": {
             "fundamental_pass": false,
             "eps_min": -4.11,
@@ -1181,8 +1194,8 @@
             "tech_signals": [
               "布林下軌反彈"
             ],
-            "backtest_winrate": 0.448,
-            "backtest_samples": 203,
+            "backtest_winrate": 0.446,
+            "backtest_samples": 202,
             "volume_patterns": [
               "低量柱"
             ],
@@ -1218,7 +1231,7 @@
         {
           "stock_id": "2317",
           "name": "鴻海",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 42% 低於五成",
@@ -1267,7 +1280,7 @@
         {
           "stock_id": "2327",
           "name": "國巨",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
             "歷史勝率 45% 低於五成",
@@ -1316,14 +1329,14 @@
         {
           "stock_id": "2408",
           "name": "南亞科",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
-            "歷史勝率 36% 低於五成",
+            "歷史勝率 35% 低於五成",
             "基本面未過門檻"
           ],
           "action": "SKIP",
-          "signal_score": 33.7,
+          "signal_score": 33.6,
           "components": {
             "fundamental_pass": false,
             "eps_min": -2.4,
@@ -1332,8 +1345,8 @@
             "tech_signals": [
               "布林下軌反彈"
             ],
-            "backtest_winrate": 0.356,
-            "backtest_samples": 222,
+            "backtest_winrate": 0.353,
+            "backtest_samples": 221,
             "volume_patterns": [],
             "volume_details": {},
             "volume_bonus": 0,
@@ -1365,7 +1378,7 @@
         {
           "stock_id": "6669",
           "name": "緯穎",
-          "date": "2026-10-22",
+          "date": "2026-10-23",
           "strategy_id": "default",
           "risk_notes": [
             "價格資料不足"
@@ -2780,15 +2793,15 @@
           }
         ],
         "retail": {
-          "margin_balance": 35330,
-          "chg_5d": 1564,
-          "chg_5d_pct": 4.63,
-          "chg_20d_pct": 22.83,
-          "short_margin_ratio": 0.02
+          "margin_balance": 35472,
+          "chg_5d": 1249,
+          "chg_5d_pct": 3.65,
+          "chg_20d_pct": 23.42,
+          "short_margin_ratio": 0.04
         },
         "foreign_holding": {
-          "now": 68.63,
-          "chg_20": -0.59
+          "now": 68.58,
+          "chg_20": -0.64
         },
         "read": {
           "code": "knife",
@@ -2797,7 +2810,7 @@
           "price_5d_pct": -2.25,
           "main_5d_lots": -51722,
           "main_5d_ratio": -34.473,
-          "retail_5d_pct": 4.63
+          "retail_5d_pct": 3.65
         },
         "notes": []
       }
@@ -4234,15 +4247,15 @@
           }
         ],
         "retail": {
-          "margin_balance": 58308,
-          "chg_5d": -3383,
-          "chg_5d_pct": -5.48,
-          "chg_20d_pct": 5.85,
-          "short_margin_ratio": 0.82
+          "margin_balance": 57768,
+          "chg_5d": -2824,
+          "chg_5d_pct": -4.66,
+          "chg_20d_pct": 3.64,
+          "short_margin_ratio": 0.76
         },
         "foreign_holding": {
-          "now": 39.84,
-          "chg_20": -0.5
+          "now": 39.85,
+          "chg_20": -0.52
         },
         "read": {
           "code": "healthy",
@@ -4251,7 +4264,7 @@
           "price_5d_pct": 2.3,
           "main_5d_lots": 45241,
           "main_5d_ratio": 23.769,
-          "retail_5d_pct": -5.48
+          "retail_5d_pct": -4.66
         },
         "notes": []
       }
@@ -5653,24 +5666,24 @@
           }
         ],
         "retail": {
-          "margin_balance": 11921,
-          "chg_5d": 411,
-          "chg_5d_pct": 3.57,
-          "chg_20d_pct": 13.18,
-          "short_margin_ratio": 0.13
+          "margin_balance": 11788,
+          "chg_5d": 141,
+          "chg_5d_pct": 1.21,
+          "chg_20d_pct": 10.99,
+          "short_margin_ratio": 0.1
         },
         "foreign_holding": {
-          "now": 54.26,
-          "chg_20": -1.96
+          "now": 54.2,
+          "chg_20": -2.23
         },
         "read": {
-          "code": "knife",
-          "label": "法人賣、散戶接",
-          "headline": "法人邊跌邊賣，融資卻同步增加——散戶在接下跌刀，這是風險最高的籌碼組合。",
+          "code": "selling",
+          "label": "法人調節，融資沒動",
+          "headline": "法人邊跌邊賣，融資餘額卻沒跟著減少；賣壓還沒宣洩完。",
           "price_5d_pct": -3.72,
           "main_5d_lots": -5130,
           "main_5d_ratio": -13.48,
-          "retail_5d_pct": 3.57
+          "retail_5d_pct": 1.21
         },
         "notes": []
       }
@@ -7097,24 +7110,24 @@
           }
         ],
         "retail": {
-          "margin_balance": 60320,
-          "chg_5d": -3841,
-          "chg_5d_pct": -5.99,
-          "chg_20d_pct": -4.17,
-          "short_margin_ratio": 2.28
+          "margin_balance": 60136,
+          "chg_5d": 82,
+          "chg_5d_pct": 0.14,
+          "chg_20d_pct": -4.51,
+          "short_margin_ratio": 3.29
         },
         "foreign_holding": {
-          "now": 14.63,
-          "chg_20": -2.16
+          "now": 14.58,
+          "chg_20": -2.13
         },
         "read": {
-          "code": "exodus",
-          "label": "多空同步退場",
-          "headline": "股價跌、法人賣、融資也退，沒有人想留在場內；籌碼真空，跌完之後常需要一段時間才有新買盤。",
+          "code": "selling",
+          "label": "法人調節，融資沒動",
+          "headline": "法人邊跌邊賣，融資餘額卻沒跟著減少；賣壓還沒宣洩完。",
           "price_5d_pct": -5.8,
           "main_5d_lots": -19376,
           "main_5d_ratio": -10.137,
-          "retail_5d_pct": -5.99
+          "retail_5d_pct": 0.14
         },
         "notes": []
       }
@@ -8551,24 +8564,24 @@
           }
         ],
         "retail": {
-          "margin_balance": 10630,
-          "chg_5d": 491,
-          "chg_5d_pct": 4.84,
-          "chg_20d_pct": 6.5,
-          "short_margin_ratio": 0.24
+          "margin_balance": 10594,
+          "chg_5d": 201,
+          "chg_5d_pct": 1.93,
+          "chg_20d_pct": 1.19,
+          "short_margin_ratio": 0.36
         },
         "foreign_holding": {
-          "now": 60.49,
-          "chg_20": -1.1
+          "now": 60.37,
+          "chg_20": -1.32
         },
         "read": {
-          "code": "knife",
-          "label": "法人賣、散戶接",
-          "headline": "法人邊跌邊賣，融資卻同步增加——散戶在接下跌刀，這是風險最高的籌碼組合。",
+          "code": "selling",
+          "label": "法人調節，融資沒動",
+          "headline": "法人邊跌邊賣，融資餘額卻沒跟著減少；賣壓還沒宣洩完。",
           "price_5d_pct": -4.29,
           "main_5d_lots": -10454,
           "main_5d_ratio": -21.961,
-          "retail_5d_pct": 4.84
+          "retail_5d_pct": 1.93
         },
         "notes": []
       }
@@ -9969,15 +9982,15 @@
           }
         ],
         "retail": {
-          "margin_balance": 47728,
-          "chg_5d": -2444,
-          "chg_5d_pct": -4.87,
-          "chg_20d_pct": 6.56,
-          "short_margin_ratio": 0.69
+          "margin_balance": 47890,
+          "chg_5d": -3976,
+          "chg_5d_pct": -7.67,
+          "chg_20d_pct": 4.51,
+          "short_margin_ratio": 1.18
         },
         "foreign_holding": {
-          "now": 42.4,
-          "chg_20": -2.24
+          "now": 41.69,
+          "chg_20": -3.06
         },
         "read": {
           "code": "exodus",
@@ -9986,7 +9999,7 @@
           "price_5d_pct": -11.52,
           "main_5d_lots": -26687,
           "main_5d_ratio": -12.868,
-          "retail_5d_pct": -4.87
+          "retail_5d_pct": -7.67
         },
         "notes": []
       }
@@ -11421,24 +11434,24 @@
           }
         ],
         "retail": {
-          "margin_balance": 25176,
-          "chg_5d": 647,
-          "chg_5d_pct": 2.64,
-          "chg_20d_pct": -24.8,
-          "short_margin_ratio": 2.75
+          "margin_balance": 24793,
+          "chg_5d": 2136,
+          "chg_5d_pct": 9.43,
+          "chg_20d_pct": -65.93,
+          "short_margin_ratio": 2.92
         },
         "foreign_holding": {
-          "now": 2.85,
-          "chg_20": -0.83
+          "now": 2.89,
+          "chg_20": -0.72
         },
         "read": {
-          "code": "selling",
-          "label": "法人默默減碼",
-          "headline": "股價橫盤沒表態，法人已經在賣超；表面平靜但籌碼在流出。",
+          "code": "distribution",
+          "label": "盤整中法人倒貨",
+          "headline": "股價橫盤，法人賣超而融資增加——盤整區的籌碼正往散戶手上流。",
           "price_5d_pct": -1.84,
           "main_5d_lots": -161364,
           "main_5d_ratio": -25.761,
-          "retail_5d_pct": 2.64
+          "retail_5d_pct": 9.43
         },
         "notes": []
       }
@@ -12878,15 +12891,15 @@
           }
         ],
         "retail": {
-          "margin_balance": 545,
-          "chg_5d": -4,
-          "chg_5d_pct": -0.73,
-          "chg_20d_pct": -10.95,
+          "margin_balance": 544,
+          "chg_5d": 3,
+          "chg_5d_pct": 0.55,
+          "chg_20d_pct": -7.17,
           "short_margin_ratio": 0.0
         },
         "foreign_holding": {
-          "now": 1.36,
-          "chg_20": 0.74
+          "now": 1.61,
+          "chg_20": 0.97
         },
         "read": {
           "code": "accumulating",
@@ -12895,7 +12908,7 @@
           "price_5d_pct": 1.95,
           "main_5d_lots": 249,
           "main_5d_ratio": 33.015,
-          "retail_5d_pct": -0.73
+          "retail_5d_pct": 0.55
         },
         "notes": []
       }
@@ -14322,15 +14335,15 @@
           }
         ],
         "retail": {
-          "margin_balance": 30004,
-          "chg_5d": -724,
-          "chg_5d_pct": -2.36,
-          "chg_20d_pct": 3.54,
-          "short_margin_ratio": 0.69
+          "margin_balance": 30293,
+          "chg_5d": -188,
+          "chg_5d_pct": -0.62,
+          "chg_20d_pct": 4.47,
+          "short_margin_ratio": 0.68
         },
         "foreign_holding": {
-          "now": 8.34,
-          "chg_20": -0.39
+          "now": 8.29,
+          "chg_20": -0.59
         },
         "read": {
           "code": "accumulating",
@@ -14339,7 +14352,7 @@
           "price_5d_pct": -0.25,
           "main_5d_lots": 177,
           "main_5d_ratio": 1.232,
-          "retail_5d_pct": -2.36
+          "retail_5d_pct": -0.62
         },
         "notes": []
       }
@@ -14657,15 +14670,15 @@
           }
         ],
         "retail": {
-          "margin_balance": 5105,
-          "chg_5d": 146,
-          "chg_5d_pct": 2.94,
-          "chg_20d_pct": 44.86,
-          "short_margin_ratio": 5.09
+          "margin_balance": 5019,
+          "chg_5d": 52,
+          "chg_5d_pct": 1.05,
+          "chg_20d_pct": 44.35,
+          "short_margin_ratio": 5.06
         },
         "foreign_holding": {
-          "now": 26.32,
-          "chg_20": 4.91
+          "now": 26.78,
+          "chg_20": 5.27
         },
         "read": {
           "code": "neutral",
@@ -14674,7 +14687,7 @@
           "price_5d_pct": -3.41,
           "main_5d_lots": 278,
           "main_5d_ratio": 0.762,
-          "retail_5d_pct": 2.94
+          "retail_5d_pct": 1.05
         },
         "notes": []
       }
@@ -16075,15 +16088,15 @@
           }
         ],
         "retail": {
-          "margin_balance": 695,
-          "chg_5d": -35,
-          "chg_5d_pct": -4.79,
-          "chg_20d_pct": 1.61,
-          "short_margin_ratio": 0.14
+          "margin_balance": 678,
+          "chg_5d": -38,
+          "chg_5d_pct": -5.31,
+          "chg_20d_pct": -3.0,
+          "short_margin_ratio": 0.15
         },
         "foreign_holding": {
-          "now": 22.59,
-          "chg_20": -0.78
+          "now": 22.58,
+          "chg_20": -0.67
         },
         "read": {
           "code": "selling",
@@ -16092,7 +16105,7 @@
           "price_5d_pct": 0.36,
           "main_5d_lots": -135,
           "main_5d_ratio": -5.221,
-          "retail_5d_pct": -4.79
+          "retail_5d_pct": -5.31
         },
         "notes": []
       }
@@ -17529,15 +17542,15 @@
           }
         ],
         "retail": {
-          "margin_balance": 261630,
-          "chg_5d": 60293,
-          "chg_5d_pct": 29.95,
-          "chg_20d_pct": 38.11,
-          "short_margin_ratio": 5.66
+          "margin_balance": 266441,
+          "chg_5d": 23048,
+          "chg_5d_pct": 9.47,
+          "chg_20d_pct": 47.53,
+          "short_margin_ratio": 5.86
         },
         "foreign_holding": {
-          "now": 0.33,
-          "chg_20": -0.47
+          "now": 0.36,
+          "chg_20": -0.63
         },
         "read": {
           "code": "knife",
@@ -17546,7 +17559,7 @@
           "price_5d_pct": -4.12,
           "main_5d_lots": -23275,
           "main_5d_ratio": -2.14,
-          "retail_5d_pct": 29.95
+          "retail_5d_pct": 9.47
         },
         "notes": []
       }
@@ -18949,23 +18962,23 @@
         ],
         "retail": {
           "margin_balance": 148,
-          "chg_5d": 11,
-          "chg_5d_pct": 8.03,
-          "chg_20d_pct": 2.07,
+          "chg_5d": 1,
+          "chg_5d_pct": 0.68,
+          "chg_20d_pct": 13.85,
           "short_margin_ratio": 0.0
         },
         "foreign_holding": {
           "now": 52.44,
-          "chg_20": -0.66
+          "chg_20": -0.7
         },
         "read": {
-          "code": "distribution",
-          "label": "盤整中法人倒貨",
-          "headline": "股價橫盤，法人賣超而融資增加——盤整區的籌碼正往散戶手上流。",
+          "code": "selling",
+          "label": "法人默默減碼",
+          "headline": "股價橫盤沒表態，法人已經在賣超；表面平靜但籌碼在流出。",
           "price_5d_pct": 0.41,
           "main_5d_lots": -47,
           "main_5d_ratio": -3.311,
-          "retail_5d_pct": 8.03
+          "retail_5d_pct": 0.68
         },
         "notes": []
       }
@@ -20382,15 +20395,15 @@
           }
         ],
         "retail": {
-          "margin_balance": 8357,
-          "chg_5d": -1198,
-          "chg_5d_pct": -12.54,
-          "chg_20d_pct": -17.01,
-          "short_margin_ratio": 5.88
+          "margin_balance": 8295,
+          "chg_5d": -553,
+          "chg_5d_pct": -6.25,
+          "chg_20d_pct": -18.99,
+          "short_margin_ratio": 5.98
         },
         "foreign_holding": {
-          "now": 27.05,
-          "chg_20": 1.1
+          "now": 27.12,
+          "chg_20": 1.13
         },
         "read": {
           "code": "washout",
@@ -20399,7 +20412,7 @@
           "price_5d_pct": 1.17,
           "main_5d_lots": 8532,
           "main_5d_ratio": 15.152,
-          "retail_5d_pct": -12.54
+          "retail_5d_pct": -6.25
         },
         "notes": []
       }
